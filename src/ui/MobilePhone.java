@@ -228,7 +228,6 @@ public class MobilePhone extends AppActivity implements OnItemClickListener {
 		asyncQuery = new MyAsyncQueryHandler(getContentResolver());
 		uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 		initUI();
-//		editText.setHint("你共有"+appContext.getDeg2()+"位二度好友");
 		getAllFriend();
 		IntentFilter filter = new IntentFilter();
 		filter.addAction("update");
@@ -262,71 +261,71 @@ public class MobilePhone extends AppActivity implements OnItemClickListener {
 		xlistView.setOnItemClickListener(this);
 	}
 	
-	private void getFriendCardFromCache() {
-		asyncQuery.startQuery(0, null, uri, null, null, null, "sort_key COLLATE LOCALIZED asc"); 
-	}
+//	private void getFriendCardFromCache() {
+//		asyncQuery.startQuery(0, null, uri, null, null, null, "sort_key COLLATE LOCALIZED asc"); 
+//	}
 	
-	private void checkLogin() {
-		loadingPd = UIHelper.showProgress(this, null, null, true);
-		AppClient.autoLogin(appContext, new ClientCallback() {
-			@Override
-			public void onSuccess(Entity data) {
-				UIHelper.dismissProgress(loadingPd);
-				UserEntity user = (UserEntity)data;
-				switch (user.getError_code()) {
-				case Result.RESULT_OK:
-					appContext.saveLoginInfo(user);
-					showReg(user);
-					getAllFriend();
-//					if (!Utils.hasBind(getApplicationContext())) {
-//						blindBaidu();
-//					}
-					WebView webview = (WebView) findViewById(R.id.webview);
-					webview.loadUrl(CommonValue.BASE_URL + "/home/app" + "?_sign=" + appContext.getLoginSign())  ;
-					webview.setWebViewClient(new WebViewClient() {
-						public boolean shouldOverrideUrlLoading(WebView view, String url) {
-							view.loadUrl(url);
-							return true;
-						};
-					});
-					break;
-				case CommonValue.USER_NOT_IN_ERROR:
-					forceLogout();
-					break;
-				default:
-					UIHelper.ToastMessage(getApplicationContext(), user.getMessage(), Toast.LENGTH_SHORT);
-					break;
-				}
-			}
-			@Override
-			public void onFailure(String message) {
-				UIHelper.dismissProgress(loadingPd);
-				UIHelper.ToastMessage(getApplicationContext(), message, Toast.LENGTH_SHORT);
-			}
-			@Override
-			public void onError(Exception e) {
-				UIHelper.dismissProgress(loadingPd);
-				Logger.i(e);
-			}
-		});
-	}
+//	private void checkLogin() {
+//		loadingPd = UIHelper.showProgress(this, null, null, true);
+//		AppClient.autoLogin(appContext, new ClientCallback() {
+//			@Override
+//			public void onSuccess(Entity data) {
+//				UIHelper.dismissProgress(loadingPd);
+//				UserEntity user = (UserEntity)data;
+//				switch (user.getError_code()) {
+//				case Result.RESULT_OK:
+//					appContext.saveLoginInfo(user);
+//					showReg(user);
+//					getAllFriend();
+////					if (!Utils.hasBind(getApplicationContext())) {
+////						blindBaidu();
+////					}
+//					WebView webview = (WebView) findViewById(R.id.webview);
+//					webview.loadUrl(CommonValue.BASE_URL + "/home/app" + "?_sign=" + appContext.getLoginSign())  ;
+//					webview.setWebViewClient(new WebViewClient() {
+//						public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//							view.loadUrl(url);
+//							return true;
+//						};
+//					});
+//					break;
+//				case CommonValue.USER_NOT_IN_ERROR:
+//					forceLogout();
+//					break;
+//				default:
+//					UIHelper.ToastMessage(getApplicationContext(), user.getMessage(), Toast.LENGTH_SHORT);
+//					break;
+//				}
+//			}
+//			@Override
+//			public void onFailure(String message) {
+//				UIHelper.dismissProgress(loadingPd);
+//				UIHelper.ToastMessage(getApplicationContext(), message, Toast.LENGTH_SHORT);
+//			}
+//			@Override
+//			public void onError(Exception e) {
+//				UIHelper.dismissProgress(loadingPd);
+//				Logger.i(e);
+//			}
+//		});
+//	}
 	
-	private void showReg(UserEntity user) {
-		String reg = "手机用户.*";
-		Pattern p = Pattern.compile(reg);
-		Matcher m = p.matcher(user.nickname);
-		if (m.matches()) {
-			Intent intent = new Intent(this, Register.class);
-			intent.putExtra("mobile", user.username);
-			intent.putExtra("jump", false);
-	        startActivity(intent);
-		}
-	}
+//	private void showReg(UserEntity user) {
+//		String reg = "手机用户.*";
+//		Pattern p = Pattern.compile(reg);
+//		Matcher m = p.matcher(user.nickname);
+//		if (m.matches()) {
+//			Intent intent = new Intent(this, Register.class);
+//			intent.putExtra("mobile", user.username);
+//			intent.putExtra("jump", false);
+//	        startActivity(intent);
+//		}
+//	}
 	
-	public void showMessage() {
-		Intent intent = new Intent(this, MessageView.class);
-		startActivity(intent);
-	}
+//	public void showMessage() {
+//		Intent intent = new Intent(this, MessageView.class);
+//		startActivity(intent);
+//	}
 	
 //	private void blindBaidu() {
 //		PushManager.startWork(getApplicationContext(),
@@ -391,11 +390,17 @@ public class MobilePhone extends AppActivity implements OnItemClickListener {
 					sortPY();
 					letterListView.setVisibility(View.VISIBLE);
 				}
-				else {
+				else if (msg.what == -1) {
 					isMobileAuthority = false;
 					indicatorImageView.clearAnimation();
 					indicatorImageView.setVisibility(View.INVISIBLE);
 					WarningDialog();
+				}
+				else {
+					isMobileAuthority = true;
+					indicatorImageView.clearAnimation();
+					indicatorImageView.setVisibility(View.INVISIBLE);
+					WarningDialog("手机通讯录还没有联系人哦");
 				}
 				updateMobileNum();
 			}
@@ -435,6 +440,10 @@ public class MobilePhone extends AppActivity implements OnItemClickListener {
 					}
 					handler1.sendEmptyMessage(1);
 				}
+				else {
+					handler1.sendEmptyMessage(2);
+				}
+				
 			}
 		});
 	}
@@ -457,10 +466,10 @@ public class MobilePhone extends AppActivity implements OnItemClickListener {
 	}
 	
 	protected void WarningDialog() {
-		String message = "请在手机的[设置]->[应用]->[群友通讯录]->[权限管理]，允许群友通讯录访问你的联系人记录并重新运行程序";
+		String message = "请在手机的【设置】->【应用】->【群友通讯录】->底部的【权限管理】->【信任该程序】即可备份您的通讯录，下次再也不用担心通讯录丢失了。";
 		AlertDialog.Builder builder = new Builder(this);
 		builder.setMessage(message);
-		builder.setTitle("通讯录提示");
+		builder.setTitle("【备份】温馨提示：");
 		builder.setPositiveButton("确定", new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -500,23 +509,23 @@ public class MobilePhone extends AppActivity implements OnItemClickListener {
 			showMobileView(model);
 		}
 		else { 
-			showCardView(model);
+//			showCardView(model);
 		}
 	}
 	
-	private void showCardView(CardIntroEntity entity) {
-		EasyTracker easyTracker = EasyTracker.getInstance(this);
-		easyTracker.send(MapBuilder
-	      .createEvent("ui_action",     // Event category (required)
-	                   "button_press",  // Event action (required)
-	                   "查看名片："+entity.link,   // Event label
-	                   null)            // Event value
-	      .build()
-		);
-		Intent intent = new Intent(context, CardView.class);
-		intent.putExtra(CommonValue.CardViewIntentKeyValue.CardView, entity);
-		((MobilePhone)context).startActivityForResult(intent, CommonValue.CardViewUrlRequest.editCard);
-	}
+//	private void showCardView(CardIntroEntity entity) {
+//		EasyTracker easyTracker = EasyTracker.getInstance(this);
+//		easyTracker.send(MapBuilder
+//	      .createEvent("ui_action",     // Event category (required)
+//	                   "button_press",  // Event action (required)
+//	                   "查看名片："+entity.link,   // Event label
+//	                   null)            // Event value
+//	      .build()
+//		);
+//		Intent intent = new Intent(context, CardView.class);
+//		intent.putExtra(CommonValue.CardViewIntentKeyValue.CardView, entity);
+//		((MobilePhone)context).startActivityForResult(intent, CommonValue.CardViewUrlRequest.editCard);
+//	}
 	
 	private void showMobileView(CardIntroEntity entity) {
 		EasyTracker easyTracker = EasyTracker.getInstance(this);

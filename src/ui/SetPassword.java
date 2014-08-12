@@ -58,7 +58,7 @@ public class SetPassword extends AppActivity {
             return;
         }
         if (!password.equals(passwordEnsure)) {
-            WarningDialog("密码不一样");
+            WarningDialog("两次输入的密码不一样");
             return;
         }
         loadingPd = UIHelper.showProgress(this, null, null, true);

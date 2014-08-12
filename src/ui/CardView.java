@@ -527,7 +527,7 @@ public class CardView extends AppActivity implements OnItemClickListener  {
 				WarningDialog(message);
 				break;
 			case CommonValue.ContactOperationResult.NOT_AUTHORITY:
-				message = "请在手机的[设置]->[应用]->[群友通讯录]->[权限管理]，允许群友通讯录访问你的联系人记录并重新运行程序";
+				message = "请在手机的【设置】->【应用】->【群友通讯录】->底部的【权限管理】->【信任该程序】即可备份您的通讯录，下次再也不用担心通讯录丢失了。";
 				WarningDialog(message);
 				break;
 			}
