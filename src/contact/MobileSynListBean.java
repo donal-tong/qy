@@ -60,6 +60,52 @@ public class MobileSynListBean extends Entity{
 							m.email.add(emailBean);
 						}
 					}
+					
+					JSONArray dates = p.getJSONArray("dates");
+					for (int j = 0; j < dates.length(); j++) {
+						if (dates.get(j) instanceof JSONObject) {
+							JSONObject dateObj = dates.getJSONObject(j);
+							DateBean emailBean = new DateBean();
+							emailBean.label = dateObj.getString("label");
+							emailBean.date = dateObj.getString("date");
+							m.dates.add(emailBean);
+						}
+					}
+					
+					JSONArray address = p.getJSONArray("address");
+					for (int j = 0; j < address.length(); j++) {
+						if (address.get(j) instanceof JSONObject) {
+							JSONObject dateObj = address.getJSONObject(j);
+							AddressBean addressBean = new AddressBean();
+							addressBean.label = dateObj.getString("label");
+							addressBean.address = dateObj.getString("address");
+							m.address.add(addressBean);
+						}
+					}
+					
+					JSONArray url = p.getJSONArray("url");
+					for (int j = 0; j < url.length(); j++) {
+						if (url.get(j) instanceof JSONObject) {
+							JSONObject dateObj = url.getJSONObject(j);
+							UrlBean urlBean = new UrlBean();
+							urlBean.label = dateObj.getString("label");
+							urlBean.url = dateObj.getString("url");
+							m.url.add(urlBean);
+						}
+					}
+					
+					JSONArray im = p.getJSONArray("im");
+					for (int j = 0; j < im.length(); j++) {
+						if (im.get(j) instanceof JSONObject) {
+							JSONObject dateObj = im.getJSONObject(j);
+							IMBean imBean = new IMBean();
+							imBean.label = dateObj.getString("label");
+							imBean.im = dateObj.getString("im");
+							imBean.username = dateObj.getString("username");
+							m.im.add(imBean);
+						}
+					}
+					
 					list.data.add(m);
 				}
 			}

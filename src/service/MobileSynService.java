@@ -38,6 +38,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.Contacts;
+import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.provider.ContactsContract.CommonDataKinds.Event;
 import android.provider.ContactsContract.CommonDataKinds.Im;
@@ -190,6 +191,46 @@ public class MobileSynService extends IntentService{
 	            values.put(Data.MIMETYPE, Email.CONTENT_ITEM_TYPE);
 	            values.put(Email.DATA, newMB.email.get(j).email);
 	            values.put(Email.TYPE, Email.TYPE_WORK);
+	            this.getContentResolver().insert(
+	                    android.provider.ContactsContract.Data.CONTENT_URI, values);
+			}
+	        
+	        for (int j = 0; j < newMB.address.size(); j++) {
+	        	values.clear();
+	            values.put(android.provider.ContactsContract.Contacts.Data.RAW_CONTACT_ID, rawContactId);
+	            values.put(Data.MIMETYPE, StructuredPostal.CONTENT_ITEM_TYPE);
+	            values.put(StructuredPostal.FORMATTED_ADDRESS, newMB.address.get(j).address);
+	            values.put(StructuredPostal.TYPE, StructuredPostal.TYPE_HOME);
+	            this.getContentResolver().insert(
+	                    android.provider.ContactsContract.Data.CONTENT_URI, values);
+			}
+	        
+	        for (int j = 0; j < newMB.im.size(); j++) {
+	        	values.clear();
+	            values.put(android.provider.ContactsContract.Contacts.Data.RAW_CONTACT_ID, rawContactId);
+	            values.put(Data.MIMETYPE, ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE);
+	            values.put(Im.DATA, newMB.im.get(j).im);
+	            values.put(Im.TYPE, Im.TYPE_CUSTOM);
+	            this.getContentResolver().insert(
+	                    android.provider.ContactsContract.Data.CONTENT_URI, values);
+			}
+	        
+	        for (int j = 0; j < newMB.dates.size(); j++) {
+	        	values.clear();
+	            values.put(android.provider.ContactsContract.Contacts.Data.RAW_CONTACT_ID, rawContactId);
+	            values.put(Data.MIMETYPE, ContactsContract.CommonDataKinds.Event.CONTENT_ITEM_TYPE);
+	            values.put(Event.DATA, newMB.dates.get(j).date);
+	            values.put(Event.TYPE, Event.TYPE_CUSTOM);
+	            this.getContentResolver().insert(
+	                    android.provider.ContactsContract.Data.CONTENT_URI, values);
+			}
+	        
+	        for (int j = 0; j < newMB.url.size(); j++) {
+	        	values.clear();
+	            values.put(android.provider.ContactsContract.Contacts.Data.RAW_CONTACT_ID, rawContactId);
+	            values.put(Data.MIMETYPE, ContactsContract.CommonDataKinds.Website.CONTENT_ITEM_TYPE);
+	            values.put(Website.DATA, newMB.url.get(j).url);
+	            values.put(Website.TYPE, Website.TYPE_CUSTOM);
 	            this.getContentResolver().insert(
 	                    android.provider.ContactsContract.Data.CONTENT_URI, values);
 			}
