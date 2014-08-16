@@ -66,7 +66,6 @@ public class MobileSynListBean extends Entity{
 						if (dates.get(j) instanceof JSONObject) {
 							JSONObject dateObj = dates.getJSONObject(j);
 							DateBean emailBean = new DateBean();
-							emailBean.label = dateObj.getString("label");
 							emailBean.date = dateObj.getString("date");
 							m.dates.add(emailBean);
 						}
@@ -77,7 +76,6 @@ public class MobileSynListBean extends Entity{
 						if (address.get(j) instanceof JSONObject) {
 							JSONObject dateObj = address.getJSONObject(j);
 							AddressBean addressBean = new AddressBean();
-							addressBean.label = dateObj.getString("label");
 							addressBean.address = dateObj.getString("address");
 							m.address.add(addressBean);
 						}
@@ -88,7 +86,6 @@ public class MobileSynListBean extends Entity{
 						if (url.get(j) instanceof JSONObject) {
 							JSONObject dateObj = url.getJSONObject(j);
 							UrlBean urlBean = new UrlBean();
-							urlBean.label = dateObj.getString("label");
 							urlBean.url = dateObj.getString("url");
 							m.url.add(urlBean);
 						}
@@ -99,7 +96,6 @@ public class MobileSynListBean extends Entity{
 						if (im.get(j) instanceof JSONObject) {
 							JSONObject dateObj = im.getJSONObject(j);
 							IMBean imBean = new IMBean();
-							imBean.label = dateObj.getString("label");
 							imBean.im = dateObj.getString("im");
 							imBean.username = dateObj.getString("username");
 							m.im.add(imBean);

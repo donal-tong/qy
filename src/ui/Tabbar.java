@@ -163,7 +163,7 @@ public class Tabbar extends TabActivity implements OnCheckedChangeListener{
 	}
 	
 	private void checkLogin() {
-		loadingPd = UIHelper.showProgress(this, null, "登录中...", true);
+		loadingPd = UIHelper.showProgress(this, "请稍后", "正在登录中...", true);
 		AppClient.autoLogin(appContext, new ClientCallback() {
 			@Override
 			public void onSuccess(Entity data) {

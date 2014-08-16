@@ -266,7 +266,7 @@ public class LoginCode1 extends AppActivity{
             if (CommonValue.ACTION_WECHAT_CODE.equals(intent.getAction())) {
                 closeInput();
                 String code = intent.getStringExtra("code");
-                loadingPd = UIHelper.showProgress(LoginCode1.this, null, null, true);
+                loadingPd = UIHelper.showProgress(LoginCode1.this, "请稍后", "授权中...");
                 AppClient.getAccessToken(code, CommonValue.APP_ID, CommonValue.SECRET, new AppClient.FileCallback() {
                     @Override
                     public void onSuccess(String filePath) {
@@ -285,11 +285,13 @@ public class LoginCode1 extends AppActivity{
                     @Override
                     public void onFailure(String message) {
                         UIHelper.dismissProgress(loadingPd);
+                        WarningDialog("访问微信出错，请使用手机号码登录");
                     }
 
                     @Override
                     public void onError(Exception e) {
                         UIHelper.dismissProgress(loadingPd);
+                        WarningDialog("访问微信出错，请使用手机号码登录");
                     }
                 });
             }
@@ -297,7 +299,7 @@ public class LoginCode1 extends AppActivity{
     };
 
     private void loginByWechat(String openid, String accessToken) {
-        loadingPd = UIHelper.showProgress(this, null, null, true);
+        loadingPd = UIHelper.showProgress(this, "请稍后", "登录中...", true);
         AppClient.loginByWechat(appContext, openid, accessToken, new ClientCallback() {
             @Override
             public void onSuccess(Entity data) {
@@ -305,11 +307,12 @@ public class LoginCode1 extends AppActivity{
                 UserEntity user = (UserEntity) data;
                 switch (user.getError_code()) {
                     case Result.RESULT_OK:
+                    	UIHelper.ToastMessage(LoginCode1.this, "正在跳转中...", Toast.LENGTH_SHORT);
                         appContext.saveLoginInfo(user);
                         enterIndex(user);
                         break;
                     default:
-                        UIHelper.ToastMessage(LoginCode1.this, user.getMessage(), Toast.LENGTH_SHORT);
+                    	WarningDialog(user.getMessage());
                         break;
                 }
             }
@@ -317,12 +320,13 @@ public class LoginCode1 extends AppActivity{
             @Override
             public void onFailure(String message) {
                 UIHelper.dismissProgress(loadingPd);
-                UIHelper.ToastMessage(LoginCode1.this, message, Toast.LENGTH_SHORT);
+                WarningDialog("访问微信出错，请使用手机号码登录");
             }
 
             @Override
             public void onError(Exception e) {
                 UIHelper.dismissProgress(loadingPd);
+                WarningDialog("访问微信出错，请使用手机号码登录");
                 Logger.i(e);
             }
         });

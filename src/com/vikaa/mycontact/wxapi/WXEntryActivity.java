@@ -23,8 +23,10 @@ import com.umeng.socialize.view.WXCallbackActivity;
 
 import config.CommonValue;
 import tools.AppManager;
+import tools.UIHelper;
 import ui.AppActivity;
 import ui.Index;
+import ui.LoginCode1;
 
 
 public class WXEntryActivity extends WXCallbackActivity implements  IWXAPIEventHandler{
@@ -58,6 +60,7 @@ public class WXEntryActivity extends WXCallbackActivity implements  IWXAPIEventH
                         WXEntryActivity.this.finish();
                         break;
                     case BaseResp.ErrCode.ERR_AUTH_DENIED:
+                    	UIHelper.ToastMessage(WXEntryActivity.this, "微信授权拒绝", Toast.LENGTH_SHORT);
                         WXEntryActivity.this.finish();
                         break;
                     default:

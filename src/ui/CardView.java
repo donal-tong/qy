@@ -396,8 +396,7 @@ public class CardView extends AppActivity implements OnItemClickListener  {
 			exchangeCard(card);
 			break;
 		case R.id.callContactButton:
-//			callMobile(card.phone);
-			WmOpenChatSdk.getInstance().gotoChatPage(wmid, this);
+			callMobile(card.phone);
 			break;
 		case R.id.lookupContactButton:
 			String url2 = String.format("%s/card/%s", CommonValue.BASE_URL, card.code);
@@ -620,8 +619,7 @@ public class CardView extends AppActivity implements OnItemClickListener  {
 					callMobile(model.value);
 					break;
 				case 1:
-					INTRO_TEXT = "你好，我想认识"+ card.realname+",麻烦你帮我引见介绍,谢谢";
-					sendSMS(model.value, INTRO_TEXT);
+					sendSMS(model.value, "");
 					break;
 				}
 			}
