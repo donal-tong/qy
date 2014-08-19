@@ -2288,7 +2288,7 @@ public class AppClient {
                     String target = new String(content);
                     String decode = DecodeUtil.decode(target);
                     target = null;
-                    UserEntity data = UserEntity.userCheckParse(decode);
+                    UserEntity data = UserEntity.UserPasswordParse(decode);
                     decode = null;
                     msg.obj = data;
                     msg.what = 1;
@@ -2359,7 +2359,7 @@ public class AppClient {
         RequestParams params = new RequestParams();
         params.add("openid", openid);
         params.add("uuid", wmid);	
-        QYRestClient.post("user/setinfobyopenid", params, new AsyncHttpResponseHandler() {
+        QYRestClient.post("user/setUuidByOpenid", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] content) {
             	handleBindOpenidWithWMId(content, callback);
@@ -2367,6 +2367,7 @@ public class AppClient {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] content, Throwable e) {
                 callback.onFailure("网络不给力，请重新尝试");
+                Logger.i("a");
             }
         });
     }
@@ -2410,7 +2411,7 @@ public class AppClient {
     public static void queryWMIdByOpenid(final MyApplication appContext, String openid, final ClientCallback callback) {
         RequestParams params = new RequestParams();
         params.add("openid", openid);
-        QYRestClient.post("user/getinfobyopenid", params, new AsyncHttpResponseHandler() {
+        QYRestClient.post("user/getUuidByOpenid", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] content) {
             	handleQueryWMIdByOpenid(content, callback);
@@ -2509,8 +2510,10 @@ public class AppClient {
         });
     }
     
-    public static void fileSync(final MyApplication appContext, String phonebookId, final ClientCallback callback) {
-		QYRestClient.post("contact/download"+"?_sign="+appContext.getLoginSign(), null, new AsyncHttpResponseHandler() {
+    public static void fileSync(final MyApplication appContext, String code, final ClientCallback callback) {
+    	RequestParams params = new RequestParams();
+        params.add("code", code);
+		QYRestClient.post("phonebook/imports"+"?_sign="+appContext.getLoginSign(), params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, byte[] content) {
 				handleFileSync(content, callback);
@@ -2529,7 +2532,7 @@ public class AppClient {
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case 1:
-                        callback.onSuccess((MobileSynListBean)msg.obj);
+                        callback.onSuccess((UserEntity)msg.obj);
                         break;
                     default:
                         callback.onError((Exception)msg.obj);
@@ -2546,7 +2549,7 @@ public class AppClient {
                     String target = new String(content);
                     String decode = DecodeUtil.decode(target);
                     target = null;
-                    MobileSynListBean data = MobileSynListBean.parse(decode);
+                    UserEntity data = UserEntity.FileSyncParse(decode);
                     decode = null;
                     msg.obj = data;
                     msg.what = 1;

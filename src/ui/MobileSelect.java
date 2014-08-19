@@ -16,6 +16,7 @@ import config.AppClient;
 import config.AppClient.FileCallback;
 import config.CommonValue.LianXiRenType;
 import tools.AppManager;
+import tools.Logger;
 import tools.StringUtils;
 import tools.UIHelper;
 import ui.adapter.FriendCardAdapter;
@@ -247,6 +248,7 @@ public class MobileSelect extends AppActivity implements OnItemClickListener{
 			@Override
 			public void onSuccess(String url) {
 				UIHelper.dismissProgress(loadingPd);
+				Logger.i(url);
 				Intent intent = new Intent();
 				intent.putExtra("url", url);
 				setResult(RESULT_OK, intent);

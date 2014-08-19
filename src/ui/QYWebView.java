@@ -112,6 +112,8 @@ public class QYWebView extends AppActivity  {
 	private SharedPreferences shared;
 	private SharedPreferences.Editor editor;
 	
+	private boolean isUserClickNoUpdate = false;
+	
 	@Override
 	protected void onDestroy() {
 		webView.destroy();
@@ -162,14 +164,15 @@ public class QYWebView extends AppActivity  {
 	private void initData() {
 		pbwc mJS = new pbwc();  
 		QYurl = getIntent().getStringExtra(CommonValue.IndexIntentKeyValue.CreateView);
-		if (QYurl.contains(CommonValue.BASE_URL+"/b")) {
-			String regex = ".*\\/b\\/([0-9a-z]+)$";
-			Pattern pattern = Pattern.compile(regex);
-			Matcher ma = pattern.matcher(QYurl);
-			if (ma.find()) {
-				codeForUrl = ma.group(1);
-			}
-		}
+//		if (QYurl.contains(CommonValue.BASE_URL+"/b")) {
+//			String regex = ".*\\/b\\/([0-9a-z]+)$";
+//			Pattern pattern = Pattern.compile(regex);
+//			Matcher ma = pattern.matcher(QYurl);
+//			if (ma.find()) {
+//				codeForUrl = ma.group(1);
+//				Logger.i(codeForUrl);
+//			}
+//		}
 		webseting = webView.getSettings();  
 		webseting.setJavaScriptEnabled(true);
 		webseting.setLightTouchEnabled(true);
@@ -277,7 +280,6 @@ public class QYWebView extends AppActivity  {
 		    	indicatorImageView.startAnimation(indicatorAnimation);
 		    	if (progress >= 50) {
 		    		UIHelper.dismissProgress(loadingPd);
-		    		
 		    	}
 		        if (progress == 100) {
 		        	indicatorImageView.setVisibility(View.INVISIBLE);
@@ -424,7 +426,7 @@ public class QYWebView extends AppActivity  {
 				}
 				switch (type) {
 				case 1:
-					if (isPlay && !url.contains("card")) {
+					if (isPlay && !url.contains("card") && !isUserClickNoUpdate) {
 						newtv.setVisibility(View.VISIBLE);
 						newtv.setText("亲，页面有更新，请点击加载");
 					}
@@ -459,6 +461,7 @@ public class QYWebView extends AppActivity  {
 			newtv.setVisibility(View.INVISIBLE);
 			try {
 				newtv.setVisibility(View.INVISIBLE);
+				isUserClickNoUpdate = true;
 				loadURLScheme(QYurl);
 			} catch (Exception e) {
 				Logger.i(e);
@@ -497,6 +500,14 @@ public class QYWebView extends AppActivity  {
 	}
 	
 	public class pbwc {
+		
+		public void webViewReady(String code) {
+			Message msg = new Message();
+	    	msg.what = CommonValue.CreateViewJSType.webViewReady;
+	    	msg.obj = code;
+	    	mJSHandler.sendMessage(msg);
+	    }
+		
 	    public void goPhonebookView(String code) {
 	    	Logger.i(code+"");
 	    	Message msg = new Message();
@@ -731,9 +742,41 @@ public class QYWebView extends AppActivity  {
 				Logger.i(code);
 				enterUploadAvatar(code);
 				break;
+			case CommonValue.CreateViewJSType.webViewReady:
+				code = (String) msg.obj;
+				Logger.i(code);
+				enterParseInfo(code);
+				break;
 			}
 		};
 	};
+	
+	private void enterParseInfo(String code) {
+		if (this.isFinishing()) {
+			return;
+		}
+		try {
+			JSONObject js = new JSONObject(code);
+			String page = js.getString("page");
+			if (page.equals("/index/view")) {
+				String tempCode = js.getJSONObject("params").getString("code");
+				codeForUrl = tempCode;
+				keyCode = tempCode;
+				keyType = 1;
+			}
+			else if (page.equals("/activity/view")) {
+				String tempCode = js.getJSONObject("params").getString("code");
+				codeForUrl = "";
+				keyCode = tempCode;
+				keyType = 2;
+			}
+			else {
+				codeForUrl = "";
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private void enterUploadAvatar(String code) {
 		if (this.isFinishing()) {
@@ -1103,7 +1146,23 @@ public class QYWebView extends AppActivity  {
 
 			case 1:
 				if (StringUtils.notEmpty(codeForUrl)) {
+					webView.loadUrl("javascript:appAssistSelect()");
+				}
+				else {
+					WarningDialog("请打开具体的通讯录");
+				}
+				break;
+			case 2:
+				if (StringUtils.notEmpty(codeForUrl)) {
 					webView.loadUrl(CommonValue.BASE_URL+"/index/assist/code/"+codeForUrl +"?_sign="+appContext.getLoginSign());
+				}
+				else {
+					WarningDialog("请打开具体的通讯录");
+				}
+				break;
+			case 3:
+				if (StringUtils.notEmpty(codeForUrl)) {
+					startActivity(new Intent(QYWebView.this, ExeclSync.class).putExtra("code", codeForUrl));
 				}
 				else {
 					WarningDialog("请打开具体的通讯录");

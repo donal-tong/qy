@@ -28,6 +28,7 @@ public class Assistant extends AppActivity {
 		TabPageIndicator indicator = (TabPageIndicator)findViewById(R.id.indicator);
         indicator.setViewPager(viewPager);
         
+        viewPager.setCurrentItem(1);
 	}
 	
 	class AssistantFragmentAdapter extends FragmentPagerAdapter{

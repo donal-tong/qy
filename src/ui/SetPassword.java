@@ -11,6 +11,7 @@ import bean.UserEntity;
 import com.vikaa.mycontact.R;
 import config.AppClient;
 import tools.AppManager;
+import tools.Logger;
 import tools.StringUtils;
 import tools.UIHelper;
 
@@ -61,7 +62,12 @@ public class SetPassword extends AppActivity {
             WarningDialog("两次输入的密码不一样");
             return;
         }
-        loadingPd = UIHelper.showProgress(this, null, null, true);
+        if (StringUtils.empty(appContext.getLoginPhone())) {
+			Logger.i("adsfsadf");
+        	return;
+		}
+        Logger.i(appContext.getLoginPhone());
+        loadingPd = UIHelper.showProgress(this, "请稍后", "正在为您保存密码...", true);
         AppClient.setPassword(appContext, appContext.getLoginPhone(), password, new AppClient.ClientCallback() {
             @Override
             public void onSuccess(Entity data) {

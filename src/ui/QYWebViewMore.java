@@ -39,10 +39,22 @@ public class QYWebViewMore extends AppActivity implements OnItemClickListener{
 		options.add(op0);
 		
 		CardIntroEntity op2 = new CardIntroEntity();
-		op2.realname = "协助录入";
+		op2.realname = "手机通讯录录入";
 		op2.position = "";
 		op2.department = R.drawable.icon_set_setting+"";
 		options.add(op2);
+		
+		CardIntroEntity op3 = new CardIntroEntity();
+		op3.realname = "手工录入";
+		op3.position = "";
+		op3.department = R.drawable.icon_set_setting+"";
+		options.add(op3);
+		
+		CardIntroEntity op4 = new CardIntroEntity();
+		op4.realname = "Execl录入";
+		op4.position = "";
+		op4.department = R.drawable.icon_set_setting+"";
+		options.add(op4);
 	}
 	
 	private void initUI() {

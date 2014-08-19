@@ -396,6 +396,7 @@ public class CardView extends AppActivity implements OnItemClickListener  {
 			exchangeCard(card);
 			break;
 		case R.id.callContactButton:
+//			WmOpenChatSdk.getInstance().gotoChatPage(wmid, this);
 			callMobile(card.phone);
 			break;
 		case R.id.lookupContactButton:

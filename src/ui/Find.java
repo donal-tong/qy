@@ -110,6 +110,7 @@ public class Find extends AppActivity implements OnItemClickListener{
 				Crashlytics.logException(e);
 			}
 		}
+		
 	}
 	
 	public void ButtonClick(View v) {
@@ -227,7 +228,7 @@ public class Find extends AppActivity implements OnItemClickListener{
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
 			if (CommonValue.Login_SUCCESS_ACTION.equals(action)) {
-//				loginWM(appContext.getLoginUid());
+				loginWM(appContext.getLoginUid());
 				webViewLogin();
 			}
 		}

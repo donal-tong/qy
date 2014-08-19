@@ -68,15 +68,66 @@ public class UserEntity extends Entity{
 	}
 
     public static UserEntity userCheckParse(String res) throws IOException, AppException {
-    	Logger.i(res);
         UserEntity data = new UserEntity();
         try {
             JSONObject js = new JSONObject(res);
             if (js.getInt("status") == 1) {
                 data.error_code = Result.RESULT_OK;
-                if (!js.isNull("data")) {
-					if (!js.getJSONObject("data").isNull("uuid")) {
-						data.openid = js.getJSONObject("data").getString("uuid");
+                if (!js.isNull("info")) {
+					if (!js.getJSONObject("info").isNull("uuid")) {
+						data.openid = js.getJSONObject("info").getString("uuid");
+					}
+				}
+            }
+            else {
+                if (!js.isNull("error_code")) {
+                    data.error_code = js.getInt("error_code");
+                }
+                data.message = js.getString("info");
+            }
+
+        } catch (JSONException e) {
+            Logger.i(res);
+            throw AppException.json(e);
+        }
+        return data;
+    }
+    
+    public static UserEntity UserPasswordParse(String res) throws IOException, AppException {
+    	UserEntity data = new UserEntity();
+        try {
+            JSONObject js = new JSONObject(res);
+            if (js.getInt("status") == 1) {
+                data.error_code = Result.RESULT_OK;
+                if (!js.isNull("info")) {
+					if (!js.getJSONObject("info").isNull("uuid")) {
+						data.openid = js.getJSONObject("info").getString("uuid");
+					}
+				}
+            }
+            else {
+                if (!js.isNull("error_code")) {
+                    data.error_code = js.getInt("error_code");
+                }
+                data.message = js.getString("info");
+            }
+
+        } catch (JSONException e) {
+            Logger.i(res);
+            throw AppException.json(e);
+        }
+        return data;
+    }
+    
+    public static UserEntity FileSyncParse(String res) throws IOException, AppException {
+    	UserEntity data = new UserEntity();
+        try {
+            JSONObject js = new JSONObject(res);
+            if (js.getInt("status") == 1) {
+                data.error_code = Result.RESULT_OK;
+                if (!js.isNull("info")) {
+					if (!js.getJSONObject("info").isNull("url")) {
+						data.headimgurl = js.getJSONObject("info").getString("url");
 					}
 				}
             }
