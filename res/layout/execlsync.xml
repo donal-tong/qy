@@ -33,7 +33,7 @@
             android:layout_centerInParent="true"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:text="Execl录入"
+            android:text="Execl导入"
             />
         
         <ImageView
@@ -52,9 +52,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
         android:textSize="@dimen/navbar_button_text_size" 
         android:text="在电脑WEB浏览器中访问以下地址"
-        android:gravity="center"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp" 
         android:textColor="#222222"/>
 
     <TextView
@@ -65,7 +68,8 @@
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:textSize="@dimen/navbar_button_text_size" 
-        android:gravity="center"
         android:background="@drawable/edittext_frame"
+		android:paddingLeft="10dp"   
+		android:gravity="center_vertical"     
         android:textColor="#222222"/>
 </widget.ResizeLinearLayout>

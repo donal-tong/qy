@@ -4,96 +4,129 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:orientation="vertical" >
-    <RelativeLayout 
-        android:layout_height="44dp"
-        android:layout_width="match_parent"
-        android:background="@color/nav_color"
-        >
-        
-        <TextView 
-            android:layout_width="wrap_content"
-      		android:layout_height="wrap_content"
-            android:text="手机号码登录"
-            android:layout_centerInParent="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/navbar_title_size"
-            android:id="@+id/barTitle"
-            />
-        
-        <Button
-            android:id="@+id/rightBarButton"
-            android:layout_width="80dp"
-            android:layout_height="44dp"
-            android:drawableRight="@drawable/btn_next_normal"
-            android:background="@null"
-            android:layout_centerVertical="true"
-            android:text="下一步"
-            android:textColor="@color/white"
-            android:textSize="@dimen/navbar_button_text_size"
-           	android:layout_alignParentRight="true"
-           	android:drawablePadding="2dp"
-			android:paddingRight="12dp"
-			android:onClick="ButtonClick"
-            />
-    </RelativeLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginLeft="25dp"
-        android:text="您的手机号码："
-        android:textSize="@dimen/navbar_button_text_size" 
-        android:textColor="#222222"/>
-
-    <EditText
-        android:id="@+id/editTextPhone"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="23dp"
-        android:layout_marginRight="23dp"
-        android:layout_marginTop="18dp"
-        android:layout_height="45dp"
-        android:ems="11"
-        android:hint="请输入你的手机号码"
-        android:textColorHint="#8f8f8f"
-        android:textColor="#222222"
-        android:textSize="@dimen/navbar_title_size" 
-        android:inputType="phone" >
-        <requestFocus />
-    </EditText>
+    <ImageView 
+        android:layout_marginTop="32dp"
+        android:layout_width="217dp"
+        android:layout_height="13dp"
+        android:background="@drawable/tip_wechat"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="3dp"
+        />
     
+    <Button 
+        android:id="@+id/btnWechat"
+        android:layout_marginTop="20dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/sns_icon_22"
+        android:layout_gravity="center_horizontal"
+        android:onClick="ButtonClick"
+        />
+    
+    <ImageView 
+        android:layout_marginTop="30dp"
+        android:layout_width="207dp"
+        android:layout_height="13dp"
+        android:background="@drawable/tip_phone"
+        android:layout_gravity="center_horizontal"
+        />
+    
+    <RelativeLayout 
+        android:layout_marginTop="22dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
+	    android:layout_marginRight="13dp"
+        >
+        <EditText
+	        android:id="@+id/edtPhone"
+	        android:layout_width="match_parent"
+	        android:layout_height="38dp"
+	        android:inputType="phone" 
+	        android:textSize="@dimen/navbar_button_text_size" 
+        	android:background="@drawable/edittext_frame"
+			android:paddingLeft="50dp"   
+			android:hint="请输入手机号码"
+	        />
+        <TextView
+            android:layout_marginLeft="10dp"
+	        android:layout_width="wrap_content"
+	        android:layout_height="38dp"
+	        android:text="账号" 
+	        android:gravity="center_vertical"
+	        android:textColor="@color/black"
+	        android:textSize="@dimen/navbar_button_text_size" 
+        	/>
+    </RelativeLayout>
     <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
+	    android:layout_marginRight="13dp"
+        >
+        <EditText
+	        android:id="@+id/edtPassword"
+	        android:layout_width="match_parent"
+	        android:layout_height="38dp"
+	        android:inputType="textPassword" 
+	        android:textSize="@dimen/navbar_button_text_size" 
+        	android:background="@drawable/edittext_frame"
+			android:paddingLeft="50dp"
+			android:hint="6-32位英文或数字"
+	        />
+        <TextView
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+	        android:layout_width="wrap_content"
+	        android:layout_height="38dp"
+	        android:text="密码" 
+	        android:textColor="@color/black"
+	        android:textSize="@dimen/navbar_button_text_size" 
+        	/>
+    </RelativeLayout>
+	
+    <Button 
+        android:id="@+id/btnLogin"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_marginLeft="13dp"
+	    android:layout_marginRight="13dp"
+	    android:background="#088bbc"
+	    android:text="登录"
+	    android:textSize="@dimen/navbar_button_text_size" 
+	    android:textColor="@color/white"
+	    android:onClick="ButtonClick"
+        />
+    <RelativeLayout 
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
+	    android:layout_marginRight="13dp"
         >
         <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="14dp"
-        android:padding="10dp"
-        android:text="@string/wechat_login" 
-        android:textColor="#0189bd"
-        android:textSize="@dimen/navbar_button_text_size" 
-        android:onClick="ButtonClick"
-        android:clickable="true"
-        />
-        
+	        android:id="@+id/tvRegister"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/register" 
+	        android:textColor="#0189bd"
+	        android:textSize="@dimen/navbar_button_text_size" 
+	        android:clickable="true"
+	        android:onClick="ButtonClick"
+	        android:layout_alignParentLeft="true"
+        	/>
         <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="14dp"
-        android:padding="10dp"
-        android:text="@string/register" 
-        android:textColor="#0189bd"
-        android:textSize="@dimen/navbar_button_text_size" 
-        android:onClick="ButtonClick"
-        android:clickable="true"
-        />
+	        android:id="@+id/tvForget"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/forget" 
+	        android:layout_alignParentRight="true"
+	        android:textColor="#0189bd"
+	        android:textSize="@dimen/navbar_button_text_size" 
+	        android:clickable="true"
+	        android:onClick="ButtonClick"
+        	/>
     </RelativeLayout>
-
-    
-
 </LinearLayout>

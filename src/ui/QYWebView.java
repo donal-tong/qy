@@ -22,6 +22,7 @@ import tools.StringUtils;
 import tools.UIHelper;
 import bean.CardIntroEntity;
 import bean.Entity;
+import bean.OptionListBean;
 import bean.Result;
 import bean.UserEntity;
 import bean.WebContent;
@@ -146,6 +147,7 @@ public class QYWebView extends AppActivity  {
 		    }
 		});
 		btnMore = (Button) findViewById(R.id.btnMore);
+		btnMore.setVisibility(View.INVISIBLE);
 		btnShare = (Button) findViewById(R.id.btnShare);
 //		rightBarButton = (Button) findViewById(R.id.rightBarButton);
 		closeBarButton = (Button) findViewById(R.id.closeBarButton);
@@ -190,7 +192,6 @@ public class QYWebView extends AppActivity  {
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //				rightBarButton.setVisibility(View.GONE);
 				if (!appContext.isNetworkConnected()) {
-					Logger.i("aaaaa");
 		    		WarningDialog("当前网络不可用,请检查你的网络设置");
 		    		return true;
 		    	}
@@ -275,7 +276,7 @@ public class QYWebView extends AppActivity  {
 		webView.setWebChromeClient(new WebChromeClient() {
 		    public void onProgressChanged(WebView view, int progress) {
 		    	btnShare.setVisibility(View.INVISIBLE);
-		    	btnMore.setVisibility(View.INVISIBLE);
+//		    	btnMore.setVisibility(View.INVISIBLE);
 		    	indicatorImageView.setVisibility(View.VISIBLE);
 		    	indicatorImageView.startAnimation(indicatorAnimation);
 		    	if (progress >= 50) {
@@ -285,7 +286,7 @@ public class QYWebView extends AppActivity  {
 		        	indicatorImageView.setVisibility(View.INVISIBLE);
 		        	indicatorImageView.clearAnimation();
 		        	btnShare.setVisibility(View.VISIBLE);
-		        	btnMore.setVisibility(View.VISIBLE);
+//		        	btnMore.setVisibility(View.VISIBLE);
 		        }
 		    }
 		    
@@ -475,9 +476,60 @@ public class QYWebView extends AppActivity  {
 			webView.loadUrl("javascript:appShare()");
 			break;
 		case R.id.btnMore:
-			startActivityForResult(new Intent(this, QYWebViewMore.class), 1001);
+			startActivityForResult(new Intent(this, QYWebViewMore.class).putExtra("options", optionsMore), 1001);
 			break;
 		}
+	}
+	private OptionListBean optionsMore  = new OptionListBean();
+	private void initPhoneValue() {
+		optionsMore.optionsMore.clear();
+		CardIntroEntity op0 = new CardIntroEntity();
+		op0.realname = "群发短信";
+		op0.department = R.drawable.icon_set_setting+"";
+		op0.position = "";
+		optionsMore.optionsMore.add(op0);
+		
+		CardIntroEntity op2 = new CardIntroEntity();
+		op2.realname = "手机通讯录录入";
+		op2.position = "";
+		op2.department = R.drawable.icon_set_setting+"";
+		optionsMore.optionsMore.add(op2);
+		
+		CardIntroEntity op3 = new CardIntroEntity();
+		op3.realname = "手工录入";
+		op3.position = "";
+		op3.department = R.drawable.icon_set_setting+"";
+		optionsMore.optionsMore.add(op3);
+		
+		CardIntroEntity op4 = new CardIntroEntity();
+		op4.realname = "Execl导入";
+		op4.position = "";
+		op4.department = R.drawable.icon_set_setting+"";
+		optionsMore.optionsMore.add(op4);
+	}
+	
+	private void initActivityValue() {
+		optionsMore.optionsMore.clear();
+		CardIntroEntity op0 = new CardIntroEntity();
+		op0.realname = "群发短信";
+		op0.department = R.drawable.icon_set_setting+"";
+		op0.position = "";
+		optionsMore.optionsMore.add(op0);
+		
+		CardIntroEntity op4 = new CardIntroEntity();
+		op4.realname = "Execl导入";
+		op4.position = "";
+		op4.department = R.drawable.icon_set_setting+"";
+		optionsMore.optionsMore.add(op4);
+	}
+	
+	private void initDefaultValue() {
+		optionsMore.optionsMore.clear();
+		CardIntroEntity op0 = new CardIntroEntity();
+		op0.realname = "群发短信";
+		op0.department = R.drawable.icon_set_setting+"";
+		op0.position = "";
+		optionsMore.optionsMore.add(op0);
 	}
 	
 	@Override
@@ -763,15 +815,22 @@ public class QYWebView extends AppActivity  {
 				codeForUrl = tempCode;
 				keyCode = tempCode;
 				keyType = 1;
+				initPhoneValue();
+				btnMore.setVisibility(View.VISIBLE);
 			}
 			else if (page.equals("/activity/view")) {
 				String tempCode = js.getJSONObject("params").getString("code");
 				codeForUrl = "";
 				keyCode = tempCode;
 				keyType = 2;
+				initActivityValue();
+				btnMore.setVisibility(View.VISIBLE);
 			}
 			else {
 				codeForUrl = "";
+				keyCode = "";
+				initDefaultValue();
+				btnMore.setVisibility(View.INVISIBLE);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -1060,7 +1119,6 @@ public class QYWebView extends AppActivity  {
 
 		    final File sdImageMainDirectory = new File(root.getAbsolutePath() + fname);
 		    outputFileUri = Uri.fromFile(sdImageMainDirectory);
-		//selection Photo/Gallery dialog
 		    AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
 		    alert.setTitle("请选择");

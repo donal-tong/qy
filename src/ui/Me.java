@@ -161,26 +161,6 @@ public class Me extends AppActivity{
 		ops.add(op1);
 		cards.add(ops);
 		
-//		List<CardIntroEntity> ops2 = new ArrayList<CardIntroEntity>();
-//		CardIntroEntity op20 = new CardIntroEntity();
-//		op20.realname = "设置";
-//		op20.position = "";
-//		op20.cardSectionType = CommonValue.CardSectionType .FeedbackSectionType;
-//		op20.department = R.drawable.icon_set_setting+"";
-//		ops2.add(op20);
-//		CardIntroEntity op21 = new CardIntroEntity();
-//		op21.realname = "客服反馈";
-//		op21.position = "";
-//		op21.cardSectionType = CommonValue.CardSectionType .FeedbackSectionType;
-//		op21.department = R.drawable.icon_set_feedback+"";
-//		ops2.add(op21);
-//		CardIntroEntity op22 = new CardIntroEntity();
-//		op22.realname = "版本升级("+getCurrentVersionName()+")";
-//		op22.position = "";
-//		op22.cardSectionType = CommonValue.CardSectionType .FeedbackSectionType;
-//		op22.department = R.drawable.icon_set_update+"";
-//		ops2.add(op22);
-//		cards.add(ops2);
 	}
 	
 	private void getCardList() {

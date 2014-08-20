@@ -3,12 +3,13 @@ package ui;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.IntentFilter;
-import bean.CodeEntity;
 import bean.Entity;
 import bean.Result;
 
 import bean.UserEntity;
 import com.crashlytics.android.Crashlytics;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.vikaa.mycontact.R;
 
@@ -16,20 +17,12 @@ import config.AppClient;
 import config.AppClient.ClientCallback;
 import config.CommonValue;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONObject;
-import tools.AppException;
 import tools.AppManager;
 import tools.Logger;
 import tools.StringUtils;
@@ -39,27 +32,24 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoginCode1 extends AppActivity{
-	private EditText mobileET;
-//	private CountDown cd;
-	boolean canVertify ;
-	int leftSeconds;
-	private ProgressDialog loadingPd;
-	private TextView barTitle;
-	private TextView regTV;
-	private TextView textView1;
+	@ViewInject(R.id.edtPhone)
+	private EditText edtPhone;
+	
+	@ViewInject(R.id.edtPassword)
+	private EditText edtPassword;
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_FIRST_USER) {
-            switch (requestCode) {
-                case CommonValue.LoginRequest.LoginByPassword:
-                    getVertifyCode(mobileET.getText().toString());
-                    break;
-                default:
-                    break;
-            }
-            return;
-        }
+//        if (resultCode == RESULT_FIRST_USER) {
+//            switch (requestCode) {
+//                case CommonValue.LoginRequest.LoginByPassword:
+//                    getVertifyCode(mobileET.getText().toString());
+//                    break;
+//                default:
+//                    break;
+//            }
+//            return;
+//        }
 		if (resultCode != RESULT_OK) {
 			return;
 		}
@@ -82,8 +72,7 @@ public class LoginCode1 extends AppActivity{
         IntentFilter filter = new IntentFilter();
         filter.addAction(CommonValue.ACTION_WECHAT_CODE);
         registerReceiver(receiver, filter);
-		initUI();
-		initData();
+        ViewUtils.inject(this);
 	}
 
     @Override
@@ -92,108 +81,42 @@ public class LoginCode1 extends AppActivity{
         super.onDestroy();
     }
 
-    private void initUI() {
-		textView1 = (TextView) findViewById(R.id.textView1);
-		barTitle = (TextView) findViewById(R.id.barTitle);
-		regTV = (TextView) findViewById(R.id.textView2);
-		regTV.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
-		Button rightBarButton = (Button) findViewById(R.id.rightBarButton);
-		accretionArea(rightBarButton);
-		mobileET = (EditText) findViewById(R.id.editTextPhone);
-	}
-	
-	private void initData() {
-		canVertify = true;
-//		cd = new CountDown(60*1000, 1000);
-	}
-	
 	public void ButtonClick(View v) {
 		switch (v.getId()) {
-		case R.id.rightBarButton:
-			this.getVertifyCode();
-			break;
-
-		case R.id.textView1:
+		case R.id.btnWechat:
+			closeInput();
 			this.wechat();
 			break;
-		case R.id.textView2:
-			register();
+			
+		case R.id.btnLogin:
+			closeInput();
+			loginByPassword();
 			break;
 		}
 	}
 	
-	private void getVertifyCode(final String mobile)  {
-		loadingPd = UIHelper.showProgress(this, null, null, true);
-//		cd.cancel();
-//		cd.start();
-		AppClient.getVertifyCode(appContext, mobile, new ClientCallback() {
-			@Override
-			public void onSuccess(Entity data) {
-				UIHelper.dismissProgress(loadingPd);
-				CodeEntity code = (CodeEntity)data;
-				switch (code.getError_code()) {
-				case Result.RESULT_OK:
-//					cd.cancel();
-					canVertify = true;
-					step2(code.info);
-					break;
-				default:
-//					cd.cancel();
-					canVertify = true;
-					UIHelper.ToastMessage(getApplicationContext(), code.getMessage(), Toast.LENGTH_SHORT);
-					break;
-				}
-			}
-			
-			@Override
-			public void onFailure(String message) {
-//				cd.cancel();
-				canVertify = true;
-				UIHelper.dismissProgress(loadingPd);
-				UIHelper.ToastMessage(getApplicationContext(), message, Toast.LENGTH_SHORT);
-			}
-			
-			@Override
-			public void onError(Exception e) {
-//				cd.cancel();
-				canVertify = true;
-				UIHelper.dismissProgress(loadingPd);
-				Logger.i(e);
-			}
-		});
-	}
-	
-	private void getVertifyCode() {
-		if (StringUtils.isMobileNO(mobileET.getText().toString())) {
-			if (canVertify) {
-                userCheck(mobileET.getText().toString());
-			}
-			else {
-				UIHelper.ToastMessage(getApplicationContext(), String.format("还需要%d秒获取验证码", leftSeconds), Toast.LENGTH_SHORT);
-			}
-		}
-		else {
+	private void loginByPassword() {
+		String phone = edtPhone.getText().toString();
+		String password = edtPassword.getText().toString();
+		if (!StringUtils.isMobileNO(phone)) {
 			WarningDialog("请输入正确的手机号码");
 		}
-	}
-
-    private void userCheck(final String phone) {
-        appContext.saveLoginPhone(phone);
-        AppClient.userCheck(appContext, phone, new ClientCallback() {
+		if (!(password.length()>=6&&password.length()<=32)) {
+			WarningDialog("请输入6-32位英文或数字的密码");
+		}
+		loadingPd = UIHelper.showProgress(this, "请稍后", "正在验证...", true);
+        AppClient.loginByPassword(appContext, phone, password, new AppClient.ClientCallback() {
             @Override
             public void onSuccess(Entity data) {
                 UIHelper.dismissProgress(loadingPd);
                 UserEntity user = (UserEntity) data;
                 switch (user.getError_code()) {
                     case Result.RESULT_OK:
-                        appContext.saveNeedSetPassword(false);
-                        startActivityForResult(new Intent(LoginCode1.this, LoginbyPassword.class), CommonValue.LoginRequest.LoginByPassword);
-                        break;
-                    case 1010:
-                        appContext.saveNeedSetPassword(true);
-                        getVertifyCode(phone);
+                        appContext.saveLoginInfo(user);
+                        enterIndex(user);
                         break;
                     default:
+                        UIHelper.ToastMessage(LoginCode1.this, user.getMessage(), Toast.LENGTH_SHORT);
                         break;
                 }
             }
@@ -201,6 +124,7 @@ public class LoginCode1 extends AppActivity{
             @Override
             public void onFailure(String message) {
                 UIHelper.dismissProgress(loadingPd);
+                UIHelper.ToastMessage(LoginCode1.this, message, Toast.LENGTH_SHORT);
             }
 
             @Override
@@ -208,14 +132,8 @@ public class LoginCode1 extends AppActivity{
                 UIHelper.dismissProgress(loadingPd);
             }
         });
-    }
-	
-	private void step2(String content) {
-		Intent intent = new Intent(LoginCode1.this, LoginCode2.class);
-		intent.putExtra("content", content);
-		intent.putExtra("mobile", mobileET.getText().toString());
-		startActivityForResult(intent, CommonValue.LoginRequest.LoginMobile);
 	}
+	
 	
 	private void wechat() {
 //		Intent intent = new Intent(LoginCode1.this, LoginWechat.class);
@@ -229,37 +147,6 @@ public class LoginCode1 extends AppActivity{
         api.sendReq(req);
 	}
 	
-	private void register() {
-		if (regTV.getText().toString().equals(getResources().getString(R.string.register))) {
-			regTV.setText(getResources().getString(R.string.mobile_login));
-			barTitle.setText("手机号码注册");
-			textView1.setVisibility(View.INVISIBLE);
-		}
-		else {
-			regTV.setText(getResources().getString(R.string.register));
-			barTitle.setText("手机号码登录");
-			textView1.setVisibility(View.VISIBLE);
-		}
-	}
-	
-//	class CountDown extends CountDownTimer {
-//
-//		public CountDown(long millisInFuture, long countDownInterval) {
-//			super(millisInFuture, countDownInterval);
-//		}
-//
-//		@Override
-//		public void onFinish() {
-//			canVertify = true;
-//		}
-//
-//		@Override
-//		public void onTick(long millisUntilFinished) {
-//			canVertify = false;
-//			leftSeconds = (int) (millisUntilFinished/1000);
-//		}
-//	}
-
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
