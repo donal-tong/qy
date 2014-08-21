@@ -12,7 +12,6 @@ import tools.AppManager;
 import tools.Logger;
 import tools.StringUtils;
 import tools.UIHelper;
-import ui.LoginCode2.CountDown;
 import bean.Entity;
 import bean.PhoneIntroEntity;
 import bean.RegUserEntity;

@@ -8,7 +8,7 @@
 	<string name="forget"><u>忘记密码</u></string>
 	<string name="mobile_login">手机号码登录</string>
 	<string name="code_retake"><u>重新获取验证码</u></string>
-	
+	<string name="get_code"><u>获取短信验证码</u></string>
 	<string name="main_home">首页</string>
     <string name="main_my_card">我的微友</string>
     <string name="main_message">消息</string>

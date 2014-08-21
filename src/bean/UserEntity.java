@@ -99,11 +99,6 @@ public class UserEntity extends Entity{
             JSONObject js = new JSONObject(res);
             if (js.getInt("status") == 1) {
                 data.error_code = Result.RESULT_OK;
-                if (!js.isNull("info")) {
-					if (!js.getJSONObject("info").isNull("uuid")) {
-						data.openid = js.getJSONObject("info").getString("uuid");
-					}
-				}
             }
             else {
                 if (!js.isNull("error_code")) {
@@ -113,6 +108,7 @@ public class UserEntity extends Entity{
             }
 
         } catch (JSONException e) {
+        	Logger.i(e);
             Logger.i(res);
             throw AppException.json(e);
         }

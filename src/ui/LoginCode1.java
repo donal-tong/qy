@@ -92,6 +92,11 @@ public class LoginCode1 extends AppActivity{
 			closeInput();
 			loginByPassword();
 			break;
+			
+		case R.id.tvRegister:
+			closeInput();
+			startActivityForResult(new Intent(this, LoginCode2.class), CommonValue.LoginRequest.LoginMobile);
+			break;
 		}
 	}
 	
@@ -100,9 +105,11 @@ public class LoginCode1 extends AppActivity{
 		String password = edtPassword.getText().toString();
 		if (!StringUtils.isMobileNO(phone)) {
 			WarningDialog("请输入正确的手机号码");
+			return;
 		}
 		if (!(password.length()>=6&&password.length()<=32)) {
 			WarningDialog("请输入6-32位英文或数字的密码");
+			return;
 		}
 		loadingPd = UIHelper.showProgress(this, "请稍后", "正在验证...", true);
         AppClient.loginByPassword(appContext, phone, password, new AppClient.ClientCallback() {

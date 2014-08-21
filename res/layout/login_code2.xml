@@ -27,73 +27,86 @@
         <TextView 
             android:layout_width="wrap_content"
       		android:layout_height="wrap_content"
-            android:text="手机号登录"
+            android:text="手机号注册"
             android:layout_centerInParent="true"
             android:textColor="@color/white"
             android:textSize="@dimen/navbar_title_size"
             />
-        
-        <Button
-            android:id="@+id/rightBarButton"
-            android:layout_width="65dp"
-            android:layout_height="44dp"
-            android:drawableRight="@drawable/btn_next_normal"
-            android:background="@null"
-            android:layout_centerVertical="true"
-            android:text="验证"
-            android:textColor="@color/white"
-            android:textSize="@dimen/navbar_button_text_size"
-           	android:layout_alignParentRight="true"
-			android:paddingRight="12dp"
-			android:drawablePadding="2dp"
-			android:onClick="ButtonClick"
-            />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/contentView"
+	<EditText
+	    android:layout_marginTop="30dp"
+	    android:layout_marginLeft="13dp"
+	    android:layout_marginRight="13dp"
+        android:id="@+id/edtPhone"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:inputType="phone" 
+        android:textSize="@dimen/navbar_button_text_size" 
+       	android:background="@drawable/edittext_frame"
+		android:paddingLeft="10dp"   
+		android:hint="请输入手机号码"
+        />
+	
+	<RelativeLayout 
+	    android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:text="您的手机号码："
-        android:textSize="@dimen/navbar_button_text_size" 
-        android:textColor="#222222"
-        android:gravity="center"
-        />
-
-    <EditText
-        android:id="@+id/editTextCode"
+        >
+        <Button 
+            android:layout_marginRight="13dp"
+            android:id="@+id/btnGetCode"
+	        android:layout_width="116dp"
+	        android:layout_height="33dp"
+	        android:text="@string/get_code" 
+	        android:layout_alignParentRight="true"
+	        android:textColor="#0189bd"
+	        android:textSize="@dimen/navbar_button_text_size" 
+	        android:clickable="true"
+	        android:onClick="ButtonClick"
+	        android:background="@drawable/edittext_frame"
+            />
+    </RelativeLayout>
+	
+	<EditText
+	    android:layout_marginTop="10dp"
+	    android:layout_marginLeft="13dp"
+	    android:layout_marginRight="13dp"
+        android:id="@+id/edtCode"
         android:layout_width="match_parent"
-        android:layout_marginLeft="83dp"
-        android:layout_marginRight="83dp"
-        android:layout_marginTop="18dp"
-        android:layout_height="45dp"
-        android:ems="6"
-        android:maxEms="6"
-        android:hint="6位验证码"
-        android:gravity="center_horizontal"
-        android:textColorHint="#8f8f8f"
-        android:textColor="#222222"
-        android:textSize="@dimen/navbar_title_size" 
-        android:inputType="phone" >
-        
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/tipView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/code_retake" 
-        android:textColor="#0189bd"
+        android:layout_height="38dp"
+        android:inputType="phone" 
         android:textSize="@dimen/navbar_button_text_size" 
-        android:layout_gravity="center_horizontal"
-        android:clickable="true"
-        android:onClick="ButtonClick"
-        android:gravity="center"
+       	android:background="@drawable/edittext_frame"
+		android:paddingLeft="10dp"
+		android:hint="请输入6位数字验证码"
         />
-
+	
+	<EditText
+	    android:layout_marginTop="24dp"
+	    android:layout_marginLeft="13dp"
+	    android:layout_marginRight="13dp"
+        android:id="@+id/edtPassword"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:inputType="textPassword" 
+        android:textSize="@dimen/navbar_button_text_size" 
+       	android:background="@drawable/edittext_frame"
+		android:paddingLeft="10dp"   
+		android:hint="请设置密码"
+        />
+	
+	<Button 
+        android:id="@+id/btnRegister"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_marginLeft="13dp"
+	    android:layout_marginRight="13dp"
+	    android:background="#088bbc"
+	    android:text="注册"
+	    android:textSize="@dimen/navbar_button_text_size" 
+	    android:textColor="@color/white"
+	    android:onClick="ButtonClick"
+        />
 </LinearLayout>
