@@ -97,6 +97,9 @@ public class LoginCode1 extends AppActivity{
 			closeInput();
 			startActivityForResult(new Intent(this, LoginCode2.class), CommonValue.LoginRequest.LoginMobile);
 			break;
+		case R.id.tvForget:
+			startActivityForResult(new Intent(this, ForgetPassword.class), CommonValue.LoginRequest.LoginMobile);
+			break;
 		}
 	}
 	

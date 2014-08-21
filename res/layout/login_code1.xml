@@ -45,7 +45,7 @@
 	        android:layout_height="38dp"
 	        android:inputType="phone" 
 	        android:textSize="@dimen/navbar_button_text_size" 
-        	android:background="@drawable/edittext_frame"
+        	android:background="@drawable/account_frame"
 			android:paddingLeft="50dp"   
 			android:hint="请输入手机号码"
 	        />
@@ -71,7 +71,7 @@
 	        android:layout_height="38dp"
 	        android:inputType="textPassword" 
 	        android:textSize="@dimen/navbar_button_text_size" 
-        	android:background="@drawable/edittext_frame"
+        	android:background="@drawable/password_frame"
 			android:paddingLeft="50dp"
 			android:hint="6-32位英文或数字"
 	        />
@@ -93,7 +93,7 @@
         android:layout_height="38dp"
         android:layout_marginLeft="13dp"
 	    android:layout_marginRight="13dp"
-	    android:background="#088bbc"
+	    android:background="@drawable/login_button"
 	    android:text="登录"
 	    android:textSize="@dimen/navbar_button_text_size" 
 	    android:textColor="@color/white"

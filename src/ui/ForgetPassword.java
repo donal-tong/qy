@@ -43,7 +43,7 @@ import tools.Logger;
 import tools.StringUtils;
 import tools.UIHelper;
 
-public class LoginCode2 extends AppActivity{
+public class ForgetPassword extends AppActivity{
 	
 	private GetCodeReceiver getCodeReceiver;
 	
@@ -177,7 +177,7 @@ public class LoginCode2 extends AppActivity{
 					setPassword(password, user);
 					break;
 				default:
-					UIHelper.ToastMessage(LoginCode2.this, user.getMessage(), Toast.LENGTH_SHORT);
+					UIHelper.ToastMessage(ForgetPassword.this, user.getMessage(), Toast.LENGTH_SHORT);
 					break;
 				}
 			}
@@ -185,7 +185,7 @@ public class LoginCode2 extends AppActivity{
 			@Override
 			public void onFailure(String message) {
 				UIHelper.dismissProgress(loadingPd);
-				UIHelper.ToastMessage(LoginCode2.this, message, Toast.LENGTH_SHORT);
+				UIHelper.ToastMessage(ForgetPassword.this, message, Toast.LENGTH_SHORT);
 			}
 			
 			@Override
@@ -209,7 +209,7 @@ public class LoginCode2 extends AppActivity{
                         enterIndex(auser);
                         break;
                     default:
-                        UIHelper.ToastMessage(LoginCode2.this, user.getMessage(), Toast.LENGTH_SHORT);
+                        UIHelper.ToastMessage(ForgetPassword.this, user.getMessage(), Toast.LENGTH_SHORT);
                         break;
                 }
             }
@@ -217,7 +217,7 @@ public class LoginCode2 extends AppActivity{
             @Override
             public void onFailure(String message) {
                 UIHelper.dismissProgress(loadingPd);
-                UIHelper.ToastMessage(LoginCode2.this, message, Toast.LENGTH_SHORT);
+                UIHelper.ToastMessage(ForgetPassword.this, message, Toast.LENGTH_SHORT);
             }
 
             @Override
