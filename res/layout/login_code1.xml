@@ -127,6 +127,8 @@
 	        android:textSize="@dimen/navbar_button_text_size" 
 	        android:clickable="true"
 	        android:onClick="ButtonClick"
+	        android:drawableLeft="@drawable/forget_password_tip"
+	        android:drawablePadding="5dp"
         	/>
     </RelativeLayout>
 </LinearLayout>

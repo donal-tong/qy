@@ -32,6 +32,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoginCode1 extends AppActivity{
+	private boolean jumpRegister = false;
+	
 	@ViewInject(R.id.edtPhone)
 	private EditText edtPhone;
 	
@@ -73,6 +75,11 @@ public class LoginCode1 extends AppActivity{
         filter.addAction(CommonValue.ACTION_WECHAT_CODE);
         registerReceiver(receiver, filter);
         ViewUtils.inject(this);
+        jumpRegister = getIntent().getBooleanExtra("register", false);
+        if (jumpRegister) {
+        	closeInput();
+			startActivityForResult(new Intent(this, LoginCode2.class), CommonValue.LoginRequest.LoginMobile);
+		}
 	}
 
     @Override

@@ -62,12 +62,12 @@ public class GuidePage extends AppActivity implements OnPageChangeListener{
 		p3.height = h;
 		image3.setLayoutParams(p3);
 		
-//		View lay3 = inflater.inflate(R.layout.guide04, null);
-//		ImageView image4 = (ImageView) lay3.findViewById(R.id.image);
-//		LayoutParams p4 = (LayoutParams) image4.getLayoutParams();
-//		p4.width = w;
-//		p4.height = h;
-//		image4.setLayoutParams(p4);
+		View lay3 = inflater.inflate(R.layout.guide04, null);
+		ImageView image4 = (ImageView) lay3.findViewById(R.id.image);
+		LayoutParams p4 = (LayoutParams) image4.getLayoutParams();
+		p4.width = w;
+		p4.height = h;
+		image4.setLayoutParams(p4);
 //		
 //		View lay4 = inflater.inflate(R.layout.guide05, null);
 //		ImageView image5 = (ImageView) lay4.findViewById(R.id.image);
@@ -79,7 +79,7 @@ public class GuidePage extends AppActivity implements OnPageChangeListener{
 		mListViews.add(lay0);
 		mListViews.add(lay1);
 		mListViews.add(lay2);
-//		mListViews.add(lay3);
+		mListViews.add(lay3);
 //		mListViews.add(lay4);
 		mPager.setAdapter(new IndexPagerAdapter(mListViews));
 		mPager.setOnPageChangeListener(this);
@@ -87,7 +87,15 @@ public class GuidePage extends AppActivity implements OnPageChangeListener{
 	}
 	
 	public void ButtonClick(View v) {
-		jump();
+		switch (v.getId()) {
+		case R.id.btnRegister:
+			jumpRegister();
+			break;
+
+		default:
+			jump();
+			break;
+		}
 	}
 	
 	public void jump() {
@@ -103,6 +111,22 @@ public class GuidePage extends AppActivity implements OnPageChangeListener{
 		startActivity(intent);
 		AppManager.getAppManager().finishActivity(this);
 	}
+	
+	public void jumpRegister() {
+		try {
+			PackageInfo info = getPackageManager().getPackageInfo(CommonValue.PackageName, 0);
+			int currentVersion = info.versionCode;
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+			prefs.edit().putInt(CommonValue.KEY_GUIDE_SHOWN, currentVersion).commit();
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		Intent intent = new Intent(this,LoginCode1.class);
+		intent.putExtra("register", true);
+		startActivity(intent);
+		AppManager.getAppManager().finishActivity(this);
+	}
+
 
 	@Override
 	public void onPageScrollStateChanged(int state) {
