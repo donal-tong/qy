@@ -55,7 +55,7 @@
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:textSize="@dimen/navbar_button_text_size" 
-        android:text="在电脑WEB浏览器中访问以下地址"
+        android:text="在电脑网页里输入以下地址"
         android:gravity="center_vertical"
         android:paddingLeft="10dp" 
         android:textColor="#222222"/>

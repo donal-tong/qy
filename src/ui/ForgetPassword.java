@@ -68,7 +68,7 @@ public class ForgetPassword extends AppActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login_code2);
+		setContentView(R.layout.forget_password);
 		registerGetReceiver();
 		ViewUtils.inject(this);
 		edtCode.setEnabled(false);

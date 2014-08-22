@@ -17,27 +17,5 @@
         android:scaleType="fitCenter"
         />
     
-    <Button 
-        android:id="@+id/btnLogin"
-        android:layout_width="115dp"
-        android:layout_height="40dp"
-        android:background="@drawable/guide_login"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="38dp"
-        android:layout_marginBottom="44dp"
-        android:onClick="ButtonClick"
-        />
     
-    <Button 
-        android:id="@+id/btnRegister"
-        android:layout_width="115dp"
-        android:layout_height="40dp"
-        android:background="@drawable/guide_register"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="38dp"
-        android:layout_marginBottom="44dp"
-        android:onClick="ButtonClick"
-        />
 </RelativeLayout>

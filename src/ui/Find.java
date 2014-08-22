@@ -78,19 +78,19 @@ public class Find extends AppActivity implements OnItemClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.find);
 		initUI();
-        if (appContext.getNeedSetPassword()) {
-            WarningDialog("您的账号还没有设置密码,现在设置?", "好", "下次再说", new DialogClickListener() {
-                @Override
-                public void ok() {
-                    startActivity(new Intent(Find.this, SetPassword.class));
-                }
-
-                @Override
-                public void cancel() {
-
-                }
-            });
-        }
+//        if (appContext.getNeedSetPassword()) {
+//            WarningDialog("您的账号还没有设置密码,现在设置?", "好", "下次再说", new DialogClickListener() {
+//                @Override
+//                public void ok() {
+//                    startActivity(new Intent(Find.this, SetPassword.class));
+//                }
+//
+//                @Override
+//                public void cancel() {
+//
+//                }
+//            });
+//        }
 	}
 	
 	private void initUI() {
