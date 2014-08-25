@@ -42,16 +42,6 @@ public class LoginCode1 extends AppActivity{
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (resultCode == RESULT_FIRST_USER) {
-//            switch (requestCode) {
-//                case CommonValue.LoginRequest.LoginByPassword:
-//                    getVertifyCode(mobileET.getText().toString());
-//                    break;
-//                default:
-//                    break;
-//            }
-//            return;
-//        }
 		if (resultCode != RESULT_OK) {
 			return;
 		}
