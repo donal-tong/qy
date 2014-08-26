@@ -91,15 +91,12 @@ public class Setting extends AppActivity{
         op21.position = "";
         op21.cardSectionType = CommonValue.CardSectionType .SettingsSectionType;
         ops2.add(op21);
-        cards.add(ops2);
-
-		List<CardIntroEntity> ops3 = new ArrayList<CardIntroEntity>();
 		CardIntroEntity op31 = new CardIntroEntity();
 		op31.realname = "功能消息免打扰";
 		op31.position = "";
 		op31.cardSectionType = CommonValue.CardSectionType .SettingsSectionType;
-		ops3.add(op31);
-		cards.add(ops3);
+		ops2.add(op31);
+		cards.add(ops2);
 		
 		List<CardIntroEntity> ops4 = new ArrayList<CardIntroEntity>();
 		CardIntroEntity op41 = new CardIntroEntity();

@@ -36,45 +36,18 @@ public class GuidePage extends AppActivity implements OnPageChangeListener{
 	}
 	
 	private void initUI() {
-		int w = ImageUtils.getDisplayWidth(this);
-		int h = w*960/640;
 		mPager = (ViewPager) findViewById(R.id.viewPager);
 		mListViews = new ArrayList<View>();
 		LayoutInflater inflater = LayoutInflater.from(this);
 		View lay0 = inflater.inflate(R.layout.guide01, null);
-		ImageView image1 = (ImageView) lay0.findViewById(R.id.image);
-		LayoutParams p1 = (LayoutParams) image1.getLayoutParams();
-		p1.width = w;
-		p1.height = h;
-		image1.setLayoutParams(p1);
 		
 		View lay1 = inflater.inflate(R.layout.guide02, null);
-		ImageView image2 = (ImageView) lay1.findViewById(R.id.image);
-		LayoutParams p2 = (LayoutParams) image2.getLayoutParams();
-		p2.width = w;
-		p2.height = h;
-		image2.setLayoutParams(p2);
 		
 		View lay2 = inflater.inflate(R.layout.guide03, null);
-		ImageView image3 = (ImageView) lay2.findViewById(R.id.image);
-		LayoutParams p3 = (LayoutParams) image3.getLayoutParams();
-		p3.width = w;
-		p3.height = h;
-		image3.setLayoutParams(p3);
 		
 		View lay3 = inflater.inflate(R.layout.guide04, null);
-		ImageView image4 = (ImageView) lay3.findViewById(R.id.image);
-		LayoutParams p4 = (LayoutParams) image4.getLayoutParams();
-		p4.width = w;
-		p4.height = h;
-		image4.setLayoutParams(p4);
-//		
+
 //		View lay4 = inflater.inflate(R.layout.guide05, null);
-//		ImageView image5 = (ImageView) lay4.findViewById(R.id.image);
-//		LayoutParams p5 = (LayoutParams) image5.getLayoutParams();
-//		p5.width = w;
-//		p5.height = h;
-//		image5.setLayoutParams(p5);
 		
 		mListViews.add(lay0);
 		mListViews.add(lay1);
