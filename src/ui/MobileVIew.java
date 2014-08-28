@@ -17,7 +17,6 @@ import contact.EmailBean;
 import contact.MobileSynBean;
 import contact.PhoneBean;
 import tools.AppManager;
-import tools.BaseIntentUtil;
 import tools.StringUtils;
 import ui.adapter.CardViewAdapter;
 import bean.CardIntroEntity;
