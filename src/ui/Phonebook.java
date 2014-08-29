@@ -11,15 +11,25 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 import android.widget.ImageView;
+import baidupush.Utils;
 import bean.*;
+import tools.AppException;
+import tools.AppManager;
 import tools.Logger;
 import tools.StringUtils;
 import tools.UIHelper;
+import tools.UpdateManager;
 import ui.adapter.PhonebookAdapter;
+import widget.SlidingDrawerView;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.crashlytics.android.Crashlytics;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.umeng.socialize.controller.RequestType;
+import com.umeng.socialize.controller.UMServiceFactory;
 import com.vikaa.allcontact.R;
 
 import config.AppClient;
@@ -40,6 +50,7 @@ import android.os.Message;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -48,6 +59,7 @@ import android.widget.Toast;
 import android.widget.ExpandableListView.OnGroupClickListener;
 
 public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefreshListener{
+	protected SlidingMenu side_drawer;
 	
 	private ExpandableListView elvPhonebook;
 	private List<PhoneIntroEntity> myQuns = new ArrayList<PhoneIntroEntity>();
@@ -92,7 +104,79 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
                 getSquareListFromCache();
             }
         }, CommonValue.UI_DELAY);
-
+        checkLogin();
+        UpdateManager.getUpdateManager().checkAppUpdate(this, false);
+        UMServiceFactory.getUMSocialService(DESCRIPTOR, RequestType.SOCIAL).setGlobalConfig(SocializeConfigDemo.getSocialConfig(this));
+        initSlidingMenu();
+	}
+	
+	private long mExitTime;
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if(side_drawer.isMenuShowing() ||side_drawer.isSecondaryMenuShowing()){
+				side_drawer.showContent();
+			}else {
+				if ((System.currentTimeMillis() - mExitTime) > 2000) {
+					Toast.makeText(this, "在按一次退出",
+							Toast.LENGTH_SHORT).show();
+					mExitTime = System.currentTimeMillis();
+				} else {
+					finish();
+				}
+			}
+			return true;
+		}
+		if (keyCode == KeyEvent.KEYCODE_MENU) {
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+	
+	protected void initSlidingMenu() {
+		side_drawer = new SlidingDrawerView(this).initSlidingMenu();
+	}
+	
+	private void checkLogin() {
+		loadingPd = UIHelper.showProgress(this, "请稍后", "正在登录中...", true);
+		AppClient.autoLogin(appContext, new ClientCallback() {
+			@Override
+			public void onSuccess(Entity data) {
+				UIHelper.dismissProgress(loadingPd);
+				UserEntity user = (UserEntity)data;
+				switch (user.getError_code()) {
+				case Result.RESULT_OK:
+					appContext.saveLoginInfo(user);
+					if (!Utils.hasBind(getApplicationContext())) {
+						PushManager.startWork(getApplicationContext(),
+								PushConstants.LOGIN_TYPE_API_KEY, 
+								Utils.getMetaValue(Phonebook.this, "api_key"));
+					}
+					break;
+				default:
+					UIHelper.ToastMessage(getApplicationContext(), user.getMessage(), Toast.LENGTH_SHORT);
+					showLogin();
+					break;
+				}
+			}
+			@Override
+			public void onFailure(String message) {
+				UIHelper.dismissProgress(loadingPd);
+				UIHelper.ToastMessage(getApplicationContext(), message, Toast.LENGTH_SHORT);
+			}
+			@Override
+			public void onError(Exception e) {
+				UIHelper.dismissProgress(loadingPd);
+				((AppException)e).makeToast(getApplicationContext());
+			}
+		});
+	}
+	
+	private void showLogin() {
+		appContext.setUserLogout();
+		Intent intent = new Intent(this,LoginCode1.class);
+        startActivity(intent);
+        AppManager.getAppManager().finishActivity(this);
 	}
 	
 	private void initUI() {

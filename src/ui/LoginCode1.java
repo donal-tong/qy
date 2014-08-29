@@ -239,7 +239,7 @@ public class LoginCode1 extends AppActivity{
             AppManager.getAppManager().finishActivity(this);
         }
         else {
-            Intent intent = new Intent(this, Tabbar.class);
+            Intent intent = new Intent(this, Phonebook.class);
             startActivity(intent);
             setResult(RESULT_OK);
             AppManager.getAppManager().finishActivity(this);
