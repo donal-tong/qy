@@ -2,7 +2,7 @@ package widget;
 
 import java.util.ArrayList;
 
-import com.vikaa.mycontact.R;
+import com.vikaa.allcontact.R;
 
 import tools.ImageUtils;
 import tools.Logger;

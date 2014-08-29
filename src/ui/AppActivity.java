@@ -23,7 +23,7 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.umeng.socialize.controller.RequestType;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
-import com.vikaa.mycontact.R;
+import com.vikaa.allcontact.R;
 
 import android.app.ActivityManager;
 import android.app.AlertDialog;

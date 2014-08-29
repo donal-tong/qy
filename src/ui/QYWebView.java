@@ -41,7 +41,7 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.WeiXinShareContent;
 import com.umeng.socialize.sso.QZoneSsoHandler;
 import com.umeng.socialize.sso.UMWXHandler;
-import com.vikaa.mycontact.R;
+import com.vikaa.allcontact.R;
 
 import config.AppClient;
 import config.AppClient.ClientCallback;

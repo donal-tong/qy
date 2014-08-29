@@ -2,7 +2,7 @@ package ui;
 
 import tools.AppManager;
 
-import com.vikaa.mycontact.R;
+import com.vikaa.allcontact.R;
 
 import android.os.Bundle;
 import android.view.MotionEvent;

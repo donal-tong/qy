@@ -45,7 +45,7 @@ import com.google.zxing.client.android.Intents;
 import com.google.zxing.client.android.LocaleManager;
 import com.google.zxing.client.android.common.executor.AsyncTaskExecInterface;
 import com.google.zxing.client.android.common.executor.AsyncTaskExecManager;
-import com.vikaa.baseapp.R;
+import com.vikaa.allcontact.R;
 
 /**
  * Uses Google Book Search to find a word or phrase in the requested book.

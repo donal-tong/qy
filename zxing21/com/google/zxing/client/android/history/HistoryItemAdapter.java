@@ -28,7 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.zxing.Result;
-import com.vikaa.baseapp.R;
+import com.vikaa.allcontact.R;
 
 final class HistoryItemAdapter extends ArrayAdapter<HistoryItem> {
 

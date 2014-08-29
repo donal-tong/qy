@@ -21,7 +21,7 @@ import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 
 import com.baidu.frontia.api.FrontiaPushMessageReceiver;
-import com.vikaa.mycontact.R;
+import com.vikaa.allcontact.R;
 
 import config.AppClient;
 import config.CommonValue;

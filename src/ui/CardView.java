@@ -20,7 +20,7 @@ import ui.adapter.CardViewAdapter;
 
 import com.crashlytics.android.Crashlytics;
 import com.kuyue.openchat.api.WmOpenChatSdk;
-import com.vikaa.mycontact.R;
+import com.vikaa.allcontact.R;
 
 import config.AppClient;
 import config.AppClient.ClientCallback;

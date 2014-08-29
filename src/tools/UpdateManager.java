@@ -10,7 +10,7 @@ import java.net.URL;
 import java.text.DecimalFormat;
 
 import com.crashlytics.android.Crashlytics;
-import com.vikaa.mycontact.R;
+import com.vikaa.allcontact.R;
 
 import config.AppClient;
 import config.AppClient.ClientCallback;

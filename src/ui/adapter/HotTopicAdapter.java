@@ -13,7 +13,7 @@ import com.nostra13.universalimageloader.core.assist.LoadedFrom;
 import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
-import com.vikaa.mycontact.R;
+import com.vikaa.allcontact.R;
 
 import config.CommonValue;
 import config.MyApplication;

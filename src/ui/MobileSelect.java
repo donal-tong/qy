@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 import bean.CardIntroEntity;
 
 import com.crashlytics.android.Crashlytics;
-import com.vikaa.mycontact.R;
+import com.vikaa.allcontact.R;
 
 import config.AppClient;
 import config.AppClient.FileCallback;

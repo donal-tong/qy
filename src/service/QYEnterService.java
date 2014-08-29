@@ -9,7 +9,7 @@ import java.util.Timer;
 import tools.Logger;
 import ui.Welcome;
 
-import com.vikaa.mycontact.R;
+import com.vikaa.allcontact.R;
 
 import android.app.Activity;
 import android.app.ActivityManager;

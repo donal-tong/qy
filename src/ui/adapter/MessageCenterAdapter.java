@@ -2,7 +2,7 @@ package ui.adapter;
 
 import java.util.List;
 
-import com.vikaa.mycontact.R;
+import com.vikaa.allcontact.R;
 
 import config.CommonValue;
 import bean.CardIntroEntity;

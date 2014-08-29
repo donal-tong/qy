@@ -16,7 +16,7 @@
  */
 package com.viewpagerindicator;
 
-import com.vikaa.mycontact.R;
+import com.vikaa.allcontact.R;
 
 import android.content.Context;
 import android.content.res.Resources;

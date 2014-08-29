@@ -5,7 +5,7 @@ import tools.AppManager;
 import tools.Logger;
 
 import com.viewpagerindicator.TabPageIndicator;
-import com.vikaa.mycontact.R;
+import com.vikaa.allcontact.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

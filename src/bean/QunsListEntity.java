@@ -11,7 +11,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Xml;
 
-import com.vikaa.mycontact.R;
+import com.vikaa.allcontact.R;
 
 public class QunsListEntity extends Entity{
 	

@@ -8,7 +8,7 @@ import tools.UpdateManager;
 import ui.adapter.MoreDialogAdapter;
 import bean.CardIntroEntity;
 
-import com.vikaa.mycontact.R;
+import com.vikaa.allcontact.R;
 
 import config.CommonValue;
 import android.content.Intent;

@@ -10,7 +10,7 @@ import pomelo.PomeloClient;
 import com.kuyue.openchat.api.WmOpenChatSdk;
 import com.loopj.android.http.PersistentCookieStore;
 import com.nostra13.universalimageloader.utils.L;
-import com.vikaa.mycontact.BuildConfig;
+import com.vikaa.allcontact.BuildConfig;
 
 import service.QYEnterService;
 import tools.AppContext;

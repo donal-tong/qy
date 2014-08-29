@@ -20,7 +20,7 @@ import bean.UserEntity;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.loopj.android.http.PersistentCookieStore;
-import com.vikaa.mycontact.R;
+import com.vikaa.allcontact.R;
 
 import config.AppClient;
 import config.AppClient.ClientCallback;

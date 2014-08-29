@@ -15,7 +15,7 @@ import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 import com.nostra13.universalimageloader.core.process.BitmapProcessor;
-import com.vikaa.baseapp.R;
+import com.vikaa.allcontact.R;
 
 /**
  * ImageCacheLoader工具

@@ -38,7 +38,7 @@ import android.view.ViewConfiguration;
 
 import java.util.ArrayList;
 
-import com.vikaa.mycontact.R;
+import com.vikaa.allcontact.R;
 
 /**
  * A TitlePageIndicator is a PageIndicator which displays the title of left view

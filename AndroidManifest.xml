@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.vikaa.mycontact"
+    package="com.vikaa.allcontact"
     android:versionCode="20140822"
     android:versionName="1.4.5" >
 
@@ -399,7 +399,7 @@
         </activity> 
         
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="com.vikaa.mycontact.wxapi.WXEntryActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"

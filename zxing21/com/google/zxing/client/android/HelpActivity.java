@@ -16,7 +16,7 @@
 
 package com.google.zxing.client.android;
 
-import com.vikaa.baseapp.R;
+import com.vikaa.allcontact.R;
 
 import android.app.Activity;
 import android.content.Intent;
