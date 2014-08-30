@@ -45,6 +45,24 @@
         	android:layout_height="50dp"
         	android:src="@drawable/left_menu_message_icon"
         	/>
+        <TextView
+            android:layout_marginLeft="-12dp"
+            android:layout_toRightOf="@+id/imgMessage"
+            android:id="@+id/messageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:textSize="@dimen/message_count_size"
+            android:minWidth="20dp"
+            android:background="@drawable/message_label"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:visibility="invisible"
+            />
         <TextView 
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/imgMessage"

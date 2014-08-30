@@ -61,6 +61,7 @@ import android.widget.Toast;
 import android.widget.ExpandableListView.OnGroupClickListener;
 
 public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefreshListener{
+	private SlidingDrawerView slidingDrawer;
 	protected SlidingMenu side_drawer;
 	
 	private ExpandableListView elvPhonebook;
@@ -136,7 +137,8 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 	}
 	
 	protected void initSlidingMenu() {
-		side_drawer = new SlidingDrawerView(this).initSlidingMenu();
+		slidingDrawer = new SlidingDrawerView(this);
+		side_drawer = slidingDrawer.initSlidingMenu();
 	}
 	
 	private void checkLogin() {
@@ -155,6 +157,14 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 								Utils.getMetaValue(Phonebook.this, "api_key"));
 					}
 					webViewLogin();
+					if (StringUtils.notEmpty(appContext.getNews())) {
+						try {
+							slidingDrawer.setBadgeNumber(appContext.getNews());
+						}
+						catch (Exception e) {
+							Crashlytics.logException(e);
+						}
+					}
 					break;
 				default:
 					UIHelper.ToastMessage(getApplicationContext(), user.getMessage(), Toast.LENGTH_SHORT);

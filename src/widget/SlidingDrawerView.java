@@ -1,6 +1,8 @@
 package widget;
 
 import tools.ImageUtils;
+import tools.Logger;
+import tools.StringUtils;
 import ui.Me;
 import ui.MyActivity;
 import ui.QYWebView;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
@@ -25,6 +28,7 @@ import config.MyApplication;
 
 public class SlidingDrawerView implements OnClickListener{
 
+	private TextView tvMessage;
 	private final Activity activity;
 	SlidingMenu localSlidingMenu;
 	
@@ -63,6 +67,7 @@ public class SlidingDrawerView implements OnClickListener{
 	}
 	
 	private void initListView() {
+		tvMessage = (TextView) localSlidingMenu.findViewById(R.id.messageView);
 		RelativeLayout btnHome = (RelativeLayout) localSlidingMenu.findViewById(R.id.rlPhonebook);
 		btnHome.setOnClickListener(this);
 		RelativeLayout btnMessage = (RelativeLayout) localSlidingMenu.findViewById(R.id.rlMessage);
@@ -71,6 +76,26 @@ public class SlidingDrawerView implements OnClickListener{
 		btnActivity.setOnClickListener(this);
 		RelativeLayout btnCard = (RelativeLayout) localSlidingMenu.findViewById(R.id.rlCard);
 		btnCard.setOnClickListener(this);
+	}
+	
+	public void setBadgeNumber(String number) {
+		Logger.i(number);
+		if (StringUtils.empty(number)) {
+			tvMessage.setVisibility(View.INVISIBLE);
+		}
+		try {
+			int i = Integer.valueOf(number);
+			if (i == 0 ) {
+				tvMessage.setVisibility(View.INVISIBLE);
+			}
+			else {
+				tvMessage.setVisibility(View.VISIBLE);
+				tvMessage.setText(number);
+			}
+		}
+		catch (Exception e ) {
+			tvMessage.setVisibility(View.INVISIBLE);
+		}
 	}
 
 	@Override
@@ -98,6 +123,7 @@ public class SlidingDrawerView implements OnClickListener{
 			intent.putExtra(CommonValue.IndexIntentKeyValue.CreateView, String.format("%s/message/index", CommonValue.BASE_URL));
 			activity.startActivity(intent);
 			AppClient.setMessageRead(MyApplication.getInstance());
+			tvMessage.setVisibility(View.INVISIBLE);
 			break;
 		}
 	}
