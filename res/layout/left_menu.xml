@@ -4,6 +4,11 @@
     android:layout_height="match_parent"
     android:background="@drawable/left_menu_bg"
     android:orientation="vertical" >
+    <View 
+        android:layout_weight="0.15"
+        android:layout_height="0dp"
+        android:layout_width="10dp"
+        />
     <LinearLayout 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,8 +27,13 @@
         	android:src="@drawable/left_menu_icon2_bg"
         	/>
     </LinearLayout>
-	   
+	<View 
+        android:layout_weight="0.1"
+        android:layout_height="0dp"
+        android:layout_width="10dp"
+        />   
     <RelativeLayout 
+        android:id="@+id/rlMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -45,7 +55,13 @@
             style="@style/LeftMenuButtonStyle"
             />
     </RelativeLayout>
+    <View 
+        android:layout_weight="0.06"
+        android:layout_height="0dp"
+        android:layout_width="10dp"
+        /> 
     <RelativeLayout 
+        android:id="@+id/rlPhonebook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -67,7 +83,13 @@
             style="@style/LeftMenuButtonStyle"
             />
     </RelativeLayout>
+    <View 
+        android:layout_weight="0.06"
+        android:layout_height="0dp"
+        android:layout_width="10dp"
+        />
     <RelativeLayout 
+        android:id="@+id/rlActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -89,7 +111,13 @@
             style="@style/LeftMenuButtonStyle"
             />
     </RelativeLayout>
+    <View 
+        android:layout_weight="0.06"
+        android:layout_height="0dp"
+        android:layout_width="10dp"
+        />
     <RelativeLayout 
+        android:id="@+id/rlCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -111,4 +139,9 @@
             style="@style/LeftMenuButtonStyle"
             />
     </RelativeLayout>
+    <View 
+        android:layout_weight="0.15"
+        android:layout_height="0dp"
+        android:layout_width="10dp"
+        />
 </LinearLayout>

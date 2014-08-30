@@ -85,6 +85,12 @@
         </activity>
         
         <activity
+            android:name="ui.MyActivity"
+            android:screenOrientation="portrait"
+             >
+        </activity>
+        
+        <activity
             android:name="ui.UploadAvatar"
             android:screenOrientation="portrait"
              >

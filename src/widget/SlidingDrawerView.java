@@ -1,17 +1,27 @@
 package widget;
 
 import tools.ImageUtils;
+import ui.Me;
+import ui.MyActivity;
+import ui.QYWebView;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.vikaa.allcontact.R;
+
+import config.AppClient;
+import config.CommonValue;
+import config.MyApplication;
 
 public class SlidingDrawerView implements OnClickListener{
 
@@ -53,34 +63,42 @@ public class SlidingDrawerView implements OnClickListener{
 	}
 	
 	private void initListView() {
-//		Button btnHome = (Button) localSlidingMenu.findViewById(R.id.btnHome);
-//		btnHome.setOnClickListener(this);
-//		Button btnMessage = (Button) localSlidingMenu.findViewById(R.id.btnMessage);
-//		btnMessage.setOnClickListener(this);
-//		Button btnFriend = (Button) localSlidingMenu.findViewById(R.id.btnFriend);
-//		btnFriend.setOnClickListener(this);
-//		Button btnMe = (Button) localSlidingMenu.findViewById(R.id.btnMe);
-//		btnMe.setOnClickListener(this);
-//		Button btnContact = (Button) localSlidingMenu.findViewById(R.id.btnContact);
-//		btnContact.setOnClickListener(this);
-//		Button btnSetting = (Button) localSlidingMenu.findViewById(R.id.btnSetting);
-//		btnSetting.setOnClickListener(this);
+		RelativeLayout btnHome = (RelativeLayout) localSlidingMenu.findViewById(R.id.rlPhonebook);
+		btnHome.setOnClickListener(this);
+		RelativeLayout btnMessage = (RelativeLayout) localSlidingMenu.findViewById(R.id.rlMessage);
+		btnMessage.setOnClickListener(this);
+		RelativeLayout btnActivity = (RelativeLayout) localSlidingMenu.findViewById(R.id.rlActivity);
+		btnActivity.setOnClickListener(this);
+		RelativeLayout btnCard = (RelativeLayout) localSlidingMenu.findViewById(R.id.rlCard);
+		btnCard.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
-//		switch (v.getId()) {
-//		case R.id.btnHome:
-//			localSlidingMenu.showContent();
-//			break;
-//        case R.id.btnContact:
-//            activity.startActivity(new Intent(activity, ContactActivity.class));
-//            break;
-//		case R.id.btnSetting:
-//			activity.startActivity(new Intent(activity, SettingActivity.class));
-//			break;
-//		default:
-//			break;
-//		}
+		switch (v.getId()) {
+		case R.id.rlPhonebook:
+			localSlidingMenu.showContent();
+			break;
+        case R.id.rlActivity:
+            activity.startActivity(new Intent(activity, MyActivity.class));
+            break;
+		case R.id.rlCard:
+			activity.startActivity(new Intent(activity, Me.class));
+			break;
+		case R.id.rlMessage:
+			EasyTracker easyTracker = EasyTracker.getInstance(activity);
+			easyTracker.send(MapBuilder
+		      .createEvent("ui_action",     // Event category (required)
+		                   "button_press",  // Event action (required)
+		                   "查看通知："+String.format("%s/message/index", CommonValue.BASE_URL),   // Event label
+		                   null)            // Event value
+		      .build()
+			);
+			Intent intent = new Intent(activity, QYWebView.class);
+			intent.putExtra(CommonValue.IndexIntentKeyValue.CreateView, String.format("%s/message/index", CommonValue.BASE_URL));
+			activity.startActivity(intent);
+			AppClient.setMessageRead(MyApplication.getInstance());
+			break;
+		}
 	}
 }

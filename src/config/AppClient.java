@@ -2340,7 +2340,7 @@ public class AppClient {
                     String target = new String(content);
                     String decode = DecodeUtil.decode(target);
                     target = null;
-                    UserEntity data = UserEntity.userCheckParse(decode);
+                    UserEntity data = UserEntity.userCardDelete(decode);
                     decode = null;
                     msg.obj = data;
                     msg.what = 1;

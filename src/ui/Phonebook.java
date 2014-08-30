@@ -10,6 +10,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import baidupush.Utils;
 import bean.*;
@@ -152,6 +154,7 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 								PushConstants.LOGIN_TYPE_API_KEY, 
 								Utils.getMetaValue(Phonebook.this, "api_key"));
 					}
+					webViewLogin();
 					break;
 				default:
 					UIHelper.ToastMessage(getApplicationContext(), user.getMessage(), Toast.LENGTH_SHORT);
@@ -169,6 +172,17 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 				UIHelper.dismissProgress(loadingPd);
 				((AppException)e).makeToast(getApplicationContext());
 			}
+		});
+	}
+	
+	private void webViewLogin() {
+		WebView webview = (WebView) findViewById(R.id.webview);
+		webview.loadUrl(CommonValue.BASE_URL + "/home/app" + "?_sign=" + appContext.getLoginSign())  ;
+		webview.setWebViewClient(new WebViewClient() {
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				view.loadUrl(url);
+				return true;
+			};
 		});
 	}
 	
@@ -308,6 +322,16 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 	
 	public void ButtonClick(View v) {
 		switch (v.getId()) {
+		case R.id.leftBarButton:
+			if(side_drawer.isMenuShowing()){
+				side_drawer.showContent();
+			}else{
+				side_drawer.showMenu();
+			}
+			break;
+		case R.id.rightBarButton:
+			startActivity(new Intent(this, CreatePhonebook.class));
+			break;
 		case R.id.searchEditView:
 		case R.id.navbar:
 			Intent intent = new Intent(this, WeFriendCardSearch.class);

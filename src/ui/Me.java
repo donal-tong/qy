@@ -3,6 +3,7 @@ package ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import tools.AppManager;
 import tools.Logger;
 import tools.StringUtils;
 import tools.UIHelper;
@@ -68,6 +69,10 @@ public class Me extends AppActivity{
 	
 	public void ButtonClick(View v) {
 		switch (v.getId()) {
+		case R.id.leftBarButton:
+			AppManager.getAppManager().finishActivity(this);
+			break;
+			
 		case R.id.rightBarButton:
 			startActivityForResult(new Intent(this, MoreDialog.class), 1);
 			break;
