@@ -46,7 +46,7 @@ import com.google.zxing.client.result.AddressBookParsedResult;
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.ResultParser;
 import com.google.zxing.common.BitMatrix;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 /**
  * This class does the work of decoding the user's request and extracting all the data

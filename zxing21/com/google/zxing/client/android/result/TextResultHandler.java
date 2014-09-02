@@ -20,7 +20,7 @@ import android.app.Activity;
 
 import com.google.zxing.Result;
 import com.google.zxing.client.result.ParsedResult;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 /**
  * This class handles TextParsedResult as well as unknown formats. It's the fallback handler.

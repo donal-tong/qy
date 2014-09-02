@@ -6,7 +6,7 @@ import tools.Logger;
 import ui.Index;
 import ui.Setting;
 
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import config.CommonValue;
 import bean.CardIntroEntity;

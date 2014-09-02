@@ -22,7 +22,7 @@ import android.view.View;
 import com.google.zxing.Result;
 import com.google.zxing.client.result.ISBNParsedResult;
 import com.google.zxing.client.result.ParsedResult;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 /**
  * Handles books encoded by their ISBN values.

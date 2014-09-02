@@ -28,7 +28,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove.OnPageChangeListener;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 public class SlidingMenu extends RelativeLayout {
 

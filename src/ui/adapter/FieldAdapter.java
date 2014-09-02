@@ -2,7 +2,7 @@ package ui.adapter;
 
 import java.util.List;
 
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

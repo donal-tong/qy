@@ -6,7 +6,7 @@ import java.util.List;
 import tools.AppManager;
 import tools.ImageUtils;
 import ui.adapter.IndexPagerAdapter;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import config.CommonValue;
 

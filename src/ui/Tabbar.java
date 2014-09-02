@@ -14,7 +14,7 @@ import com.kuyue.openchat.api.WmOpenChatSdk;
 import com.kuyue.openchat.api.constant.LoginStatus;
 import com.umeng.socialize.controller.RequestType;
 import com.umeng.socialize.controller.UMServiceFactory;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import config.AppClient;
 import config.CommonValue;

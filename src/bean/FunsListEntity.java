@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
 
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import tools.Logger;
 import android.content.Context;

@@ -20,7 +20,7 @@ import ui.adapter.PrivacyAdapter;
 import ui.adapter.QunTypeAdapter;
 import widget.GridViewForScrollView;
 
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import config.AppClient;
 import config.CommonValue;

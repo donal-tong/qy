@@ -26,7 +26,7 @@ import android.util.Log;
 
 import com.google.zxing.client.result.CalendarParsedResult;
 import com.google.zxing.client.result.ParsedResult;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 /**
  * Handles calendar entries encoded in QR Codes.

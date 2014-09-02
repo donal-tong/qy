@@ -22,7 +22,7 @@ import android.view.View;
 import com.google.zxing.Result;
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.ProductParsedResult;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 /**
  * Handles generic products which are not books.

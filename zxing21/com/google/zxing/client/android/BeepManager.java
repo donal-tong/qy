@@ -18,7 +18,7 @@ package com.google.zxing.client.android;
 
 import java.io.IOException;
 
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import android.app.Activity;
 import android.content.Context;

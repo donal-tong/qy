@@ -23,7 +23,7 @@ import android.app.Activity;
 import com.google.zxing.client.android.LocaleManager;
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.URIParsedResult;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 /**
  * Offers appropriate actions for URLS.

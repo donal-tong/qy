@@ -9,7 +9,7 @@ import bean.Result;
 import bean.UserEntity;
 
 import com.kuyue.openchat.api.WmOpenChatSdk;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import config.AppClient;
 import config.AppClient.ClientCallback;

@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.CanvasTransformer;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 public class CustomViewBehind extends ViewGroup {
 

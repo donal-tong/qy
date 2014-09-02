@@ -41,7 +41,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.DiscCacheUtil;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import config.AppClient;
 import config.AppClient.FileCallback;

@@ -31,7 +31,7 @@ import com.google.analytics.tracking.android.MapBuilder;
 import com.kuyue.openchat.api.WmOpenChatSdk;
 import com.kuyue.openchat.api.Observers.LoginListener;
 import com.kuyue.openchat.api.constant.LoginStatus;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import config.AppClient;
 import config.CommonValue;

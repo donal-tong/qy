@@ -17,7 +17,7 @@
 package com.google.zxing.client.android.share;
 
 
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import android.content.Context;
 import android.database.Cursor;

@@ -11,7 +11,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.LoadedFrom;
 import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import config.CommonValue.LianXiRenType;
 import bean.CardIntroEntity;

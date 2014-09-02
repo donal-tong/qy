@@ -4,7 +4,7 @@ import java.util.List;
 
 import ui.adapter.QunGridViewAdapter.ViewHolder;
 
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import bean.FunsEntity;
 import bean.QunsEntity;

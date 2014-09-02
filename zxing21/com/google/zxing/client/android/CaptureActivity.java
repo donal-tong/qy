@@ -52,7 +52,7 @@ import com.google.zxing.client.android.history.HistoryItem;
 import com.google.zxing.client.android.history.HistoryManager;
 import com.google.zxing.client.android.result.ResultHandler;
 import com.google.zxing.client.android.result.ResultHandlerFactory;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import config.CommonValue;
 

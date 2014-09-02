@@ -21,7 +21,7 @@ import android.telephony.PhoneNumberUtils;
 
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.TelParsedResult;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 /**
  * Offers relevant actions for telephone numbers.

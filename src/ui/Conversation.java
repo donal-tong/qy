@@ -9,7 +9,7 @@ import ui.adapter.ConversationAdapter;
 import bean.CardIntroEntity;
 import bean.FriendCardListEntity;
 
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import config.CommonValue;
 import db.manager.MessageManager;

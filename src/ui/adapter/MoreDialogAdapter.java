@@ -4,7 +4,7 @@ import java.util.List;
 
 import widget.ActionItem;
 
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import bean.CardIntroEntity;
 import android.content.Context;

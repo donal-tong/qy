@@ -42,7 +42,7 @@ import com.google.zxing.client.android.book.SearchBookContentsActivity;
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.ParsedResultType;
 import com.google.zxing.client.result.ResultParser;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 /**
  * A base class for the Android-specific barcode handlers. These allow the app to polymorphically

@@ -8,7 +8,7 @@ import tools.UIHelper;
 
 import bean.Entity;
 
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import config.AppClient;
 import config.AppClient.ClientCallback;

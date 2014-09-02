@@ -21,7 +21,7 @@ import bean.SMSPersonList;
 
 
 import com.google.analytics.tracking.android.EasyTracker;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import config.AppClient;
 import config.CommonValue;

@@ -25,7 +25,7 @@ import tools.DecodeUtil;
 import tools.Logger;
 import tools.StringUtils;
 import ui.Index;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import config.CommonValue;
 import config.MyApplication;

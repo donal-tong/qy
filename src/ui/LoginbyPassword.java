@@ -10,7 +10,7 @@ import android.widget.Toast;
 import bean.Entity;
 import bean.Result;
 import bean.UserEntity;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 import config.AppClient;
 import tools.AppManager;
 import tools.StringUtils;

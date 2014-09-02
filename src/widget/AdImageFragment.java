@@ -9,7 +9,7 @@ import ui.QYWebView;
 import bean.AdsEntity;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import config.CommonValue;
 import android.app.Activity;

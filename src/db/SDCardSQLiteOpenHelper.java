@@ -7,7 +7,7 @@ import java.io.File;
 import tools.Logger;
 
 import com.nostra13.universalimageloader.utils.L;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 
 import android.content.Context;

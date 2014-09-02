@@ -28,7 +28,7 @@ import android.widget.TextView;
 import com.google.zxing.client.android.HttpHelper;
 import com.google.zxing.client.android.LocaleManager;
 import com.google.zxing.client.android.history.HistoryManager;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 /**
  * <p>Retrieves product information from Google Product search.</p>

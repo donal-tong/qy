@@ -14,7 +14,7 @@ import ui.adapter.SettingCardAdapter;
 import bean.CardIntroEntity;
 
 import com.loopj.android.http.PersistentCookieStore;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import config.AppClient;
 import config.CommonValue;

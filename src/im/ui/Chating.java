@@ -12,7 +12,7 @@ import java.util.List;
 
 import bean.ChatterEntity;
 import bean.Entity;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import tools.AppManager;
 import tools.Logger;

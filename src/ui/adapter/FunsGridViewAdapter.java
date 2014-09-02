@@ -4,7 +4,7 @@ import java.util.List;
 
 import bean.FunsEntity;
 
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

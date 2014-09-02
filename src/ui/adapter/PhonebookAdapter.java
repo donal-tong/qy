@@ -8,7 +8,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 import bean.PhoneIntroEntity;
 import android.content.Context;

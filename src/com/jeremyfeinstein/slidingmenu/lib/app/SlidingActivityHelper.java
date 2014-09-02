@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.vikaa.allcontact.R;
+import com.vikaa.wecontact.R;
 
 public class SlidingActivityHelper {
 
