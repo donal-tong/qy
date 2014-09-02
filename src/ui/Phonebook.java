@@ -30,6 +30,8 @@ import com.crashlytics.android.Crashlytics;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
 import com.umeng.socialize.controller.RequestType;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.vikaa.allcontact.R;
@@ -57,6 +59,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ExpandableListView.OnGroupClickListener;
 
@@ -82,6 +85,10 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
     private ImageView indicatorImageView;
     private Animation indicatorAnimation;
 	
+    
+    @ViewInject(R.id.messageView)
+    public TextView messageView;
+    
 	@Override
 	protected void onDestroy() {
 		unregisterReceiver(receiver);
@@ -92,6 +99,7 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.phonebook);
+		ViewUtils.inject(this);
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(CommonValue.PHONEBOOK_CREATE_ACTION);
 		filter.addAction(CommonValue.PHONEBOOK_DELETE_ACTION);
@@ -159,6 +167,7 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 					webViewLogin();
 					if (StringUtils.notEmpty(appContext.getNews())) {
 						try {
+							setBadgeNumber(appContext.getNews());
 							slidingDrawer.setBadgeNumber(appContext.getNews());
 						}
 						catch (Exception e) {
@@ -183,6 +192,25 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 				((AppException)e).makeToast(getApplicationContext());
 			}
 		});
+	}
+	
+	private void setBadgeNumber(String number) {
+		Logger.i(number);
+		if (StringUtils.empty(number)) {
+			messageView.setVisibility(View.INVISIBLE);
+		}
+		try {
+			int i = Integer.valueOf(number);
+			if (i == 0 ) {
+				messageView.setVisibility(View.INVISIBLE);
+			}
+			else {
+				messageView.setVisibility(View.VISIBLE);
+			}
+		}
+		catch (Exception e ) {
+			messageView.setVisibility(View.INVISIBLE);
+		}
 	}
 	
 	private void webViewLogin() {

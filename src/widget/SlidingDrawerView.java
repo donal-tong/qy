@@ -5,6 +5,7 @@ import tools.Logger;
 import tools.StringUtils;
 import ui.Me;
 import ui.MyActivity;
+import ui.Phonebook;
 import ui.QYWebView;
 import android.app.Activity;
 import android.content.Intent;
@@ -29,10 +30,10 @@ import config.MyApplication;
 public class SlidingDrawerView implements OnClickListener{
 
 	private TextView tvMessage;
-	private final Activity activity;
+	private final Phonebook activity;
 	SlidingMenu localSlidingMenu;
 	
-	public SlidingDrawerView(Activity activity) {
+	public SlidingDrawerView(Phonebook activity) {
 		this.activity = activity;
 	}
 	
@@ -124,6 +125,7 @@ public class SlidingDrawerView implements OnClickListener{
 			activity.startActivity(intent);
 			AppClient.setMessageRead(MyApplication.getInstance());
 			tvMessage.setVisibility(View.INVISIBLE);
+			activity.messageView.setVisibility(View.INVISIBLE);
 			break;
 		}
 	}
