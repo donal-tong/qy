@@ -248,7 +248,7 @@ public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
-        if (lvDataState == UIHelper.LISTVIEW_DATA_MORE) {
+        if (lvDataState != UIHelper.LISTVIEW_DATA_LOADING) {
             lvDataState = UIHelper.LISTVIEW_DATA_LOADING;
             getActivityList();
         }
