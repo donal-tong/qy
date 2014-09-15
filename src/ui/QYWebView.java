@@ -439,6 +439,7 @@ public class QYWebView extends AppActivity  {
 			}
 		});
 	}
+	
 	public void ButtonClick(View v) {
 		switch (v.getId()) {
 		case R.id.leftBarButton:
@@ -561,7 +562,6 @@ public class QYWebView extends AppActivity  {
 	    }
 		
 	    public void goPhonebookView(String code) {
-	    	Logger.i(code+"");
 	    	Message msg = new Message();
 	    	msg.what = CommonValue.CreateViewJSType.goPhonebookView;
 	    	msg.obj = code;
@@ -569,13 +569,11 @@ public class QYWebView extends AppActivity  {
 	    }
 	    
 	    public void goPhonebookList(String c){
-	    	Logger.i("aaa");
 	    	Message msg = new Message();
 	    	msg.what = CommonValue.CreateViewJSType.goPhonebookList;
 	    	mJSHandler.sendMessage(msg);
 	    }
 	    public void goActivityView(String code) {
-	    	Logger.i(code+"");
 	    	Message msg = new Message();
 	    	msg.what = CommonValue.CreateViewJSType.goActivityView;
 	    	msg.obj = code;
@@ -587,7 +585,6 @@ public class QYWebView extends AppActivity  {
 	    	mJSHandler.sendMessage(msg);
 	    }
 	    public void goCardList(String code) {
-	    	Logger.i(code+"");
 	    	Message msg = new Message();
 	    	msg.what = CommonValue.CreateViewJSType.goCardView;
 	    	mJSHandler.sendMessage(msg);
@@ -647,73 +644,61 @@ public class QYWebView extends AppActivity  {
 	    }
 	    
 	    public void phonebookRemove(String code){
-	    	Logger.i("d");
 	    	Message msg = new Message();
 	    	msg.what = CommonValue.CreateViewJSType.goPhonebookView;
 	    	mJSHandler.sendMessage(msg);
 	    }
 	    public void phonebookExit(String code){
-	    	Logger.i("d");
 	    	Message msg = new Message();
 	    	msg.what = CommonValue.CreateViewJSType.goPhonebookView;
 	    	mJSHandler.sendMessage(msg);
 	    }
 	    public void phonebookJoin(String code){
-	    	Logger.i("d");
 	    	Message msg = new Message();
 	    	msg.what = CommonValue.CreateViewJSType.goPhonebookView;
 	    	mJSHandler.sendMessage(msg);
 	    }
 	    public void phonebookCreate(String code){
-	    	Logger.i("d");
 	    	Message msg = new Message();
 	    	msg.what = CommonValue.CreateViewJSType.goPhonebookView;
 	    	mJSHandler.sendMessage(msg);
 	    }
 	    public void phonebookSave(String code){
-	    	Logger.i("d");
 	    	Message msg = new Message();
 	    	msg.what = CommonValue.CreateViewJSType.goPhonebookView;
 	    	mJSHandler.sendMessage(msg);
 	    }
 	    public void cardRemove(String code){
-	    	Logger.i("d");
 	    	Message msg = new Message();
 	    	msg.what = CommonValue.CreateViewJSType.goCardView;
 	    	mJSHandler.sendMessage(msg);
 	    }
 	    public void cardSave(String code){
-	    	Logger.i("d");
 	    	Message msg = new Message();
 	    	msg.what = CommonValue.CreateViewJSType.goCardView;
 	    	mJSHandler.sendMessage(msg);
 	    }
 	    public void activityCreate(String code){
-	    	Logger.i("d");
 	    	Message msg = new Message();
 	    	msg.what = CommonValue.CreateViewJSType.goActivityList;
 	    	mJSHandler.sendMessage(msg);
 	    }
 	    public void activitySave(String code){
-	    	Logger.i("d");
 	    	Message msg = new Message();
 	    	msg.what = CommonValue.CreateViewJSType.goActivityList;
 	    	mJSHandler.sendMessage(msg);
 	    }
 	    public void activityExit(String code){
-	    	Logger.i("d");
 	    	Message msg = new Message();
 	    	msg.what = CommonValue.CreateViewJSType.goActivityList;
 	    	mJSHandler.sendMessage(msg);
 	    }
 	    public void activityJoin(String code){
-	    	Logger.i("d");
 	    	Message msg = new Message();
 	    	msg.what = CommonValue.CreateViewJSType.goActivityList;
 	    	mJSHandler.sendMessage(msg);
 	    }
 	    public void activityRemove(String code){
-	    	Logger.i("d");
 	    	Message msg = new Message();
 	    	msg.what = CommonValue.CreateViewJSType.goActivityList;
 	    	mJSHandler.sendMessage(msg);
@@ -722,7 +707,6 @@ public class QYWebView extends AppActivity  {
 	
 	Handler mJSHandler = new Handler(){
 		public void handleMessage(Message msg) {
-			Logger.i(msg.what+"");
 			Intent intent = new Intent();
 			String code ;
 			switch (msg.what) {
@@ -753,12 +737,10 @@ public class QYWebView extends AppActivity  {
 				break;
 			case CommonValue.CreateViewJSType.share:
 				code = (String) msg.obj;
-				Logger.i(code);
 				parseShare(code);
 				break;
 			case CommonValue.CreateViewJSType.savePhoneBook:
 				code = (String) msg.obj;
-				Logger.i(code);
 				parsePhonebook(code);
 				break;
 			case CommonValue.CreateViewJSType.showPhonebookSmsButton:
@@ -786,17 +768,14 @@ public class QYWebView extends AppActivity  {
 				break;
 			case CommonValue.CreateViewJSType.showJiaV:
 				code = (String) msg.obj;
-				Logger.i(code);
 				enterJiaV(code);
 				break;
 			case CommonValue.CreateViewJSType.showUploadAvatar:
 				code = (String) msg.obj;
-				Logger.i(code);
 				enterUploadAvatar(code);
 				break;
 			case CommonValue.CreateViewJSType.webViewReady:
 				code = (String) msg.obj;
-				Logger.i(code);
 				enterParseInfo(code);
 				break;
 			}

@@ -26,6 +26,8 @@ import com.vikaa.mycontact.R;
 import config.AppClient;
 import config.CommonValue;
 import config.MyApplication;
+import de.greenrobot.event.EventBus;
+import event.NotificationEvent;
 
 /**
  * Push消息处理receiver。请编写您需要的回调函数，
@@ -104,7 +106,13 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
 				customJson = new JSONObject(message);
 				String title = customJson.getString("title");
 				String content = customJson.getString("description");
-				showNotify(title, content);
+				if (content.equals("通讯录导入成功")) {
+					Logger.i("aaaa");
+					EventBus.getDefault().post(new NotificationEvent(1));
+				}
+				else {
+					showNotify(title, content);
+				}
 			} catch (JSONException e) {
 				Logger.i(e);
 				e.printStackTrace();
