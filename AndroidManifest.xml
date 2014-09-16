@@ -428,8 +428,19 @@
 		</receiver>
         
         
+        <!-- push应用定义消息receiver声明 -->
+        <receiver android:name="baidupush.MyPushMessageReceiver">
+            <intent-filter>
+                <!-- 接收push消息 -->
+                <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
+                <!-- 接收bind,unbind,fetch,delete等反馈消息 -->
+                <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
+                <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
+            </intent-filter>
+        </receiver>
+        
+        <!-- push必须的receviver和service声明 -->
         <receiver android:name="com.baidu.android.pushservice.PushServiceReceiver"
-            
             android:process=":bdservice_v1">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -438,18 +449,7 @@
                 <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
             </intent-filter>
         </receiver>
-        
-        <receiver android:name="baidupush.MyPushMessageReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
-                <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
-                <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
-            </intent-filter>
-        </receiver>
-        
         <receiver android:name="com.baidu.android.pushservice.RegistrationReceiver"
-            android:exported="true"
             android:process=":bdservice_v1">
             <intent-filter>
                 <action android:name="com.baidu.android.pushservice.action.METHOD" />
@@ -463,11 +463,15 @@
         <service
             android:name="com.baidu.android.pushservice.PushService"
             android:exported="true"
-            android:process=":bdservice_v1" >
+            android:process=":bdservice_v1"  >
             <intent-filter>
                 <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
             </intent-filter>
         </service>
+        <!-- push结束 -->
+        
+		<!-- 在百度开发者中心查询应用的API Key -->
+        <meta-data android:name="api_key" android:value="eXvZH3r0oZidynO2gl6l92uR" />
       
         <service android:name="tools.NetworkStateService" >
             <intent-filter android:priority="1000" >
@@ -501,7 +505,6 @@
             android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
         
-        <meta-data android:name="api_key" android:value="eXvZH3r0oZidynO2gl6l92uR" />
         <meta-data android:name="com.crashlytics.ApiKey" android:value="d6f3179ac695a7efd4c28c329ce8a5c04f2e0bc7"/>
         <meta-data android:name="com.amap.api.v2.apikey" android:value="839aa97d0d89257117fd6d5fc3883774" />
         <meta-data

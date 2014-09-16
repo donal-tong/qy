@@ -166,7 +166,7 @@ public class AppClient {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		params.add("client_push", "android");
+		params.add("client_push", appContext.getMessageInterupt());
 		params.add("push_device_type", "3");
 		QYRestClient.post("user/autologin", params, new AsyncHttpResponseHandler() {
 			@Override

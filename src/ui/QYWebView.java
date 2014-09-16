@@ -29,9 +29,6 @@ import bean.WebContent;
 
 import com.crashlytics.android.Crashlytics;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.controller.RequestType;
-import com.umeng.socialize.controller.UMServiceFactory;
-import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.media.CircleShareContent;
 import com.umeng.socialize.media.QQShareContent;
 import com.umeng.socialize.media.QZoneShareContent;
@@ -45,14 +42,14 @@ import com.vikaa.mycontact.R;
 
 import config.AppClient;
 import config.AppClient.ClientCallback;
-import config.AppClient.FileCallback;
 import config.AppClient.WebCallback;
 import config.CommonValue;
+import de.greenrobot.event.EventBus;
+import event.NotificationEvent;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
 import android.content.BroadcastReceiver;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -131,6 +128,7 @@ public class QYWebView extends AppActivity  {
 		registerGetReceiver();
 		initUI();
 		initData();
+		
 	}
 	
 	private void initUI() {
@@ -1209,4 +1207,5 @@ public class QYWebView extends AppActivity  {
 			break;
 		}
 	}
+	
 }

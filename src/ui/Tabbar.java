@@ -173,9 +173,13 @@ public class Tabbar extends TabActivity implements OnCheckedChangeListener{
 				case Result.RESULT_OK:
 					appContext.saveLoginInfo(user);
 //					getUnReadMessage();
-					if (!Utils.hasBind(getApplicationContext())) {
-						blindBaidu();
-					}
+					Logger.i(user.openid);
+					appContext.setMessageInterupt("1");
+//					if (!Utils.hasBind(getApplicationContext())) {
+						PushManager.startWork(getApplicationContext(),
+								PushConstants.LOGIN_TYPE_API_KEY, 
+								Utils.getMetaValue(Tabbar.this, "api_key"));
+//					}
 					Intent intent = new Intent(CommonValue.Login_SUCCESS_ACTION);
 					sendBroadcast(intent);
 					break;
@@ -203,9 +207,7 @@ public class Tabbar extends TabActivity implements OnCheckedChangeListener{
 //		singleThreadExecutor.execute(new Runnable() {
 //			@Override
 //			public void run() {
-				PushManager.startWork(getApplicationContext(),
-						PushConstants.LOGIN_TYPE_API_KEY, 
-						Utils.getMetaValue(Tabbar.this, "api_key"));
+				
 //			}
 //		});
 		

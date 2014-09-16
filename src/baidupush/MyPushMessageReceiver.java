@@ -83,7 +83,9 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
 	public void onBind(Context context, int errorCode, String appid, 
 				String userId, String channelId, String requestId) {
 		// 绑定成功，设置已绑定flag，可以有效的减少不必要的绑定请求
+		Logger.i(errorCode+"");
 		if (errorCode == 0) {
+			Logger.i(MyApplication.getInstance().getMessageInterupt()+"");
 			AppClient.setUser(context, userId, channelId, MyApplication.getInstance().getMessageInterupt());
 		}
 	}
@@ -106,9 +108,15 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
 				customJson = new JSONObject(message);
 				String title = customJson.getString("title");
 				String content = customJson.getString("description");
-				if (content.equals("通讯录导入成功")) {
-					Logger.i("aaaa");
-					EventBus.getDefault().post(new NotificationEvent(1));
+				if (!customJson.isNull("action")) {
+					String action = customJson.getString("action");
+					if (action.equals("pbsms")) {
+						if (!customJson.isNull("params")) {
+							String params = customJson.getString("params");
+							Logger.i(params);
+							EventBus.getDefault().post(new NotificationEvent(params));
+						}
+					}
 				}
 				else {
 					showNotify(title, content);

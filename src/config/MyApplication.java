@@ -59,6 +59,7 @@ public class MyApplication extends AppContext {
 	}
 	
 	public void onCreate() {
+		super.onCreate();
 		mApplication = this;
 		Logger.getLogger().setTag("MyContact");
 		ImageCacheUtil.init(this);

@@ -14,6 +14,7 @@ import tools.UIHelper;
 import ui.adapter.FindAdFragmentAdapter;
 import ui.adapter.FunsGridViewAdapter;
 import ui.adapter.QunGridViewAdapter;
+import baidupush.Utils;
 import bean.AdsEntity;
 import bean.AdsListEntity;
 import bean.CardListEntity;
@@ -25,6 +26,8 @@ import bean.QunsListEntity;
 import bean.Result;
 import bean.TopicOptionListEntity;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.crashlytics.android.Crashlytics;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
