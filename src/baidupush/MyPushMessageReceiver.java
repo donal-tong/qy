@@ -113,7 +113,6 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
 					if (action.equals("pbsms")) {
 						if (!customJson.isNull("params")) {
 							String params = customJson.getString("params");
-							Logger.i(params);
 							EventBus.getDefault().post(new NotificationEvent(params));
 						}
 					}

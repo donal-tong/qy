@@ -10,6 +10,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import bean.*;
 import tools.Logger;
@@ -481,7 +483,22 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 				mobileNum = count;
 				editText.setHint("您共有"+(Integer.valueOf(appContext.getDeg2()) + count)+"位二度人脉可搜索");
 			}
+			else if (CommonValue.Login_SUCCESS_ACTION.equals(action)) {
+//				webViewLogin();
+			}
 		}
 
 	};
+	
+	private void webViewLogin() {
+		WebView webview = (WebView) findViewById(R.id.webview);
+		webview.loadUrl(CommonValue.BASE_URL + "/home/app" + "?_sign=" + appContext.getLoginSign())  ;
+		webview.setWebViewClient(new WebViewClient() {
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				view.loadUrl(url);
+				return true;
+			};
+		});
+//		getCardList();
+	}
 }

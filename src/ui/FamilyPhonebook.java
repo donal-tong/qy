@@ -145,6 +145,7 @@ public class FamilyPhonebook extends AppActivity implements OnRefreshListener, O
 			swipeLayout.setRefreshing(false);
 		}
 	}
+	
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View convertView, int position, long arg3) {
 		PhoneIntroEntity entity = familys.get(position);

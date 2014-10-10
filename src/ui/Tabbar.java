@@ -172,8 +172,6 @@ public class Tabbar extends TabActivity implements OnCheckedChangeListener{
 				switch (user.getError_code()) {
 				case Result.RESULT_OK:
 					appContext.saveLoginInfo(user);
-//					getUnReadMessage();
-					Logger.i(user.openid);
 					appContext.setMessageInterupt("1");
 //					if (!Utils.hasBind(getApplicationContext())) {
 						PushManager.startWork(getApplicationContext(),
@@ -200,17 +198,6 @@ public class Tabbar extends TabActivity implements OnCheckedChangeListener{
 				((AppException)e).makeToast(getApplicationContext());
 			}
 		});
-	}
-	
-	private void blindBaidu() {
-//		ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
-//		singleThreadExecutor.execute(new Runnable() {
-//			@Override
-//			public void run() {
-				
-//			}
-//		});
-		
 	}
 	
 	private void showLogin() {

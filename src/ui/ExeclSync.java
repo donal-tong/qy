@@ -89,7 +89,7 @@ public class ExeclSync extends AppActivity{
 	protected void SMSDialog(final int type) {
 		try {
 			AlertDialog.Builder builder = new Builder(context);
-			builder.setMessage("允许群友通讯录发送短信?\n建议一次发送不超过50条短信");
+			builder.setMessage("发送短信通知好友?\n建议一次发送不超过50条短信");
 			builder.setTitle("提示");
 			builder.setPositiveButton("确认", new OnClickListener() {
 				@Override
@@ -119,7 +119,6 @@ public class ExeclSync extends AppActivity{
 	}
 	
 	public void onEventMainThread(NotificationEvent event) {
-		Logger.i("aaa");
     	keyCode = event.getMsg();
     	SMSDialog(1);
     }
