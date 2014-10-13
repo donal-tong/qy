@@ -13,6 +13,7 @@ import bean.CardListEntity;
 import bean.Entity;
 import bean.Result;
 
+import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 import com.google.zxing.client.android.CaptureActivity;
@@ -42,7 +43,7 @@ public class Me extends AppActivity{
 	private List<List<CardIntroEntity>> cards;
 	private MeCardAdapter mCardAdapter;
 	
-	private ImageView avatarView;
+	private RoundedImageView avatarView;
 	private TextView nameTV;
 	private TextView creditTV;
 	private DisplayImageOptions avatar_options = new DisplayImageOptions.Builder()
@@ -50,7 +51,6 @@ public class Me extends AppActivity{
 	.cacheInMemory(true)
 	.cacheOnDisc(true)
 	.imageScaleType(ImageScaleType.EXACTLY_STRETCHED) 
-	.displayer(new RoundedBitmapDisplayer(10))
 	.build();
 	
 //	private TitlePopup titlePopup;
@@ -81,7 +81,7 @@ public class Me extends AppActivity{
 		iphoneTreeView.setGroupIndicator(null);
 		iphoneTreeView.addFooterView(footer);
 		View header = inflater.inflate(R.layout.more_headerview, null);
-		avatarView = (ImageView) header.findViewById(R.id.avatar);
+		avatarView = (RoundedImageView) header.findViewById(R.id.avatar);
 		nameTV = (TextView) header.findViewById(R.id.title);
 		creditTV = (TextView) header.findViewById(R.id.jifen);
 		nameTV.setText(appContext.getNickname());

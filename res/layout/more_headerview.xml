@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -21,13 +22,17 @@
 	    android:layout_height="89dp"
 	    android:background="@color/white"
 	    >
-	    <ImageView 
+	    <com.github.siyamed.shapeimageview.RoundedImageView 
 	        android:id="@+id/avatar"
 	        android:layout_marginLeft="14dp"
 	        android:layout_centerVertical="true"
 	        android:layout_height="63dp"
 	        android:layout_width="63dp"
-	        android:background="@drawable/avatar_corner"
+	        android:src="@drawable/avatar_corner"
+	        app:cornerradius="10dp"
+		   	app:square="true"
+ 			app:borderWidth="1dp"
+ 			app:borderColor="@color/white"
 	        />
 	    <LinearLayout 
 	        android:layout_toRightOf="@+id/avatar"

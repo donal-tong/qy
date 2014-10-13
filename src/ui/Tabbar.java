@@ -41,15 +41,15 @@ public class Tabbar extends TabActivity implements OnCheckedChangeListener{
 	private RelativeLayout layout3;
 	private RelativeLayout layout4;
 	
-	private Intent homeIntent;
-	private Intent nearmeIntent;
-	private Intent meIntent;
-	private Intent moreIntent;
+	private Intent phonebookIntent;
+	private Intent activityIntent;
+	private Intent discoverIntent;
+	private Intent cardIntent;
 	
-	private final static String TAB_TAG_HOME = "tab_tag_home";
-	private final static String TAB_TAG_NEARME = "tab_tag_nearme";
-	private final static String TAB_TAG_ME = "tab_tag_me";
-	private final static String TAB_TAG_MORE = "tab_tag_more";
+	private final static String TAB_TAG_PHONEBOOK = "tab_tag_phonebook";
+	private final static String TAB_TAG_ACTIVITY = "tab_tag_activity";
+	private final static String TAB_TAG_DISCOVER = "tab_tag_discover";
+	private final static String TAB_TAG_CARD = "tab_tag_card";
 	
 	private ProgressDialog loadingPd;
 
@@ -81,19 +81,19 @@ public class Tabbar extends TabActivity implements OnCheckedChangeListener{
 	}
 	
 	private void prepareIntent() {
-		homeIntent = new Intent(this, Find.class);
-		nearmeIntent = new Intent(this, Phonebook.class);
-		meIntent = new Intent(this, Assistant.class);
-		moreIntent = new Intent(this, Me.class);
+		phonebookIntent = new Intent(this, Phonebook.class);
+		activityIntent = new Intent(this, Assistant.class);
+		discoverIntent = new Intent(this, Find.class);
+		cardIntent = new Intent(this, Me.class);
 	}
 	
 	private void setupIntent() {
 		mTabHost = getTabHost();
 		TabHost localTabHost = mTabHost;
-		localTabHost.addTab(buildTabSpec(TAB_TAG_HOME, R.string.main_home, R.drawable.btn_phone, homeIntent));
-		localTabHost.addTab(buildTabSpec(TAB_TAG_NEARME, R.string.main_my_card, R.drawable.btn_phone, nearmeIntent));
-		localTabHost.addTab(buildTabSpec(TAB_TAG_ME, R.string.main_message, R.drawable.btn_phone, meIntent));
-		localTabHost.addTab(buildTabSpec(TAB_TAG_MORE, R.string.main_more, R.drawable.btn_phone, moreIntent));
+		localTabHost.addTab(buildTabSpec(TAB_TAG_PHONEBOOK, R.string.main_home, R.drawable.btn_phone, phonebookIntent));
+		localTabHost.addTab(buildTabSpec(TAB_TAG_ACTIVITY, R.string.main_my_card, R.drawable.btn_phone, activityIntent));
+		localTabHost.addTab(buildTabSpec(TAB_TAG_DISCOVER, R.string.main_message, R.drawable.btn_phone, discoverIntent));
+		localTabHost.addTab(buildTabSpec(TAB_TAG_CARD, R.string.main_more, R.drawable.btn_phone, cardIntent));
 	}
 	
 	/**
@@ -114,17 +114,17 @@ public class Tabbar extends TabActivity implements OnCheckedChangeListener{
 	public void onCheckedChanged(RadioGroup arg0, int checkedId) {
 		switch(checkedId){
 		case R.id.radio_button1:
-			Tabbar.mTabHost.setCurrentTabByTag(TAB_TAG_HOME);
+			Tabbar.mTabHost.setCurrentTabByTag(TAB_TAG_PHONEBOOK);
 			break;
 		case R.id.radio_button2:
-			Tabbar.mTabHost.setCurrentTabByTag(TAB_TAG_NEARME);
+			Tabbar.mTabHost.setCurrentTabByTag(TAB_TAG_ACTIVITY);
 			break;
 		case R.id.radio_button3:
-			Tabbar.mTabHost.setCurrentTabByTag(TAB_TAG_ME);
+			Tabbar.mTabHost.setCurrentTabByTag(TAB_TAG_DISCOVER);
 			break;
 		case R.id.radio_button4:
 			layout1.setSelected(false);
-			Tabbar.mTabHost.setCurrentTabByTag(TAB_TAG_MORE);
+			Tabbar.mTabHost.setCurrentTabByTag(TAB_TAG_CARD);
 			break;
 		}
 	}
@@ -136,28 +136,28 @@ public class Tabbar extends TabActivity implements OnCheckedChangeListener{
 	        layout2.setSelected(false);
 	        layout3.setSelected(false);
 	        layout4.setSelected(false);
-			Tabbar.mTabHost.setCurrentTabByTag(TAB_TAG_HOME);
+			Tabbar.mTabHost.setCurrentTabByTag(TAB_TAG_PHONEBOOK);
 			break;
 		case R.id.radio_button2:
 			layout1.setSelected(false);
 	        layout2.setSelected(true);
 	        layout3.setSelected(false);
 	        layout4.setSelected(false);
-			Tabbar.mTabHost.setCurrentTabByTag(TAB_TAG_NEARME);
+			Tabbar.mTabHost.setCurrentTabByTag(TAB_TAG_ACTIVITY);
 			break;
 		case R.id.radio_button3:
 			layout1.setSelected(false);
 	        layout2.setSelected(false);
 	        layout3.setSelected(true);
 	        layout4.setSelected(false);
-			Tabbar.mTabHost.setCurrentTabByTag(TAB_TAG_ME);
+			Tabbar.mTabHost.setCurrentTabByTag(TAB_TAG_DISCOVER);
 			break;
 		case R.id.radio_button4:
 			layout1.setSelected(false);
 	        layout2.setSelected(false);
 	        layout3.setSelected(false);
 	        layout4.setSelected(true);
-			Tabbar.mTabHost.setCurrentTabByTag(TAB_TAG_MORE);
+			Tabbar.mTabHost.setCurrentTabByTag(TAB_TAG_CARD);
 			break;
 		}
 	}

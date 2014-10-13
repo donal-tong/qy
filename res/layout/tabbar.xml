@@ -45,7 +45,7 @@
     	            android:layout_marginTop="2dp"
     	            android:layout_width="31dp"
     	            android:layout_height="31dp"
-    	            android:background="@drawable/tabbar_message"
+    	            android:background="@drawable/tabbar_phone"
     	            android:layout_centerHorizontal="true"
     	            />
     	        <TextView 
@@ -53,7 +53,7 @@
     	            android:layout_width="match_parent"
     	            android:layout_height="18dp"
     	            android:layout_alignParentBottom="true"
-    	            android:text="发布"
+    	            android:text="通讯录"
     	            android:gravity="center_horizontal"
     	            android:textColor="@color/tabbar_text_color"
     	            android:layout_marginBottom="2dp"
@@ -75,7 +75,7 @@
     	            android:layout_marginTop="2dp"
     	            android:layout_width="31dp"
     	            android:layout_height="31dp"
-    	            android:background="@drawable/tabbar_phone"
+    	            android:background="@drawable/tabbar_activity"
     	            android:layout_centerHorizontal="true"
     	            />
     	        <TextView 
@@ -83,7 +83,7 @@
     	            android:layout_width="match_parent"
     	            android:layout_height="18dp"
     	            android:layout_alignParentBottom="true"
-    	            android:text="通讯录"
+    	            android:text="活动"
     	            android:gravity="center_horizontal"
     	            android:textColor="@color/tabbar_text_color"
     	            android:layout_marginBottom="2dp"
@@ -105,7 +105,7 @@
     	            android:duplicateParentState="true"
     	            android:layout_width="31dp"
     	            android:layout_height="31dp"
-    	            android:background="@drawable/tabbar_friend"
+    	            android:background="@drawable/tabbar_discover"
     	            android:layout_centerHorizontal="true"
     	            />
     	        <TextView 
@@ -113,7 +113,7 @@
     	            android:layout_width="match_parent"
     	            android:layout_height="18dp"
     	            android:layout_alignParentBottom="true"
-    	            android:text="助手"
+    	            android:text="发现"
     	            android:gravity="center_horizontal"
     	            android:textColor="@color/tabbar_text_color"
     	            android:layout_marginBottom="2dp"
@@ -144,7 +144,7 @@
     	            android:layout_width="match_parent"
     	            android:layout_height="18dp"
     	            android:layout_alignParentBottom="true"
-    	            android:text="我的"
+    	            android:text="名片"
     	            android:gravity="center_horizontal"
     	            android:textColor="@color/tabbar_text_color"
     	            android:layout_marginBottom="2dp"
