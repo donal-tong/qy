@@ -4,6 +4,7 @@ package ui;
 import tools.AppManager;
 import tools.Logger;
 
+import com.readystatesoftware.viewbadger.BadgeView;
 import com.viewpagerindicator.TabPageIndicator;
 import com.vikaa.mycontact.R;
 
@@ -59,6 +60,7 @@ public class QunTopic extends AppActivity {
 				closeInput();
 			}
 		});
+        
 	}
 	
 	class QunTopicFragmentAdapter extends FragmentPagerAdapter{

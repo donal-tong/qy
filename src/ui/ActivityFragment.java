@@ -41,7 +41,7 @@ import android.widget.ExpandableListView.OnGroupClickListener;
 
 public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-	private MainActivity activity;
+	private AppActivity activity;
     private int lvDataState;
 	private List<PhoneIntroEntity> myQuns = new ArrayList<PhoneIntroEntity>();
 	private List<PhoneIntroEntity> joinedQuns = new ArrayList<PhoneIntroEntity>();

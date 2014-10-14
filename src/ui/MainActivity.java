@@ -51,6 +51,9 @@ public class MainActivity extends AppActivity{
 	@ViewInject(R.id.badge)
 	private BadgeView badge;
 	
+	@ViewInject(R.id.badgeDiscover)
+	private BadgeView badgeDiscover;
+	
 	@ViewInject(R.id.navTitle)
 	private TextView navTitle;
 	
@@ -85,9 +88,12 @@ public class MainActivity extends AppActivity{
 		getSupportFragmentManager().beginTransaction()
 		.add(R.id.fragment_container, phonebookFragment)
 		.add(R.id.fragment_container, activityFragment)
-		.hide(activityFragment).show(phonebookFragment)
+		.hide(activityFragment)
+		.show(phonebookFragment)
 		.commit();
 		checkLogin();
+		
+		badgeDiscover.setVisibility(View.INVISIBLE);
 	}
 	
 	@Override
@@ -170,7 +176,6 @@ public class MainActivity extends AppActivity{
 			trx.show(fragments[index]).commit();
 		}
 		mTabs[currentTabIndex].setSelected(false);
-		// 把当前tab设为选中状态
 		mTabs[index].setSelected(true);
 		currentTabIndex = index;
 	}

@@ -93,6 +93,7 @@
    	            android:background="#959595"
    	            />
    	        <ImageView 
+   	            android:id="@+id/imgDiscover"
    	            android:layout_marginTop="2dp"
    	            android:duplicateParentState="true"
    	            android:layout_width="31dp"
@@ -110,6 +111,17 @@
    	            android:textColor="@color/tabbar_text_color"
    	            android:layout_marginBottom="2dp"
    	            />
+   	        <com.readystatesoftware.viewbadger.BadgeView
+				android:layout_width="10dp"
+				android:layout_height="10dp"
+				android:id="@+id/badgeDiscover"
+				android:visibility="visible"
+				android:layout_alignTop="@+id/imgDiscover"
+				android:layout_toRightOf="@+id/imgDiscover"
+				android:layout_marginLeft="-10dp"
+				android:layout_marginTop="1dp"
+				android:layout_gravity="center" />
+   	        
    	    </RelativeLayout>
    	    
    	    <RelativeLayout 

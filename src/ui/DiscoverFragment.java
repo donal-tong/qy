@@ -3,6 +3,7 @@ package ui;
 
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.readystatesoftware.viewbadger.BadgeView;
 import com.vikaa.mycontact.R;
 
 import android.content.Intent;
@@ -28,6 +29,9 @@ public class DiscoverFragment extends Fragment implements OnClickListener{
 	@ViewInject(R.id.btn_fileshare)
 	private RelativeLayout btnFileShare;
 	
+	@ViewInject(R.id.badgeRecommend)
+	private BadgeView badgeRecommend;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class DiscoverFragment extends Fragment implements OnClickListener{
 		btnRecommend.setOnClickListener(this);
 		btnTopic.setOnClickListener(this);
 		btnFileShare.setOnClickListener(this);
+		badgeRecommend.setVisibility(View.INVISIBLE);
 		return view;
 	}
 
@@ -56,6 +61,7 @@ public class DiscoverFragment extends Fragment implements OnClickListener{
 			break;
 			
 		case R.id.btn_fileshare:
+			
 			break;
 		}
 	}
