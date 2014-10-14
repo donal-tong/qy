@@ -1,10 +1,15 @@
 package ui;
 
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.readystatesoftware.viewbadger.BadgeView;
 import com.vikaa.mycontact.R;
+
+import config.AppClient;
+import config.CommonValue;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -54,6 +59,7 @@ public class DiscoverFragment extends Fragment implements OnClickListener{
 
 		case R.id.btn_recommend:
 			startActivity(new Intent(getActivity(), RecommendActivity.class));
+			
 			break;
 			
 		case R.id.btn_topic:
@@ -61,7 +67,17 @@ public class DiscoverFragment extends Fragment implements OnClickListener{
 			break;
 			
 		case R.id.btn_fileshare:
-			
+			EasyTracker easyTracker = EasyTracker.getInstance(getActivity());
+			easyTracker.send(MapBuilder
+		      .createEvent("ui_action",     // Event category (required)
+		                   "button_press",  // Event action (required)
+		                   "查看通知："+String.format("%s/message/index", CommonValue.BASE_URL),   // Event label
+		                   null)            // Event value
+		      .build()
+			);
+			Intent intent = new Intent(getActivity(), QYWebView.class);
+			intent.putExtra(CommonValue.IndexIntentKeyValue.CreateView, String.format("%s/docs/index", CommonValue.BASE_URL));
+			startActivity(intent);
 			break;
 		}
 	}

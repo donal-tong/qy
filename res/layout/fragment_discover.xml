@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:background="@color/white"
         android:id="@+id/btn_download"
+        android:visibility="gone"
         >
         
         <ImageView
