@@ -25,11 +25,11 @@ public class CommonValue {
 	
 	public static final String PackageName = "com.vikaa.mycontact";
 	
-//	public static String BASE_API = "http://qun.hk/api/";
-//	public static String BASE_URL = "http://qun.hk";
+	public static String BASE_API = "http://qun.hk/api/";
+	public static String BASE_URL = "http://qun.hk";
 	
-	public static String BASE_API = "http://pb.wcl.m0.hk/api/";
-	public static String BASE_URL = "http://pb.wcl.m0.hk";
+//	public static String BASE_API = "http://pb.wcl.m0.hk/api/";
+//	public static String BASE_URL = "http://pb.wcl.m0.hk";
 	
 	public static final String KEY_GUIDE_SHOWN = "preferences_guide_shown";
 	
@@ -136,8 +136,8 @@ public class CommonValue {
 	
 	public interface PhoneSectionType {
 		String MobileSectionType = "我的通讯录";
-		String OwnedSectionType = "我发起的通讯录(长按可分享)";
-		String JoinedSectionType = "我参与的通讯录(长按可分享)";
+		String OwnedSectionType = "我发起的";
+		String JoinedSectionType = "我参与的";
 		String RecommendSectionType = "公开推荐群";
 	}
 	
@@ -148,8 +148,8 @@ public class CommonValue {
 	}
 	
 	public interface ActivitySectionType {
-		String OwnedSectionType = "我的活动";
-		String JoinedSectionType = "我参与的聚会(长按可分享)";
+		String OwnedSectionType = "我发起的";
+		String JoinedSectionType = "我参与的";
 	}
 	
 	public interface CardSectionType {
@@ -172,6 +172,9 @@ public class CommonValue {
 		int ActivityCreateCreat = 2;
 		String CardCreateUrl = String.format("%s/card/setting/id/0", BASE_URL);
 		int CardCreat = 3;
+		
+		String FamilyPhonebookCreateUrl = String.format("%s/family/create", BASE_URL);
+		int FamilyPhonebookCreat = 4;
 		
 		String CardCreateUrl1 = String.format("%s/card/setting", BASE_URL);
 	}
@@ -269,6 +272,7 @@ public class CommonValue {
 	}
 	
 	//login action
+	public static final String RELOGIN_ACTION = "RELOGIN_ACTION";
 	public static final String Login_SUCCESS_ACTION = "Login_SUCCESS_ACTION";
 	
 	//im

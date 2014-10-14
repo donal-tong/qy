@@ -9,7 +9,6 @@ import bean.Result;
 import bean.UserEntity;
 
 import com.crashlytics.android.Crashlytics;
-import com.kuyue.openchat.api.WmOpenChatSdk;
 import com.vikaa.mycontact.R;
 
 import config.AppClient;

@@ -318,7 +318,7 @@ public class Register extends AppActivity implements OnFocusChangeListener{
 	}
 	
 	private void enterIndex() {
-		Intent intent = new Intent(this, Tabbar.class);
+		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 	}
 	

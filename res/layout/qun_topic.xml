@@ -28,7 +28,7 @@
             android:id="@+id/titleBarView"
             android:layout_width="wrap_content"
       		android:layout_height="wrap_content"
-            android:text="群聊话题"
+            android:text="热门话题"
             android:layout_centerInParent="true"
             android:textColor="@color/white"
             android:textSize="@dimen/navbar_title_size"

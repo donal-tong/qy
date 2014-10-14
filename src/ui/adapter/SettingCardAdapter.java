@@ -105,32 +105,32 @@ public class SettingCardAdapter extends BaseExpandableListAdapter{
 		}
 		final CardIntroEntity model = cards.get(groupPosition).get(childPosition);
 		cell.titleView.setText(model.realname);
-		if (model.cardSectionType.equals(CommonValue.CardSectionType.SettingsSectionType)) {
-			if (childPosition == 1) {
-				convertView.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						((Setting)context).showDialog(1);
-					}
-				});
-			}
-            else {
-                convertView.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View arg0) {
-                        ((Setting)context).setPassword();
-                    }
-                });
-            }
-		}
-		else {
-			convertView.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View arg0) {
-					((Setting)context).logout();
-				}
-			});
-		}
+//		if (model.cardSectionType.equals(CommonValue.CardSectionType.SettingsSectionType)) {
+//			if (childPosition == 1) {
+//				convertView.setOnClickListener(new OnClickListener() {
+//					@Override
+//					public void onClick(View arg0) {
+//						((Setting)context).showDialog(1);
+//					}
+//				});
+//			}
+//            else {
+//                convertView.setOnClickListener(new OnClickListener() {
+//                    @Override
+//                    public void onClick(View arg0) {
+//                        ((Setting)context).setPassword();
+//                    }
+//                });
+//            }
+//		}
+//		else {
+//			convertView.setOnClickListener(new OnClickListener() {
+//				@Override
+//				public void onClick(View arg0) {
+//					((Setting)context).logout();
+//				}
+//			});
+//		}
 		return convertView;
 	}
 }

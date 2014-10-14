@@ -31,6 +31,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 
 public class Setting extends AppActivity{
@@ -75,6 +76,48 @@ public class Setting extends AppActivity{
 				return true;
 			}
 		});
+		iphoneTreeView.setOnChildClickListener(new OnChildClickListener() {
+			
+			@Override
+			public boolean onChildClick(ExpandableListView arg0, View arg1, int groupPosition,
+					int childPosition, long arg4) {
+				switch (groupPosition) {
+				case 0:
+					switch (childPosition) {
+					case 0:
+						setPassword();
+						break;
+
+					case 1:
+						showDialog(1);
+						break;
+					}
+					break;
+
+				case 1:
+					switch (childPosition) {
+					case 0:
+						showFeedback();
+						break;
+
+					case 1:
+						showUpdate();
+						break;
+					}
+					break;
+					
+				case 2:
+					switch (childPosition) {
+					case 0:
+						logout();
+						break;
+
+					}
+					break;
+				}
+				return true;
+			}
+		});
 	}
 	
 	private void expandView() {
@@ -91,12 +134,25 @@ public class Setting extends AppActivity{
         op21.position = "";
         op21.cardSectionType = CommonValue.CardSectionType .SettingsSectionType;
         ops2.add(op21);
-		CardIntroEntity op31 = new CardIntroEntity();
-		op31.realname = "功能消息免打扰";
-		op31.position = "";
-		op31.cardSectionType = CommonValue.CardSectionType .SettingsSectionType;
-		ops2.add(op31);
+		CardIntroEntity op22 = new CardIntroEntity();
+		op22.realname = "功能消息免打扰";
+		op22.position = "";
+		op22.cardSectionType = CommonValue.CardSectionType .SettingsSectionType;
+		ops2.add(op22);
 		cards.add(ops2);
+		
+		List<CardIntroEntity> ops3 = new ArrayList<CardIntroEntity>();
+        CardIntroEntity op31 = new CardIntroEntity();
+        op31.realname = "意见反馈";
+        op31.position = "";
+        op31.cardSectionType = CommonValue.CardSectionType .SettingsSectionType;
+        ops3.add(op31);
+		CardIntroEntity op32 = new CardIntroEntity();
+		op32.realname = "版本升级";
+		op32.position = "";
+		op32.cardSectionType = CommonValue.CardSectionType .SettingsSectionType;
+		ops3.add(op32);
+		cards.add(ops3);
 		
 		List<CardIntroEntity> ops4 = new ArrayList<CardIntroEntity>();
 		CardIntroEntity op41 = new CardIntroEntity();
@@ -110,6 +166,15 @@ public class Setting extends AppActivity{
     public void setPassword() {
         startActivity(new Intent(Setting.this, SetPassword.class));
     }
+    
+    public void showFeedback() {
+		Intent intent = new Intent(this, Feedback.class);
+		startActivity(intent);
+	}
+	
+	public void showUpdate() {
+		UpdateManager.getUpdateManager().checkAppUpdate(this, true);
+	}
 	
 	public void logout() {
 		new AlertDialog.Builder(this).setTitle("确定注销本账号吗?")

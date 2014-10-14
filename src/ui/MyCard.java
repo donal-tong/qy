@@ -141,7 +141,7 @@ public class MyCard extends AppActivity implements OnRefreshListener, AdapterVie
 					xAdapter.notifyDataSetChanged();
 					break;
 				case CommonValue.USER_NOT_IN_ERROR:
-					forceLogout();
+					sendBroadcast(new Intent(CommonValue.RELOGIN_ACTION));
 					break;
 				default:
 					UIHelper.ToastMessage(getApplicationContext(), entity.getMessage(), Toast.LENGTH_SHORT);

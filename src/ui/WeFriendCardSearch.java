@@ -115,7 +115,7 @@ public class WeFriendCardSearch  extends AppActivity implements OnScrollListener
 		noResultTV = (TextView) findViewById(R.id.noting_view);
 		editText = (EditText) findViewById(R.id.searchEditView);
 		try {
-			editText.setHint("您共有"+(Integer.valueOf(appContext.getDeg2()) + mobileNum)+"位二度人脉可搜索");
+//			editText.setHint("您共有"+(Integer.valueOf(appContext.getDeg2()) + mobileNum)+"位二度人脉可搜索");
 		}
 		catch (Exception e) {
 			Logger.i(e);

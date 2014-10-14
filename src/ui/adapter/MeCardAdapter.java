@@ -110,32 +110,32 @@ public class MeCardAdapter extends BaseExpandableListAdapter{
 		final CardIntroEntity model = cards.get(groupPosition).get(childPosition);
 		cell.titleView.setText(model.realname);
 		cell.iconView.setBackgroundResource(Integer.valueOf(model.department));
-		if (model.cardSectionType.equals(CommonValue.CardSectionType.BarcodeSectionType)) {
-			if (childPosition == 0) {
-				convertView.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						((Me)context).showMyCard();
-					}
-				});
-			}
-			else if (childPosition == 2) {
-				convertView.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						((Me)context).showMyBarcode();
-					}
-				});
-			}
-			else {
-				convertView.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						((Me)context).showScan();
-					}
-				});
-			}
-		}
+//		if (model.cardSectionType.equals(CommonValue.CardSectionType.BarcodeSectionType)) {
+//			if (childPosition == 0) {
+//				convertView.setOnClickListener(new OnClickListener() {
+//					@Override
+//					public void onClick(View arg0) {
+//						((Me)context).showMyCard();
+//					}
+//				});
+//			}
+//			else if (childPosition == 2) {
+//				convertView.setOnClickListener(new OnClickListener() {
+//					@Override
+//					public void onClick(View arg0) {
+//						((Me)context).showMyBarcode();
+//					}
+//				});
+//			}
+//			else {
+//				convertView.setOnClickListener(new OnClickListener() {
+//					@Override
+//					public void onClick(View arg0) {
+//						((Me)context).showScan();
+//					}
+//				});
+//			}
+//		}
 //		else if (model.cardSectionType.equals(CommonValue.CardSectionType.FeedbackSectionType)) {
 //			if (childPosition == 0) {
 //				convertView.setOnClickListener(new OnClickListener() {

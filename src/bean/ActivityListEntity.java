@@ -30,7 +30,7 @@ public class ActivityListEntity extends Entity {
 				}
 				JSONArray joinedArr = info.getJSONArray("joined");
 				for (int i=0;i<joinedArr.length();i++) {
-					PhoneIntroEntity phone = PhoneIntroEntity.parsePhonebookAndActivity(joinedArr.getJSONObject(i), CommonValue.ActivitySectionType.OwnedSectionType);
+					PhoneIntroEntity phone = PhoneIntroEntity.parsePhonebookAndActivity(joinedArr.getJSONObject(i), CommonValue.ActivitySectionType.JoinedSectionType);
 					data.joined.add(phone);
 				}
 			}

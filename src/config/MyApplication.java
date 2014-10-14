@@ -7,7 +7,6 @@ import org.apache.http.client.CookieStore;
 
 import pomelo.PomeloClient;
 
-import com.kuyue.openchat.api.WmOpenChatSdk;
 import com.loopj.android.http.PersistentCookieStore;
 import com.nostra13.universalimageloader.utils.L;
 import com.vikaa.mycontact.BuildConfig;
@@ -71,7 +70,6 @@ public class MyApplication extends AppContext {
 		mNotificationManager = (NotificationManager) getSystemService(android.content.Context.NOTIFICATION_SERVICE);
 		CookieStore cookieStore = new PersistentCookieStore(this);  
 		QYRestClient.getIntance().setCookieStore(cookieStore);
-		WmOpenChatSdk.getInstance().init(this);
 //        Intent service = new Intent(this, NetworkStateService.class);
 //		startService(service);
 	}
@@ -304,4 +302,29 @@ public class MyApplication extends AppContext {
 		return "0";
 	}
 	
+	private boolean isGuide1 = false;
+	public boolean isBeenGuide1(){
+		String i = getGuide1();
+		if(StringUtils.empty(i))
+			return false;
+		if(i.equals("1"))
+			isGuide1 = true;
+		else
+			isGuide1 = false;
+		return isGuide1;
+	}
+	
+	@SuppressWarnings("serial")
+	public void saveGuide1(){
+		this.isGuide1 = true;
+		setProperties(new Properties(){
+			{
+				setProperty("guide1", "1");
+			}
+		});
+	}
+	
+	public String getGuide1(){
+		return getProperty("guide1");
+	}
 }

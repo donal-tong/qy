@@ -10,6 +10,8 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.vikaa.mycontact.R;
 
+import config.CommonValue;
+
 import bean.PhoneIntroEntity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -136,6 +138,10 @@ public class PhonebookAdapter extends BaseExpandableListAdapter{
 		}
 		
 		if (getChildrenCount(groupPosition) == 0) {
+			section.typeView.setVisibility(View.GONE);
+			section.divider.setVisibility(View.GONE);
+		}
+		else if (getChildrenCount(groupPosition) !=0 && datas.get(groupPosition).get(0).phoneSectionType.equals(CommonValue.PhoneSectionType.MobileSectionType)) {
 			section.typeView.setVisibility(View.GONE);
 			section.divider.setVisibility(View.GONE);
 		}

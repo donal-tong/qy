@@ -9,7 +9,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 import android.widget.ImageView;
-import tools.Logger;
 import tools.UIHelper;
 import ui.adapter.PhonebookAdapter;
 import ui.adapter.PhonebookAdapter.CellHolder;
@@ -17,8 +16,6 @@ import bean.ActivityListEntity;
 import bean.Entity;
 import bean.PhoneIntroEntity;
 import bean.Result;
-import bean.TopicEntity;
-
 import com.crashlytics.android.Crashlytics;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
@@ -44,9 +41,10 @@ import android.widget.ExpandableListView.OnGroupClickListener;
 
 public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-	private Assistant activity;
+	private MainActivity activity;
     private int lvDataState;
 	private List<PhoneIntroEntity> myQuns = new ArrayList<PhoneIntroEntity>();
+	private List<PhoneIntroEntity> joinedQuns = new ArrayList<PhoneIntroEntity>();
 	private List<PhoneIntroEntity> comQuns = new ArrayList<PhoneIntroEntity>();
 	private List<List<PhoneIntroEntity>> quns = new ArrayList<List<PhoneIntroEntity>>();
 	private PhonebookAdapter phoneAdapter;
@@ -74,6 +72,7 @@ public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnR
 		filter.addAction(CommonValue.ACTIVITY_DELETE_ACTION);
 		activity.registerReceiver(receiver, filter);
         quns.add(myQuns);
+        quns.add(joinedQuns);
         quns.add(comQuns);
 		phoneAdapter = new PhonebookAdapter(activity, quns);
         new Handler().postDelayed(new Runnable() {
@@ -86,7 +85,7 @@ public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    	View view = inflater.inflate(R.layout.activity_fragment, container, false);
+    	View view = inflater.inflate(R.layout.fragment_activity, container, false);
         swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.xrefresh);
     	ExpandableListView xlistView = (ExpandableListView) view.findViewById(R.id.xlistview);
         xlistView.setDividerHeight(0);
@@ -154,7 +153,7 @@ public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onAttach(Activity activity) {
-    	this.activity = (Assistant) activity;
+    	this.activity = (MainActivity) activity;
     	super.onAttach(activity);
     }
     
@@ -193,6 +192,9 @@ public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnR
 				case Result.RESULT_OK:
 					handlerActivitySection(entity);
 					break;
+				case CommonValue.USER_NOT_IN_ERROR:
+					getActivity().sendBroadcast(new Intent(CommonValue.RELOGIN_ACTION));
+					break;
 				default:
 					UIHelper.ToastMessage(activity, entity.getMessage(), Toast.LENGTH_SHORT);
 					break;
@@ -205,6 +207,7 @@ public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnR
                     indicatorImageView.setVisibility(View.INVISIBLE);
                     indicatorImageView.clearAnimation();
                 }
+                swipeLayout.setRefreshing(false);
 				UIHelper.ToastMessage(activity, message, Toast.LENGTH_SHORT);
 			}
 			@Override
@@ -213,6 +216,7 @@ public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnR
                     indicatorImageView.setVisibility(View.INVISIBLE);
                     indicatorImageView.clearAnimation();
                 }
+                swipeLayout.setRefreshing(false);
 				Crashlytics.logException(e);
 			}
 		});
@@ -221,7 +225,8 @@ public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnR
 	private void handlerActivitySection(ActivityListEntity entity) {
 		myQuns.clear();
 		myQuns.addAll(entity.owned);
-		myQuns.addAll(entity.joined);
+		joinedQuns.clear();
+		joinedQuns.addAll(entity.joined);
 		phoneAdapter.notifyDataSetChanged();
         lvDataState = UIHelper.LISTVIEW_DATA_MORE;
         if (null != swipeLayout) {

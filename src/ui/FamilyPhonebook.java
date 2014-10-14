@@ -52,8 +52,8 @@ public class FamilyPhonebook extends AppActivity implements OnRefreshListener, O
 
 		default:
 			startActivityForResult(new Intent(this, QYWebView.class).
-					putExtra(CommonValue.IndexIntentKeyValue.CreateView, CommonValue.CreateViewUrlAndRequest.CardCreateUrl), 
-					CommonValue.CreateViewUrlAndRequest.CardCreat);
+					putExtra(CommonValue.IndexIntentKeyValue.CreateView, CommonValue.CreateViewUrlAndRequest.FamilyPhonebookCreateUrl), 
+					CommonValue.CreateViewUrlAndRequest.FamilyPhonebookCreat);
 			break;
 		}
 	}

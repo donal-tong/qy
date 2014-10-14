@@ -230,6 +230,35 @@
         </activity>
         
         <activity
+            android:name="ui.MainActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" 
+            android:windowSoftInputMode="adjustNothing|stateHidden">
+        </activity>
+        
+        <activity
+            android:name="ui.AddSometingActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" 
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="adjustNothing|stateHidden">
+        </activity>
+        
+        <activity
+            android:name="ui.AddSomethingGuideActviity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" 
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="adjustNothing|stateHidden">
+        </activity>
+        
+        <activity
+            android:name="ui.RecommendActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing|stateHidden">
+        </activity>
+        
+        <activity
             android:name="ui.Index"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustNothing"
@@ -512,61 +541,6 @@
                 android:value="53c381d656240b0cad021be3" >
         </meta-data>
         
-        <!-- kuyue chat open sdk activity -->
-          <activity 
-              android:name="com.kuyue.openchat.opensource.ChatActivity"
-              android:configChanges="orientation|keyboardHidden"
-              android:launchMode="singleTask"
-              android:screenOrientation="portrait"
-              android:windowSoftInputMode="adjustUnspecified|stateHidden"
-              android:theme="@style/wm_chat_common_style"/>
-          <activity
-              android:name="com.kuyue.openchat.ui.UseCameraActivity"
-              android:configChanges="orientation|keyboardHidden|navigation"
-              android:screenOrientation="portrait"
-              android:theme="@style/wm_chat_common_style"/>
-          <activity
-              android:name="com.kuyue.openchat.ui.choosemultipictures.ChooseMultiPicturesActivity"
-              android:configChanges="orientation|keyboardHidden"
-              android:screenOrientation="portrait" 
-              android:theme="@style/wm_chat_common_style"/>
-          <activity
-              android:name="com.kuyue.openchat.ui.ShowChatImgActivity"
-              android:configChanges="orientation|keyboardHidden"
-              android:windowSoftInputMode="adjustUnspecified|stateHidden"
-              android:theme="@style/wm_chat_common_style" />
-          <activity android:name="com.kuyue.openchat.ui.temp.ChatActivityNotiTmp"
-              android:theme="@style/wm_chat_common_style"/>
-          <activity 
-              android:name="com.kuyue.openchat.opensource.ConversationActivity"
-              android:configChanges="orientation|keyboardHidden"
-              android:launchMode="singleTask"
-              android:screenOrientation="portrait"
-              android:windowSoftInputMode="adjustUnspecified|stateHidden"
-              android:theme="@style/wm_chat_common_style"/>
-          
-          <!-- kuyue chat open sdk receiver -->
-          <receiver
-              android:name="com.kuyue.openchat.core.chat.push.ChatPushReceiver"
-              android:exported="true" >
-              <intent-filter>
-                  <action android:name="me.weimi.push.action.10001" />
-              </intent-filter>
-          </receiver>
-          
-          <service android:name="matrix.sdk.countly.OpenUDID_service" >
-              <intent-filter>
-                  <action android:name="org.OpenUDID.GETUDID" />
-              </intent-filter>
-          </service>
-          <service
-              android:name="com.weimi.push.service.WeimiPushService"
-              android:exported="true"
-              android:process=":push" >
-              <intent-filter>
-                  <action android:name="me.weimi.PushService.BIND" />
-              </intent-filter>
-          </service>
     </application>
 
 </manifest>
