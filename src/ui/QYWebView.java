@@ -313,7 +313,12 @@ public class QYWebView extends AppActivity  {
 		indicatorImageView.setVisibility(View.VISIBLE);
     	indicatorImageView.startAnimation(indicatorAnimation);
     	urls.add(QYurl);
-    	loadURLScheme(QYurl);
+    	if (QYurl.endsWith("http://group.qun.hk/")) {
+			webView.loadUrl(QYurl);
+		}
+    	else {
+    		loadURLScheme(QYurl);
+    	}
 	}
 	
 	private void loadURLScheme(String url) {

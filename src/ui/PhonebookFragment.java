@@ -98,7 +98,7 @@ public class PhonebookFragment extends Fragment implements OnRefreshListener, On
             public void run() {
             	addFixSection();
                 getPhoneListFromCache();
-//                getSquareListFromCache();
+                getSquareListFromCache();
             }
         }, CommonValue.UI_DELAY);
 	}

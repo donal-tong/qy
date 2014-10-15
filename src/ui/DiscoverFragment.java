@@ -52,14 +52,21 @@ public class DiscoverFragment extends Fragment implements OnClickListener{
 
 	@Override
 	public void onClick(View v) {
+		EasyTracker easyTracker = EasyTracker.getInstance(getActivity());
 		switch (v.getId()) {
 		case R.id.btn_download:
 			
 			break;
 
 		case R.id.btn_recommend:
-			startActivity(new Intent(getActivity(), RecommendActivity.class));
-			
+			easyTracker.send(MapBuilder
+		      .createEvent("ui_action",     // Event category (required)
+		                   "button_press",  // Event action (required)
+		                   "查看http://group.qun.hk/",   // Event label
+		                   null)            // Event value
+		      .build()
+			);
+			startActivity(new Intent(getActivity(), QYWebView.class).putExtra(CommonValue.IndexIntentKeyValue.CreateView, "http://group.qun.hk/"));
 			break;
 			
 		case R.id.btn_topic:
@@ -67,7 +74,6 @@ public class DiscoverFragment extends Fragment implements OnClickListener{
 			break;
 			
 		case R.id.btn_fileshare:
-			EasyTracker easyTracker = EasyTracker.getInstance(getActivity());
 			easyTracker.send(MapBuilder
 		      .createEvent("ui_action",     // Event category (required)
 		                   "button_press",  // Event action (required)
@@ -75,9 +81,7 @@ public class DiscoverFragment extends Fragment implements OnClickListener{
 		                   null)            // Event value
 		      .build()
 			);
-			Intent intent = new Intent(getActivity(), QYWebView.class);
-			intent.putExtra(CommonValue.IndexIntentKeyValue.CreateView, String.format("%s/docs/index", CommonValue.BASE_URL));
-			startActivity(intent);
+			startActivity(new Intent(getActivity(), QYWebView.class).putExtra(CommonValue.IndexIntentKeyValue.CreateView, String.format("%s/docs/index", CommonValue.BASE_URL)));
 			break;
 		}
 	}
