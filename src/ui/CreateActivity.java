@@ -30,6 +30,8 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
 import com.crashlytics.android.Crashlytics;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
 import com.vikaa.mycontact.R;
 
 import config.AppClient;
@@ -48,7 +50,8 @@ import ui.adapter.PrivacyAdapter;
 import ui.adapter.QunTypeAdapter;
 import widget.GridViewForScrollView;
 import widget.ResizeLinearLayout;
-import widget.ResizeLinearLayout.OnSizeChangedListener;
+import widget.ResizeRelativeLayout;
+import widget.ResizeRelativeLayout.OnSizeChangedListener;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -74,11 +77,17 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.DatePicker.OnDateChangedListener;
+import android.widget.ScrollView;
+import android.widget.TimePicker.OnTimeChangedListener;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class CreateActivity extends AppActivity implements OnSizeChangedListener, OnFocusChangeListener, AMapLocationListener, OnItemClickListener {
@@ -129,6 +138,16 @@ public class CreateActivity extends AppActivity implements OnSizeChangedListener
 	private FunTypeAdapter adapterType;
 	private GridViewForScrollView gvQun;
 	
+	@ViewInject(R.id.mainScrollView)
+	private ScrollView mainScrollView;
+	
+	@ViewInject(R.id.timeLayout)
+	private RelativeLayout timeLayout;
+	@ViewInject(R.id.datePicker)
+	private DatePicker datePicker;
+	@ViewInject(R.id.timePicker)
+	private TimePicker timePicker;
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -157,11 +176,13 @@ public class CreateActivity extends AppActivity implements OnSizeChangedListener
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_activity);
+		ViewUtils.inject(this);
 		funs.addAll(FunsListEntity.parse(this).funs);
 		funs.get(0).isSelected = true;
 		fun = funs.get(0);
 		activityCover = fun.cover;
 		initUI();
+		initTimeLayout();
 		mAMapLocManager = LocationManagerProxy.getInstance(this);
 		Handler jumpHandler = new Handler();
 		jumpHandler.postDelayed(new Runnable() {
@@ -182,7 +203,7 @@ public class CreateActivity extends AppActivity implements OnSizeChangedListener
 		adapterType = new FunTypeAdapter(this, funs);
 		gvQun.setAdapter(adapterType);
 		gvQun.setOnItemClickListener(this);
-		ResizeLinearLayout resizeLayout = (ResizeLinearLayout) findViewById(R.id.resizeLayout);
+		ResizeRelativeLayout resizeLayout = (ResizeRelativeLayout) findViewById(R.id.resizeLayout);
 		resizeLayout.setOnSizeChangedListener(this);
 		moreButton = (Button) findViewById(R.id.more);
 		moreLayout = (LinearLayout) findViewById(R.id.moreLayout);
@@ -275,16 +296,10 @@ public class CreateActivity extends AppActivity implements OnSizeChangedListener
 			break;
 		case R.id.activityTime:
 			closeInput();
-			startActivityForResult(new Intent(this, CreateActivityTimeDialog.class)
-			.putExtra("year", year)
-			.putExtra("month", month)
-			.putExtra("date", date)
-			.putExtra("hour", hour)
-			.putExtra("minute", minute), 10);
+			mainScrollView.scrollTo(0, 1500);
+			timeLayout.setVisibility(View.VISIBLE);
 			break;
 		case R.id.rightBarButton:
-//			SpannableStringBuilder spanStr = (SpannableStringBuilder) richET.getText();
-//			startActivity(new Intent(this, CreateActivityPreview.class).putExtra("content", Html.toHtml(spanStr)));
 			prepareCreateActivity();
 			break;
 		case R.id.more:
@@ -295,6 +310,9 @@ public class CreateActivity extends AppActivity implements OnSizeChangedListener
 		case R.id.btnActivityCover:
 			imgType = IMG_COVER;
 			PhotoChooseOption();
+			break;
+		case R.id.btnTimeOK:
+			timeLayout.setVisibility(View.INVISIBLE);
 			break;
 		}
 	}
@@ -746,6 +764,34 @@ public class CreateActivity extends AppActivity implements OnSizeChangedListener
             activityCover = fun.cover;
 			imageLoader.displayImage(fun.cover, imgActivityCover, CommonValue.DisplayOptions.default_options);
 		}
+	}
+	
+	private void initTimeLayout() {
+		timePicker.setIs24HourView(true);
+		if (year == 0) {
+			return;
+		}
+		datePicker.init(year, month, date, new OnDateChangedListener() {
+			
+			@Override
+			public void onDateChanged(DatePicker view, int currentYear, int monthOfYear,
+					int dayOfMonth) {
+				year = currentYear;
+				month = monthOfYear;
+				date = dayOfMonth;
+				String time = year+"-"+(month+1)+"-"+date+" " +hour+":"+minute;
+				timeButton.setText(time);
+			}
+		});
+		timePicker.setCurrentHour(hour);
+		timePicker.setCurrentMinute(minute);
+		timePicker.setOnTimeChangedListener(new OnTimeChangedListener() {
+			@Override
+			public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+				String time = year+"-"+(month+1)+"-"+date+" " +hourOfDay+":"+minute;
+				timeButton.setText(time);
+			}
+		});
 	}
 	
 }

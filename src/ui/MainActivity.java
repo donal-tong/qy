@@ -5,6 +5,8 @@ import tools.AppManager;
 import tools.Logger;
 import tools.StringUtils;
 import tools.UIHelper;
+import ui.remind.NewRemindActivity;
+import ui.remind.RemindFragment;
 import baidupush.Utils;
 import bean.CardListEntity;
 import bean.Entity;
@@ -62,7 +64,7 @@ public class MainActivity extends AppActivity{
 	
 	private RelativeLayout[] mTabs;
 	private PhonebookFragment phonebookFragment;
-	private ActivityFragment activityFragment;
+	private RemindFragment remindFragment;
 	private DiscoverFragment discoverFragment;
 	private CardFragment cardFragment;
 	private Fragment[] fragments;
@@ -81,14 +83,14 @@ public class MainActivity extends AppActivity{
 		registerReceiver(receiver, filter);
 		initView();
 		phonebookFragment = new PhonebookFragment();
-		activityFragment = new ActivityFragment();
+		remindFragment = new RemindFragment();
 		discoverFragment = new DiscoverFragment();
 		cardFragment = new CardFragment();
-		fragments = new Fragment[]{phonebookFragment, activityFragment, discoverFragment, cardFragment};
+		fragments = new Fragment[]{phonebookFragment, remindFragment, discoverFragment, cardFragment};
 		getSupportFragmentManager().beginTransaction()
 		.add(R.id.fragment_container, phonebookFragment)
-		.add(R.id.fragment_container, activityFragment)
-		.hide(activityFragment)
+		.add(R.id.fragment_container, remindFragment)
+		.hide(remindFragment)
 		.show(phonebookFragment)
 		.commit();
 		checkLogin();
@@ -145,7 +147,12 @@ public class MainActivity extends AppActivity{
 	}
 	
 	public void addSomething(View v) {
-		startActivity(new Intent(this, AddSometingActivity.class));
+		if (currentTabIndex == 1) {
+			startActivity(new Intent(this, NewRemindActivity.class));
+		}
+		else {
+			startActivity(new Intent(this, AddSometingActivity.class));
+		}
 	}
 	
 	public void ButtonClick(View v) {
