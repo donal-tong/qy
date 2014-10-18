@@ -53,6 +53,7 @@ import widget.ResizeLinearLayout;
 import widget.ResizeRelativeLayout;
 import widget.ResizeRelativeLayout.OnSizeChangedListener;
 import android.app.AlertDialog;
+import android.app.ActionBar.LayoutParams;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -72,6 +73,7 @@ import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.widget.AdapterView;
@@ -83,8 +85,10 @@ import android.widget.TimePicker.OnTimeChangedListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TimePicker;
@@ -177,6 +181,7 @@ public class CreateActivity extends AppActivity implements OnSizeChangedListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_activity);
 		ViewUtils.inject(this);
+		
 		funs.addAll(FunsListEntity.parse(this).funs);
 		funs.get(0).isSelected = true;
 		fun = funs.get(0);
@@ -792,6 +797,53 @@ public class CreateActivity extends AppActivity implements OnSizeChangedListener
 				timeButton.setText(time);
 			}
 		});
+		resizeDatePikcer(datePicker);
+		resizePikcer(timePicker);
 	}
 	
+	private void resizePikcer(FrameLayout tp){
+		List<NumberPicker> npList = findNumberPicker(tp);
+		for(NumberPicker np:npList){
+			resizeNumberPicker(np);
+		}
+	}
+	
+	private void resizeDatePikcer(FrameLayout tp){
+		List<NumberPicker> npList = findNumberPicker(tp);
+		for(NumberPicker np:npList){
+			resizeDateNumberPicker(np);
+		}
+	}
+	
+	private List<NumberPicker> findNumberPicker(ViewGroup viewGroup){
+		List<NumberPicker> npList = new ArrayList<NumberPicker>();
+		View child = null;
+		if(null != viewGroup){
+			for(int i = 0;i<viewGroup.getChildCount();i++){
+				child = viewGroup.getChildAt(i);
+				if(child instanceof NumberPicker){
+					npList.add((NumberPicker)child);
+				}
+				else if(child instanceof LinearLayout){
+					List<NumberPicker> result = findNumberPicker((ViewGroup)child);
+					if(result.size()>0){
+						return result;
+					}
+				}
+			}
+		}
+		return npList;
+	}
+	
+	private void resizeDateNumberPicker(NumberPicker np){
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(150, LayoutParams.WRAP_CONTENT);
+		params.setMargins(10, 0, 10, 0);
+		np.setLayoutParams(params);
+	}
+	
+	private void resizeNumberPicker(NumberPicker np){
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, LayoutParams.WRAP_CONTENT);
+		params.setMargins(10, 0, 10, 0);
+		np.setLayoutParams(params);
+	}
 }
