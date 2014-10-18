@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
@@ -8,6 +8,7 @@
         android:layout_height="44dp"
         android:layout_width="match_parent"
         android:background="#5ac2e0"
+        android:id="@+id/nav"
         >
         <Button
             android:id="@+id/leftBarButton"
@@ -33,6 +34,7 @@
             />
     </RelativeLayout>
     <RelativeLayout 
+        android:layout_below="@+id/nav"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    android:background="@drawable/bg_remind"
@@ -253,6 +255,50 @@
 	       	 	android:background="#e5e5e5"
 	        	/>
 	    </LinearLayout>
-	    
 	</RelativeLayout>
-</LinearLayout>
+	<RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/timeLayout"
+        android:visibility="invisible"
+        >
+        <Button 
+            android:id="@+id/btnTimeOK"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:text="@android:string/ok"
+            android:layout_alignParentRight="true"
+            android:onClick="ButtonClick"
+            android:layout_above="@+id/picker"
+            android:layout_marginBottom="2dp"
+            />
+        <View 
+            android:layout_width="match_parent"
+       		android:layout_height="2dp"
+       		android:layout_above="@+id/picker"
+       		android:background="#5ac2e0"
+            />
+        <LinearLayout
+            android:id="@+id/picker"
+            android:layout_alignParentBottom="true" 
+            android:layout_width="match_parent"
+       		android:layout_height="wrap_content"
+       		android:orientation="horizontal" 
+       		android:background="@color/white"
+            >
+            <DatePicker 
+	        	android:id="@+id/datePicker"
+	        	android:layout_width="0dp"
+	        	android:layout_weight="6"
+	        	android:layout_height="wrap_content"
+	        	android:calendarViewShown="false"
+	        />
+	    	<TimePicker 
+		        android:id="@+id/timePicker"
+		        android:layout_width="0dp"
+		        android:layout_weight="4"
+		        android:layout_height="wrap_content"
+	        />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

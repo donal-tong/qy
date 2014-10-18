@@ -214,6 +214,7 @@ public class CreateActivity extends AppActivity implements OnSizeChangedListener
 		date = calendar.get(Calendar.DAY_OF_MONTH);;
 		hour = calendar.get(Calendar.HOUR_OF_DAY);
 		minute = calendar.get(Calendar.MINUTE);
+		datePicker.setMinDate(calendar.getTimeInMillis());
 		imgActivityCover = (ImageView) findViewById(R.id.imgActivityCover);
 		if (StringUtils.notEmpty(activityCover)) {
 			imageLoader.displayImage(activityCover, imgActivityCover, CommonValue.DisplayOptions.default_options);
@@ -772,7 +773,6 @@ public class CreateActivity extends AppActivity implements OnSizeChangedListener
 			return;
 		}
 		datePicker.init(year, month, date, new OnDateChangedListener() {
-			
 			@Override
 			public void onDateChanged(DatePicker view, int currentYear, int monthOfYear,
 					int dayOfMonth) {
