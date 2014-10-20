@@ -151,7 +151,7 @@ public class CreateActivity extends AppActivity implements OnSizeChangedListener
 	private DatePicker datePicker;
 	@ViewInject(R.id.timePicker)
 	private TimePicker timePicker;
-	
+	private int pickerWidth;
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -181,6 +181,7 @@ public class CreateActivity extends AppActivity implements OnSizeChangedListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_activity);
 		ViewUtils.inject(this);
+		pickerWidth = screeWidth/6;
 		funs.addAll(FunsListEntity.parse(this).funs);
 		funs.get(0).isSelected = true;
 		fun = funs.get(0);
@@ -835,14 +836,14 @@ public class CreateActivity extends AppActivity implements OnSizeChangedListener
 	}
 	
 	private void resizeDateNumberPicker(NumberPicker np){
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(150, LayoutParams.WRAP_CONTENT);
-		params.setMargins(10, 0, 10, 0);
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pickerWidth, LayoutParams.WRAP_CONTENT);
+		params.setMargins(5, 0, 5, 0);
 		np.setLayoutParams(params);
 	}
 	
 	private void resizeNumberPicker(NumberPicker np){
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, LayoutParams.WRAP_CONTENT);
-		params.setMargins(10, 0, 10, 0);
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pickerWidth, LayoutParams.WRAP_CONTENT);
+		params.setMargins(5, 0, 5, 0);
 		np.setLayoutParams(params);
 	}
 }
