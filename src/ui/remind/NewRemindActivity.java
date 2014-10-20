@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import bean.RemindEntity;
+
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.vikaa.mycontact.R;
+
+import db.manager.RemindDBManager;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -34,6 +38,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 import tools.AppManager;
+import tools.ImageUtils;
 import tools.StringUtils;
 import ui.AppActivity;
 
@@ -62,11 +67,13 @@ public class NewRemindActivity extends AppActivity implements OnClickListener{
 	private int hour;
 	private int minute;
 	private Calendar calendar;
+	private int pickerWidth;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_remind_add);
 		ViewUtils.inject(this);
+		pickerWidth = (screeWidth-ImageUtils.dip2px(this, 20)*2)/6;
 		resizeDatePikcer(datePicker);
 		resizePikcer(timePicker);
 		calendar=Calendar.getInstance();
@@ -128,8 +135,10 @@ public class NewRemindActivity extends AppActivity implements OnClickListener{
 		timePicker.setCurrentMinute(minute);
 		timePicker.setOnTimeChangedListener(new OnTimeChangedListener() {
 			@Override
-			public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-				String time = year+"-"+(month+1)+"-"+date+" " +hourOfDay+":"+minute;
+			public void onTimeChanged(TimePicker view, int hourOfDay, int minuteOfHour) {
+				hour = hourOfDay;
+				minute = minuteOfHour;
+				String time = year+"-"+(month+1)+"-"+date+" " +hour+":"+minute;
 				tvTime.setText(time);
 			}
 		});
@@ -170,14 +179,14 @@ public class NewRemindActivity extends AppActivity implements OnClickListener{
 	}
 	
 	private void resizeDateNumberPicker(NumberPicker np){
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(150, LayoutParams.WRAP_CONTENT);
-		params.setMargins(10, 0, 10, 0);
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pickerWidth, LayoutParams.WRAP_CONTENT);
+		params.setMargins(5, 0, 5, 0);
 		np.setLayoutParams(params);
 	}
 	
 	private void resizeNumberPicker(NumberPicker np){
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, LayoutParams.WRAP_CONTENT);
-		params.setMargins(10, 0, 10, 0);
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pickerWidth, LayoutParams.WRAP_CONTENT);
+		params.setMargins(5, 0, 5, 0);
 		np.setLayoutParams(params);
 	}
 	
@@ -192,12 +201,20 @@ public class NewRemindActivity extends AppActivity implements OnClickListener{
 			WarningDialog("请选择正确的时间");
 			return;
 		}
+		RemindEntity remind = new RemindEntity();
+		remind.remindName = name;
+		remind.year = year;
+		remind.month = month;
+		remind.day = date;
+		remind.hour = hour;
+		remind.minute = minute;
+		remind.repeat = "" + 60*1000;
+		long id = RemindDBManager.getInstance(this).saveRemind(remind);
 		Calendar remindCalendar = Calendar.getInstance();
 		remindCalendar.set(year, month, date, hour, minute, 0);
 		Intent intent = new Intent(this, RemindReceiver.class);
 		// 设置intent的动作,识别当前设置的是哪一个闹铃,有利于管理闹铃的关闭
-		intent.setAction(year + "年" + month + "月" + date + "日" + hour + "时"
-				+ minute + "分");
+		intent.setAction(""+id);
 		// 用广播管理闹铃
 		PendingIntent pi = PendingIntent.getBroadcast(this, 0, intent, 0);
 		// 获取闹铃管理
@@ -206,7 +223,7 @@ public class NewRemindActivity extends AppActivity implements OnClickListener{
 		am.set(AlarmManager.RTC_WAKEUP, remindCalendar.getTimeInMillis(), pi);
 		// 设置闹钟重复时间
 		am.setRepeating(AlarmManager.RTC_WAKEUP,
-				remindCalendar.getTimeInMillis(), 10 * 1000, pi);
+				remindCalendar.getTimeInMillis(), 60 * 1000, pi);
 		AppManager.getAppManager().finishActivity(this);
 	}
 }
