@@ -8,8 +8,12 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.vikaa.mycontact.R;
 
+import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.ActionBar.LayoutParams;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +33,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
+import tools.AppManager;
+import tools.StringUtils;
 import ui.AppActivity;
 
 public class NewRemindActivity extends AppActivity implements OnClickListener{
@@ -55,7 +61,7 @@ public class NewRemindActivity extends AppActivity implements OnClickListener{
 	private int date;
 	private int hour;
 	private int minute;
-	
+	private Calendar calendar;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,7 +69,7 @@ public class NewRemindActivity extends AppActivity implements OnClickListener{
 		ViewUtils.inject(this);
 		resizeDatePikcer(datePicker);
 		resizePikcer(timePicker);
-		Calendar calendar=Calendar.getInstance();
+		calendar=Calendar.getInstance();
 		year = calendar.get(Calendar.YEAR);
 		month = calendar.get(Calendar.MONTH);
 		date = calendar.get(Calendar.DAY_OF_MONTH);;
@@ -72,7 +78,6 @@ public class NewRemindActivity extends AppActivity implements OnClickListener{
 		String time = year+"-"+(month+1)+"-"+date+" " +hour+":"+minute;
 		tvTime.setText(time);
 		initTimeLayout();
-		tvName.setOnClickListener(this);
 		tvTime.setOnClickListener(this);
 		hideRemindTogBtn.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
@@ -85,13 +90,18 @@ public class NewRemindActivity extends AppActivity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tvName:
-			break;
 		case R.id.tvTime:
+			closeInput();
 			timeLayout.setVisibility(View.VISIBLE);
 			break;
 		case R.id.btnTimeOK:
 			timeLayout.setVisibility(View.INVISIBLE);
+			break;
+		case R.id.leftBarButton:
+			AppManager.getAppManager().finishActivity(this);
+			break;
+		case R.id.rightBarButton:
+			saveRemind();
 			break;
 		default:
 			break;
@@ -169,5 +179,34 @@ public class NewRemindActivity extends AppActivity implements OnClickListener{
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, LayoutParams.WRAP_CONTENT);
 		params.setMargins(10, 0, 10, 0);
 		np.setLayoutParams(params);
+	}
+	
+	private void saveRemind() {
+		String name = tvName.getText().toString();
+		if (StringUtils.empty(name)) {
+			WarningDialog("请输入名称");
+			return;
+		}
+		if (year < calendar.get(Calendar.YEAR) || month<calendar.get(Calendar.MONTH) || date<calendar.get(Calendar.DAY_OF_MONTH)
+				|| hour<calendar.get(Calendar.HOUR_OF_DAY) || minute<calendar.get(Calendar.MINUTE)) {
+			WarningDialog("请选择正确的时间");
+			return;
+		}
+		Calendar remindCalendar = Calendar.getInstance();
+		remindCalendar.set(year, month, date, hour, minute, 0);
+		Intent intent = new Intent(this, RemindReceiver.class);
+		// 设置intent的动作,识别当前设置的是哪一个闹铃,有利于管理闹铃的关闭
+		intent.setAction(year + "年" + month + "月" + date + "日" + hour + "时"
+				+ minute + "分");
+		// 用广播管理闹铃
+		PendingIntent pi = PendingIntent.getBroadcast(this, 0, intent, 0);
+		// 获取闹铃管理
+		AlarmManager am = (AlarmManager) getSystemService(Activity.ALARM_SERVICE);
+		// 设置闹钟
+		am.set(AlarmManager.RTC_WAKEUP, remindCalendar.getTimeInMillis(), pi);
+		// 设置闹钟重复时间
+		am.setRepeating(AlarmManager.RTC_WAKEUP,
+				remindCalendar.getTimeInMillis(), 10 * 1000, pi);
+		AppManager.getAppManager().finishActivity(this);
 	}
 }

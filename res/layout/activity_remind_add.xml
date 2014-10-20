@@ -32,6 +32,24 @@
             android:textColor="@color/white"
             android:textSize="@dimen/navbar_title_size"
             />
+        
+        <Button
+            android:id="@+id/rightBarButton"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:drawableLeft="@drawable/btn_add_normal"
+            android:layout_centerVertical="true"
+            android:text="发布"
+            android:textColor="@color/white"
+            android:textSize="@dimen/navbar_button_text_size"
+            android:layout_alignParentRight="true"
+            android:paddingRight="12dp"
+            android:paddingLeft="8dp"
+            android:drawablePadding="8dp"
+            android:onClick="onClick"
+            android:background="#f5691d"
+            android:layout_margin="5dp"
+            />
     </RelativeLayout>
     <RelativeLayout 
         android:layout_below="@+id/nav"
@@ -261,6 +279,7 @@
         android:layout_height="match_parent"
         android:id="@+id/timeLayout"
         android:visibility="gone"
+        android:onClick="onClick"
         >
         <Button 
             android:id="@+id/btnTimeOK"
@@ -268,7 +287,7 @@
             android:layout_height="35dp"
             android:text="@android:string/ok"
             android:layout_alignParentRight="true"
-            android:onClick="ButtonClick"
+            android:onClick="onClick"
             android:layout_above="@+id/picker"
             android:layout_marginBottom="2dp"
             />

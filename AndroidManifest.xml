@@ -446,6 +446,10 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden|adjustPan" >
         </activity>
         
+        <receiver
+            android:name="ui.remind.RemindReceiver"
+            android:process=":remote" >
+        </receiver>
         
         <service android:name="service.SendSmsService" ></service>
         <service android:name="service.MobileSynService" ></service>
