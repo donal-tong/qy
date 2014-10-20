@@ -23,7 +23,7 @@ public class CommonValue {
 
 	public static final int USER_NOT_IN_ERROR = 1001;
 	
-	public static final String PackageName = "com.vikaa.mycontact";
+	public static final String PackageName = "com.vikaa.wecontact";
 	
 	public static String BASE_API = "http://qun.hk/api/";
 	public static String BASE_URL = "http://qun.hk";
