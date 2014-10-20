@@ -28,9 +28,6 @@ import bean.TopicOptionListEntity;
 import com.crashlytics.android.Crashlytics;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
-import com.kuyue.openchat.api.WmOpenChatSdk;
-import com.kuyue.openchat.api.Observers.LoginListener;
-import com.kuyue.openchat.api.constant.LoginStatus;
 import com.vikaa.wecontact.R;
 
 import config.AppClient;
@@ -228,7 +225,6 @@ public class Find extends AppActivity implements OnItemClickListener{
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
 			if (CommonValue.Login_SUCCESS_ACTION.equals(action)) {
-				loginWM(appContext.getLoginUid());
 				webViewLogin();
 			}
 		}
@@ -275,60 +271,4 @@ public class Find extends AppActivity implements OnItemClickListener{
 		});
 	}
 	
-	private void loginWM(final String openid)
-	{
-		Logger.i("onlinsdfsdf");
-		if(WmOpenChatSdk.getInstance().getLoginStatus() == LoginStatus.LOGIN_STATUS_ONLINE){			//已经登录
-//			redirectToMain();
-			Logger.i("onlin");
-		} else if(WmOpenChatSdk.getInstance().getLoginStatus() == LoginStatus.LOGIN_STATUS_ING){		//正在登录
-			Logger.i("ing");
-		} else if(WmOpenChatSdk.getInstance().getLoginStatus() == LoginStatus.LOGIN_STATUS_OFFLINE){	//未登录
-			Logger.i("lo");
-			String uniqueId = openid;
-			String clientId = CommonValue.WMAppID;
-			String clientSecret = CommonValue.WMSECRET;
-
-			boolean isTestPlatFrom = false;
-//				isTestPlatFrom = false;
-				isTestPlatFrom = true;
-			WmOpenChatSdk.getInstance().login(getApplicationContext(),
-					uniqueId, clientId, clientSecret, isTestPlatFrom,
-					new LoginListener() {
-
-						@Override
-						public void result(final boolean success,
-								final String msg) {
-							runOnUiThread(new Runnable() {
-								public void run() {
-									Logger.i(WmOpenChatSdk.getInstance().getLoginUserId());
-									if (success) {	//登录成功
-										WmOpenChatSdk.getInstance().setPushNickName(appContext.getNickname()+"("+WmOpenChatSdk.getInstance().getLoginUserId()+")", null);
-										AppClient.bindOpenidWithWMId(appContext, openid, WmOpenChatSdk.getInstance().getLoginUserId(), new ClientCallback() {
-											
-											@Override
-											public void onSuccess(Entity data) {
-												
-											}
-											
-											@Override
-											public void onFailure(String message) {
-												
-											}
-											
-											@Override
-											public void onError(Exception e) {
-												
-											}
-										});
-									} else{			//登录失败
-									}
-								}
-							});
-						}
-					}, 
-					null);
-			
-		}
-	}
 }

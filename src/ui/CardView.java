@@ -19,7 +19,6 @@ import tools.UIHelper;
 import ui.adapter.CardViewAdapter;
 
 import com.crashlytics.android.Crashlytics;
-import com.kuyue.openchat.api.WmOpenChatSdk;
 import com.vikaa.wecontact.R;
 
 import config.AppClient;

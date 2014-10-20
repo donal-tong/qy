@@ -7,7 +7,6 @@ import org.apache.http.client.CookieStore;
 
 import pomelo.PomeloClient;
 
-import com.kuyue.openchat.api.WmOpenChatSdk;
 import com.loopj.android.http.PersistentCookieStore;
 import com.nostra13.universalimageloader.utils.L;
 import com.vikaa.wecontact.BuildConfig;
@@ -70,7 +69,6 @@ public class MyApplication extends AppContext {
 		mNotificationManager = (NotificationManager) getSystemService(android.content.Context.NOTIFICATION_SERVICE);
 		CookieStore cookieStore = new PersistentCookieStore(this);  
 		QYRestClient.getIntance().setCookieStore(cookieStore);
-		WmOpenChatSdk.getInstance().init(this);
 //        Intent service = new Intent(this, NetworkStateService.class);
 //		startService(service);
 	}

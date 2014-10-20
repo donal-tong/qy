@@ -8,7 +8,6 @@ import bean.Entity;
 import bean.Result;
 import bean.UserEntity;
 
-import com.kuyue.openchat.api.WmOpenChatSdk;
 import com.vikaa.wecontact.R;
 
 import config.AppClient;
