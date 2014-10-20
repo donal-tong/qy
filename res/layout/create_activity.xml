@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget.ResizeLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<widget.ResizeRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
@@ -10,6 +10,7 @@
         android:layout_height="44dp"
         android:layout_width="match_parent"
         android:background="@color/nav_color"
+        android:id="@+id/nav"
         >
         <Button
             android:id="@+id/leftBarButton"
@@ -64,17 +65,17 @@
     </RelativeLayout>
     
     <ScrollView
+        android:layout_below="@+id/nav"
         android:id="@+id/mainScrollView"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.0"
+        android:layout_height="match_parent"
         android:fadingEdge="none"
         android:orientation="vertical" >
         <LinearLayout 
             android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="100dp"
+            android:paddingBottom="200dp"
             >
             <TextView
 	    		    android:layout_marginTop="14dp"
@@ -439,6 +440,51 @@
 			        />
 		    </LinearLayout>
         </LinearLayout>
-        
     </ScrollView>
-</widget.ResizeLinearLayout>
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/timeLayout"
+        android:visibility="invisible"
+        android:onClick="ButtonClick"
+        >
+        <Button 
+            android:id="@+id/btnTimeOK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@android:string/ok"
+            android:layout_alignParentRight="true"
+            android:onClick="ButtonClick"
+            android:layout_above="@+id/picker"
+            android:layout_marginBottom="2dp"
+            />
+        <View 
+            android:layout_width="match_parent"
+       		android:layout_height="2dp"
+       		android:layout_above="@+id/picker"
+       		android:background="@color/nav_color"
+            />
+        <LinearLayout
+            android:id="@+id/picker"
+            android:layout_alignParentBottom="true" 
+            android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+       		android:orientation="horizontal" 
+       		android:background="@color/white"
+       		android:layout_centerHorizontal="true"
+            >
+            <DatePicker 
+	        	android:id="@+id/datePicker"
+	        	android:layout_width="wrap_content"
+	        	android:layout_height="wrap_content"
+	        	android:calendarViewShown="false"
+	        />
+	    	<TimePicker 
+		        android:id="@+id/timePicker"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+	        />
+        </LinearLayout>
+    </RelativeLayout>
+</widget.ResizeRelativeLayout>
