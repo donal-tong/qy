@@ -28,7 +28,7 @@ import com.crashlytics.android.Crashlytics;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 
 import config.AppClient;
 import config.AppClient.ClientCallback;

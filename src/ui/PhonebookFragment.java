@@ -22,7 +22,7 @@ import com.google.analytics.tracking.android.MapBuilder;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.loopj.android.http.PersistentCookieStore;
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 
 import config.AppClient;
 import config.CommonValue;

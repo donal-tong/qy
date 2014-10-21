@@ -4,7 +4,7 @@ import java.util.List;
 
 import ui.adapter.QunGridViewAdapter.ViewHolder;
 
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 
 import bean.QunsEntity;
 import android.content.Context;

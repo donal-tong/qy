@@ -27,7 +27,7 @@ import com.google.zxing.client.android.common.executor.AsyncTaskExecManager;
 import com.google.zxing.client.android.wifi.WifiConfigManager;
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.WifiParsedResult;
-import com.vikaa.baseapp.R;
+import com.vikaa.contactactivityassitant.R;
 
 /**
  * Handles address book entries.

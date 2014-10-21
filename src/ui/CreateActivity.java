@@ -32,7 +32,7 @@ import com.amap.api.location.LocationProviderProxy;
 import com.crashlytics.android.Crashlytics;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 
 import config.AppClient;
 import config.CommonValue;

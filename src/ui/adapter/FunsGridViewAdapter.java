@@ -4,7 +4,7 @@ import java.util.List;
 
 import bean.FunsEntity;
 
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

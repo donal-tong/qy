@@ -4,7 +4,7 @@ import java.util.List;
 
 import bean.MessageBean;
 
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;

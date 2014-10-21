@@ -38,7 +38,7 @@ import android.widget.TextView;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.android.FinishListener;
 import com.google.zxing.client.android.Intents;
-import com.vikaa.baseapp.R;
+import com.vikaa.contactactivityassitant.R;
 
 /**
  * This class encodes data from an Intent into a QR code, and then displays it full screen so that

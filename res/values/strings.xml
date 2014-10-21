@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">群友通讯录</string>
-    <string name="phonebook">通讯录</string>
+    <string name="app_name">微信活动助手</string>
+    <string name="phonebook">首页</string>
     <string name="activity">活动</string>
     <string name="discover">发现</string>
     <string name="card">名片</string>

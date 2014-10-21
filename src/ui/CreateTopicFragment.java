@@ -19,7 +19,7 @@ import bean.FunsPhotoEntity;
 import bean.KeyValue;
 
 import com.crashlytics.android.Crashlytics;
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 
 import tools.AppManager;
 import tools.HTMLUtil;

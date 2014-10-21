@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 
 import com.github.siyamed.shapeimageview.shader.ShaderHelper;
 import com.github.siyamed.shapeimageview.shader.SvgShader;
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 
 public class HeartImageView extends ShaderImageView {
 

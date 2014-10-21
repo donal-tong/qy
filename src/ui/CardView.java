@@ -19,7 +19,7 @@ import tools.UIHelper;
 import ui.adapter.CardViewAdapter;
 
 import com.crashlytics.android.Crashlytics;
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 
 import config.AppClient;
 import config.AppClient.ClientCallback;

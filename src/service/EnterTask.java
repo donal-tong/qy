@@ -5,7 +5,7 @@ package service;
 
 import java.util.TimerTask;
 
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 
 import config.CommonValue;
 import config.MyApplication;

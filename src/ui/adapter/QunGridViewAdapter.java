@@ -6,7 +6,7 @@ import java.util.zip.Inflater;
 import bean.FunsEntity;
 import bean.QunsEntity;
 
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

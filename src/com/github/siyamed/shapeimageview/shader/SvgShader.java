@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 
 import com.github.siyamed.shapeimageview.path.SvgUtil;
 import com.github.siyamed.shapeimageview.path.parser.PathInfo;
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 
 @SuppressWarnings("WeakerAccess")
 public class SvgShader extends ShaderHelper {

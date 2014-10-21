@@ -21,7 +21,7 @@ import com.google.analytics.tracking.android.MapBuilder;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.readystatesoftware.viewbadger.BadgeView;
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 
 import config.AppClient;
 import config.CommonValue;
@@ -63,8 +63,8 @@ public class MainActivity extends AppActivity{
 	private WebView webview;
 	
 	private RelativeLayout[] mTabs;
-	private PhonebookFragment phonebookFragment;
-	private RemindFragment remindFragment;
+	private Find find;
+	private ActivityFragment activityFragment;
 	private DiscoverFragment discoverFragment;
 	private CardFragment cardFragment;
 	private Fragment[] fragments;
@@ -82,16 +82,16 @@ public class MainActivity extends AppActivity{
 		filter.addAction(CommonValue.RELOGIN_ACTION);
 		registerReceiver(receiver, filter);
 		initView();
-		phonebookFragment = new PhonebookFragment();
-		remindFragment = new RemindFragment();
+		find = new Find();
+		activityFragment = new ActivityFragment();
 		discoverFragment = new DiscoverFragment();
 		cardFragment = new CardFragment();
-		fragments = new Fragment[]{phonebookFragment, remindFragment, discoverFragment, cardFragment};
+		fragments = new Fragment[]{find, activityFragment, discoverFragment, cardFragment};
 		getSupportFragmentManager().beginTransaction()
-		.add(R.id.fragment_container, phonebookFragment)
-		.add(R.id.fragment_container, remindFragment)
-		.hide(remindFragment)
-		.show(phonebookFragment)
+		.add(R.id.fragment_container, find)
+		.add(R.id.fragment_container, activityFragment)
+		.hide(activityFragment)
+		.show(find)
 		.commit();
 		checkLogin();
 		

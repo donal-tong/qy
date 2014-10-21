@@ -26,7 +26,7 @@ import android.widget.TextView;
 import com.google.zxing.client.android.HttpHelper;
 import com.google.zxing.client.android.history.HistoryManager;
 import com.google.zxing.client.result.URIParsedResult;
-import com.vikaa.baseapp.R;
+import com.vikaa.contactactivityassitant.R;
 
 final class URIResultInfoRetriever extends SupplementalInfoRetriever {
 

@@ -4,70 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:orientation="vertical" >
-    <WebView 
-       	android:id="@+id/webview"
-       	android:layout_width="match_parent"
-      	android:layout_height="match_parent"
-      	android:visibility="gone"
-      	/>
-    <RelativeLayout 
-        android:layout_height="44dp"
-        android:layout_width="match_parent"
-        android:background="@color/nav_color"
-        android:id="@+id/navLayout"
-        >
-        <Button
-            android:id="@+id/leftBarButton"
-            android:layout_width="70dp"
-            android:layout_height="44dp"
-            android:drawableLeft="@drawable/btn_message_normal"
-            android:background="@null"
-            android:layout_centerVertical="true"
-            android:text="消息"
-            android:textColor="@color/white"
-            android:textSize="@dimen/navbar_button_text_size"
-            android:drawablePadding="-5dp"
-            android:paddingLeft="5dp"
-            android:onClick="ButtonClick"
-            />
-        
-        <TextView
-            android:id="@+id/messageView"
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="8dp"
-            android:textSize="@dimen/message_count_size"
-            android:minWidth="15dp"
-            android:background="@drawable/message_label"
-            android:gravity="center_horizontal"
-            android:textColor="@color/white"
-            android:paddingTop="-3dp"
-            android:visibility="invisible"
-            />
-        
-        <TextView 
-            android:id="@+id/titleBarView"
-            android:layout_width="wrap_content"
-      		android:layout_height="wrap_content"
-            android:text="最实用的群管家"
-            android:layout_centerInParent="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/navbar_title_size"
-            />
-        
-        <ImageView
-            android:layout_centerVertical="true"
-            android:id="@+id/xindicator"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
-            android:layout_toRightOf="@+id/titleBarView"
-            android:layout_marginLeft="8dp"
-            android:visibility="invisible"
-            android:background="@drawable/round_1"/>
-        
-    </RelativeLayout>
-    
     <ScrollView 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -140,6 +76,50 @@
                 android:layout_height="50dp"
                 /> -->
                 <RelativeLayout 
+                    android:id="@+id/btnActivity"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:layout_marginLeft="-1dp"
+                    android:layout_marginRight="-1dp"
+                    android:background="@drawable/find_button_shape"
+                    >
+                    <ImageView 
+                        android:layout_width="31dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/find_activity"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        />
+                    
+                    <TextView 
+                        android:layout_marginLeft="64dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="发起活动"
+                        android:textColor="#2b2b2b"
+                        android:textSize="@dimen/cell_title_size"
+                        android:layout_marginTop="12dp"
+                        />
+                    <TextView 
+                        android:layout_marginLeft="64dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="组织聚会 沙龙 会议 饭局 K歌 出游…"
+                        android:textColor="#999999"
+                        android:textSize="@dimen/cell_subtitle_size"
+                        android:layout_marginTop="32dp"
+                        />
+                    <ImageView 
+                        android:layout_width="9dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/btn_next_pressed"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="11dp"
+                        />
+                </RelativeLayout>
+                <RelativeLayout 
                     android:id="@+id/btnQun"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
@@ -147,7 +127,6 @@
                     android:layout_marginLeft="-1dp"
                     android:layout_marginRight="-1dp"
                     android:background="@drawable/find_button_shape"
-                    android:onClick="ButtonClick"
                     >
                     <ImageView 
                         android:layout_width="31dp"
@@ -185,51 +164,7 @@
                         />
                 </RelativeLayout>
                 
-                <RelativeLayout 
-                    android:id="@+id/btnActivity"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    android:layout_marginLeft="-1dp"
-                    android:layout_marginRight="-1dp"
-                    android:background="@drawable/find_button_shape"
-                    android:onClick="ButtonClick"
-                    >
-                    <ImageView 
-                        android:layout_width="31dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/find_activity"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
-                        />
-                    
-                    <TextView 
-                        android:layout_marginLeft="64dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="发起活动"
-                        android:textColor="#2b2b2b"
-                        android:textSize="@dimen/cell_title_size"
-                        android:layout_marginTop="12dp"
-                        />
-                    <TextView 
-                        android:layout_marginLeft="64dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="组织聚会 沙龙 会议 饭局 K歌 出游…"
-                        android:textColor="#999999"
-                        android:textSize="@dimen/cell_subtitle_size"
-                        android:layout_marginTop="32dp"
-                        />
-                    <ImageView 
-                        android:layout_width="9dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/btn_next_pressed"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="11dp"
-                        />
-                </RelativeLayout>
+                
                 
                 <RelativeLayout 
                     android:id="@+id/btnTopic"
@@ -239,7 +174,6 @@
                     android:layout_marginLeft="-1dp"
                     android:layout_marginRight="-1dp"
                     android:background="@drawable/find_button_shape"
-                    android:onClick="ButtonClick"
                     >
                     <ImageView 
                         android:layout_width="31dp"
@@ -285,7 +219,6 @@
                     android:layout_marginLeft="-1dp"
                     android:layout_marginRight="-1dp"
                     android:background="@drawable/find_button_shape"
-                    android:onClick="ButtonClick"
                     >
                     <ImageView 
                         android:layout_width="31dp"
@@ -329,7 +262,6 @@
                     android:layout_height="61dp"
                     android:layout_marginLeft="-8dp"
                     android:layout_marginRight="-8dp"
-                    android:onClick="ButtonClick"
                     >
                     
                     <LinearLayout 

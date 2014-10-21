@@ -1,6 +1,6 @@
 package com.github.siyamed.shapeimageview.mask;
 
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 
 import android.content.Context;
 import android.content.res.TypedArray;

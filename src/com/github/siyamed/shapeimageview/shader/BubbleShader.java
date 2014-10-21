@@ -1,6 +1,6 @@
 package com.github.siyamed.shapeimageview.shader;
 
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

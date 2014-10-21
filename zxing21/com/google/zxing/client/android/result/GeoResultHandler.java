@@ -20,7 +20,7 @@ import android.app.Activity;
 
 import com.google.zxing.client.result.GeoParsedResult;
 import com.google.zxing.client.result.ParsedResult;
-import com.vikaa.baseapp.R;
+import com.vikaa.contactactivityassitant.R;
 
 /**
  * Handles geographic coordinates (typically encoded as geo: URLs).

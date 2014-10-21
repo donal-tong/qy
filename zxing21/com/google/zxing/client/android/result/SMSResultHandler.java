@@ -21,7 +21,7 @@ import android.telephony.PhoneNumberUtils;
 
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.SMSParsedResult;
-import com.vikaa.baseapp.R;
+import com.vikaa.contactactivityassitant.R;
 
 /**
  * Handles SMS addresses, offering a choice of composing a new SMS or MMS message.

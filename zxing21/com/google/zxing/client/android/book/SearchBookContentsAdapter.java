@@ -18,7 +18,7 @@ package com.google.zxing.client.android.book;
 
 import java.util.List;
 
-import com.vikaa.baseapp.R;
+import com.vikaa.contactactivityassitant.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

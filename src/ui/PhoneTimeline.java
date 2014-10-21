@@ -1,6 +1,6 @@
 package ui;
 
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 
 import android.os.Bundle;
 import android.view.View;

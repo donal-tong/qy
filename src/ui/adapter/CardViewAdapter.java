@@ -6,7 +6,7 @@ import tools.ImageUtils;
 import tools.Logger;
 import widget.ListViewForScrollView;
 
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 
 import bean.KeyValue;
 import android.content.Context;

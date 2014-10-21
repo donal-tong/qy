@@ -11,7 +11,7 @@ import tools.UIHelper;
 import bean.CardIntroEntity;
 
 import com.google.analytics.tracking.android.EasyTracker;
-import com.vikaa.mycontact.R;
+import com.vikaa.contactactivityassitant.R;
 
 import config.CommonValue;
 
