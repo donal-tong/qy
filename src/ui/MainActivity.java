@@ -64,7 +64,7 @@ public class MainActivity extends AppActivity{
 	
 	private RelativeLayout[] mTabs;
 	private PhonebookFragment phonebookFragment;
-	private RemindFragment remindFragment;
+	private ActivityFragment remindFragment;
 	private DiscoverFragment discoverFragment;
 	private CardFragment cardFragment;
 	private Fragment[] fragments;
@@ -83,7 +83,7 @@ public class MainActivity extends AppActivity{
 		registerReceiver(receiver, filter);
 		initView();
 		phonebookFragment = new PhonebookFragment();
-		remindFragment = new RemindFragment();
+		remindFragment = new ActivityFragment();
 		discoverFragment = new DiscoverFragment();
 		cardFragment = new CardFragment();
 		fragments = new Fragment[]{phonebookFragment, remindFragment, discoverFragment, cardFragment};

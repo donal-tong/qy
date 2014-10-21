@@ -548,7 +548,7 @@
         <meta-data android:name="com.amap.api.v2.apikey" android:value="839aa97d0d89257117fd6d5fc3883774" />
         <meta-data
                 android:name="UMENG_APPKEY"
-                android:value="53c381d656240b0cad021be3" >
+                android:value="5445f3effd98c53b0d003a29" >
         </meta-data>
         
     </application>
