@@ -6,7 +6,7 @@
  * Copyright (c) 2013年 ShareSDK.cn. All rights reserved.
  */
 
-package com.vikaa.mycontact.wxapi;
+package com.vikaa.wecontact.wxapi;
 
 import android.content.Intent;
 import android.os.Bundle;
