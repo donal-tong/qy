@@ -13,8 +13,8 @@ import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 import com.vikaa.contactactivityassitant.R;
 
 public class CommonValue {
-    public static final String APP_ID = "wx8b5b960fc0311f3e";
-    public static final String SECRET = "918774b3b42e14e42e84d67f54549a98";
+    public static final String APP_ID = "wxe3a80e9e1faf3a29";
+    public static final String SECRET = "50adceae95b8a327cdf0d88173ba9cc6";
 
     public static final String WMAppID = "1-20178-d86ca85fa3bf8db970f11a9fb89f49af";
     public static final String WMSECRET = "e468cf291e106ac6c9460395b8b105ab";
