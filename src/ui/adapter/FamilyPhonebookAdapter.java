@@ -11,7 +11,6 @@ import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 import com.vikaa.wecontact.R;
 
 import bean.PhoneIntroEntity;
-import ui.Index;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.Html;

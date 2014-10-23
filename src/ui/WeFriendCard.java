@@ -220,11 +220,6 @@ public class WeFriendCard extends AppActivity implements OnItemClickListener, On
 		}
 	}
 	
-	public void showMessage() {
-		Intent intent = new Intent(this, MessageView.class);
-		startActivity(intent);
-	}
-	
 //	private void blindBaidu() {
 //		PushManager.startWork(getApplicationContext(),
 //				PushConstants.LOGIN_TYPE_API_KEY, 

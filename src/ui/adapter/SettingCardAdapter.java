@@ -3,7 +3,6 @@ package ui.adapter;
 import java.util.List;
 
 import tools.Logger;
-import ui.Index;
 import ui.Setting;
 
 import com.vikaa.wecontact.R;

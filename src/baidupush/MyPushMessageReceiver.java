@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import tools.Logger;
 import ui.QYWebView;
-import ui.MessageView;
 
 import android.app.AlertDialog;
 import android.app.Notification;

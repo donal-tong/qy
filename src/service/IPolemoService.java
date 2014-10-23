@@ -24,7 +24,6 @@ import tools.AppManager;
 import tools.DecodeUtil;
 import tools.Logger;
 import tools.StringUtils;
-import ui.Index;
 import com.vikaa.wecontact.R;
 
 import config.CommonValue;
