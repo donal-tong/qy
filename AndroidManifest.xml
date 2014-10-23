@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vikaa.wecontact"
     android:versionCode="20151022"
-    android:versionName="1.4.7" >
+    android:versionName="1.4.8" >
 
     <uses-sdk android:minSdkVersion="8" />
 
