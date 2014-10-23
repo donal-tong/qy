@@ -11,6 +11,7 @@ import tools.AppManager;
 import com.vikaa.wecontact.R;
 
 import config.CommonValue;
+import fragment.PhonebookFragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -61,7 +62,7 @@ public class Welcome extends AppActivity {
 			}
 		}
 		else {
-			Intent intent = new Intent(this, Phonebook.class);
+			Intent intent = new Intent(this, MainActivity.class);
 	        startActivity(intent);
 	        AppManager.getAppManager().finishActivity(this);
 		}

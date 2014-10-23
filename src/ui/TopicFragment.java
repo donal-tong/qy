@@ -36,6 +36,7 @@ import com.vikaa.wecontact.R;
 import config.AppClient;
 import config.CommonValue;
 import config.AppClient.ClientCallback;
+import config.MyApplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -54,7 +55,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 public class TopicFragment extends Fragment implements OnItemClickListener, OnScrollListener, OnClickListener{
-	private Assistant activity;
 	
 	private ListView topicListView;
 	
@@ -69,16 +69,11 @@ public class TopicFragment extends Fragment implements OnItemClickListener, OnSc
 		return fragment;
 	}
 	
-	@Override
-	public void onAttach(Activity activity) {
-		this.activity = (Assistant) activity;
-		super.onAttach(activity);
-	}
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        topicOptionAdapter = new TopicOptionAdapter(activity, topicTypes);
+        topicOptionAdapter = new TopicOptionAdapter(getActivity(), topicTypes);
         Handler jumpHandler = new Handler();
         jumpHandler.postDelayed(new Runnable() {
             public void run() {
@@ -91,7 +86,7 @@ public class TopicFragment extends Fragment implements OnItemClickListener, OnSc
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     	View view = inflater.inflate(R.layout.topic_fragment, container, false);
         indicatorImageView = (ImageView) view.findViewById(R.id.xindicator);
-        indicatorAnimation = AnimationUtils.loadAnimation(activity, R.anim.refresh_button_rotation);
+        indicatorAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.refresh_button_rotation);
         indicatorAnimation.setDuration(500);
         indicatorAnimation.setInterpolator(new Interpolator() {
             private final int frameCount = 10;
@@ -103,7 +98,7 @@ public class TopicFragment extends Fragment implements OnItemClickListener, OnSc
     	topicListView = (ListView) view.findViewById(R.id.topiclistview);
     	View listHeader = inflater.inflate(R.layout.topic_list_header, null);
     	ImageView imgAvatar = (ImageView) listHeader.findViewById(R.id.avatarImageView);
-    	ImageLoader.getInstance().displayImage(activity.appContext.getUserAvatar(), imgAvatar, CommonValue.DisplayOptions.avatar_options);
+    	ImageLoader.getInstance().displayImage(MyApplication.getInstance().getUserAvatar(), imgAvatar, CommonValue.DisplayOptions.avatar_options);
     	Button btnMyTopic = (Button) listHeader.findViewById(R.id.myTopicButton);
     	Button btnPubTopic = (Button) listHeader.findViewById(R.id.pubTopicButton);
     	btnMyTopic.setOnClickListener(this);
@@ -116,8 +111,8 @@ public class TopicFragment extends Fragment implements OnItemClickListener, OnSc
     }
 	
 	private void getTopicTypesFromCache() {
-		String key = String.format("%s-%s", CommonValue.CacheKey.TopicTypes, activity.appContext.getLoginUid());
-		TopicOptionListEntity entity = (TopicOptionListEntity) activity.appContext.readObject(key);
+		String key = String.format("%s-%s", CommonValue.CacheKey.TopicTypes, MyApplication.getInstance().getLoginUid());
+		TopicOptionListEntity entity = (TopicOptionListEntity) MyApplication.getInstance().readObject(key);
 		if(entity != null){
 			handleTopicTypes(entity);
 		}
@@ -125,7 +120,7 @@ public class TopicFragment extends Fragment implements OnItemClickListener, OnSc
             indicatorImageView.setVisibility(View.VISIBLE);
             indicatorImageView.startAnimation(indicatorAnimation);
         }
-		AppClient.getTopicTypes(activity.appContext, new ClientCallback() {
+		AppClient.getTopicTypes(MyApplication.getInstance(), new ClientCallback() {
 			
 			@Override
 			public void onSuccess(Entity data) {
@@ -176,7 +171,7 @@ public class TopicFragment extends Fragment implements OnItemClickListener, OnSc
 	}
 	
 	private void showTopicType(TopicOptionEntity entity) {
-		EasyTracker easyTracker = EasyTracker.getInstance(activity);
+		EasyTracker easyTracker = EasyTracker.getInstance(getActivity());
 		easyTracker.send(MapBuilder
 	      .createEvent("ui_action",     // Event category (required)
 	                   "button_press",  // Event action (required)
@@ -184,7 +179,7 @@ public class TopicFragment extends Fragment implements OnItemClickListener, OnSc
 	                   null)            // Event value
 	      .build()
 		);
-	    startActivity(new Intent(activity, TopicTypeAll.class).putExtra("catagory", entity.category_id));
+	    startActivity(new Intent(getActivity(), TopicTypeAll.class).putExtra("catagory", entity.category_id));
 	}
 
 	@Override
@@ -200,10 +195,10 @@ public class TopicFragment extends Fragment implements OnItemClickListener, OnSc
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.myTopicButton:
-			activity.startActivity(new Intent(activity, MyTopic.class));
+			getActivity().startActivity(new Intent(getActivity(), MyTopic.class));
 			break;
 		case R.id.pubTopicButton:
-			activity.startActivity(new Intent(activity, CreateTopic.class).putExtra("fun", new FunsEntity()));
+			getActivity().startActivity(new Intent(getActivity(), CreateTopic.class).putExtra("fun", new FunsEntity()));
 			break;
 		default:
 			break;

@@ -1,45 +1,36 @@
-package ui;
+package fragment;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
-import baidupush.Utils;
 import bean.*;
-import tools.AppException;
-import tools.AppManager;
 import tools.Logger;
 import tools.StringUtils;
 import tools.UIHelper;
-import tools.UpdateManager;
+import ui.FamilyPhonebook;
+import ui.MobilePhone;
+import ui.QYWebView;
+import ui.WeFriendCard;
+import ui.WeFriendCardSearch;
 import ui.adapter.PhonebookAdapter;
-import widget.SlidingDrawerView;
 
-import com.baidu.android.pushservice.PushConstants;
-import com.baidu.android.pushservice.PushManager;
 import com.crashlytics.android.Crashlytics;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
-import com.umeng.socialize.controller.RequestType;
-import com.umeng.socialize.controller.UMServiceFactory;
 import com.vikaa.wecontact.R;
 
 import config.AppClient;
 import config.CommonValue;
 import config.AppClient.ClientCallback;
-import config.CommonValue.LianXiRenType;
+import config.MyApplication;
 import android.content.AsyncQueryHandler;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -50,12 +41,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
-import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -63,9 +54,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ExpandableListView.OnGroupClickListener;
 
-public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefreshListener{
-	private SlidingDrawerView slidingDrawer;
-	protected SlidingMenu side_drawer;
+public class PhonebookFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, OnClickListener{
 	
 	private ExpandableListView elvPhonebook;
 	private List<PhoneIntroEntity> myQuns = new ArrayList<PhoneIntroEntity>();
@@ -90,24 +79,22 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
     public TextView messageView;
     
 	@Override
-	protected void onDestroy() {
-		unregisterReceiver(receiver);
+	public void onDestroy() {
+		getActivity().unregisterReceiver(receiver);
 		super.onDestroy();
 	}
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.phonebook);
-		ViewUtils.inject(this);
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(CommonValue.PHONEBOOK_CREATE_ACTION);
 		filter.addAction(CommonValue.PHONEBOOK_DELETE_ACTION);
 		filter.addAction("mobileCountUpdate");
-		registerReceiver(receiver, filter);
-		asyncQuery = new MyAsyncQueryHandler(getContentResolver());
+		getActivity().registerReceiver(receiver, filter);
+		asyncQuery = new MyAsyncQueryHandler(getActivity().getContentResolver());
 		uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-		initUI();
+		phoneAdapter = new PhonebookAdapter(getActivity(), quns);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -115,137 +102,26 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
                 getSquareListFromCache();
             }
         }, CommonValue.UI_DELAY);
-        checkLogin();
-        UpdateManager.getUpdateManager().checkAppUpdate(this, false);
-        UMServiceFactory.getUMSocialService(DESCRIPTOR, RequestType.SOCIAL).setGlobalConfig(SocializeConfigDemo.getSocialConfig(this));
-        initSlidingMenu();
 	}
-	
-	private long mExitTime;
+
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if(side_drawer.isMenuShowing() ||side_drawer.isSecondaryMenuShowing()){
-				side_drawer.showContent();
-			}else {
-				if ((System.currentTimeMillis() - mExitTime) > 2000) {
-					Toast.makeText(this, "在按一次退出",
-							Toast.LENGTH_SHORT).show();
-					mExitTime = System.currentTimeMillis();
-				} else {
-					finish();
-				}
-			}
-			return true;
-		}
-		if (keyCode == KeyEvent.KEYCODE_MENU) {
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
-	
-	protected void initSlidingMenu() {
-		slidingDrawer = new SlidingDrawerView(this);
-		side_drawer = slidingDrawer.initSlidingMenu();
-	}
-	
-	private void checkLogin() {
-		loadingPd = UIHelper.showProgress(this, "请稍后", "正在登录中...", true);
-		AppClient.autoLogin(appContext, new ClientCallback() {
-			@Override
-			public void onSuccess(Entity data) {
-				UIHelper.dismissProgress(loadingPd);
-				UserEntity user = (UserEntity)data;
-				switch (user.getError_code()) {
-				case Result.RESULT_OK:
-					appContext.saveLoginInfo(user);
-					if (!Utils.hasBind(getApplicationContext())) {
-						PushManager.startWork(getApplicationContext(),
-								PushConstants.LOGIN_TYPE_API_KEY, 
-								Utils.getMetaValue(Phonebook.this, "api_key"));
-					}
-					webViewLogin();
-					if (StringUtils.notEmpty(appContext.getNews())) {
-						try {
-							setBadgeNumber(appContext.getNews());
-							slidingDrawer.setBadgeNumber(appContext.getNews());
-						}
-						catch (Exception e) {
-							Crashlytics.logException(e);
-						}
-					}
-					break;
-				default:
-					UIHelper.ToastMessage(getApplicationContext(), user.getMessage(), Toast.LENGTH_SHORT);
-					showLogin();
-					break;
-				}
-			}
-			@Override
-			public void onFailure(String message) {
-				UIHelper.dismissProgress(loadingPd);
-				UIHelper.ToastMessage(getApplicationContext(), message, Toast.LENGTH_SHORT);
-			}
-			@Override
-			public void onError(Exception e) {
-				UIHelper.dismissProgress(loadingPd);
-				((AppException)e).makeToast(getApplicationContext());
-			}
-		});
-	}
-	
-	private void setBadgeNumber(String number) {
-		Logger.i(number);
-		if (StringUtils.empty(number)) {
-			messageView.setVisibility(View.INVISIBLE);
-		}
-		try {
-			int i = Integer.valueOf(number);
-			if (i == 0 ) {
-				messageView.setVisibility(View.INVISIBLE);
-			}
-			else {
-				messageView.setVisibility(View.VISIBLE);
-			}
-		}
-		catch (Exception e ) {
-			messageView.setVisibility(View.INVISIBLE);
-		}
-	}
-	
-	private void webViewLogin() {
-		WebView webview = (WebView) findViewById(R.id.webview);
-		webview.loadUrl(CommonValue.BASE_URL + "/home/app" + "?_sign=" + appContext.getLoginSign())  ;
-		webview.setWebViewClient(new WebViewClient() {
-			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				view.loadUrl(url);
-				return true;
-			};
-		});
-	}
-	
-	private void showLogin() {
-		appContext.setUserLogout();
-		Intent intent = new Intent(this,LoginCode1.class);
-        startActivity(intent);
-        AppManager.getAppManager().finishActivity(this);
-	}
-	
-	private void initUI() {
-		editText = (EditText) findViewById(R.id.searchEditView);
-		editText.setHint("您共有"+appContext.getDeg2()+"位二度人脉可搜索");
-        srlRefresh = (SwipeRefreshLayout)findViewById(R.id.srlRefresh);
+	public View onCreateView(LayoutInflater inflater,
+			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.phonebook, null);
+		editText = (EditText) view.findViewById(R.id.searchEditView);
+		editText.setHint("您共有"+MyApplication.getInstance().getDeg2()+"位二度人脉可搜索");
+		editText.setOnClickListener(this);
+        srlRefresh = (SwipeRefreshLayout) view.findViewById(R.id.srlRefresh);
         srlRefresh.setOnRefreshListener(this);
         srlRefresh.setColorScheme(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-        elvPhonebook = (ExpandableListView)findViewById(R.id.elvPhonebook);
+        elvPhonebook = (ExpandableListView) view.findViewById(R.id.elvPhonebook);
         elvPhonebook.setDividerHeight(0);
         elvPhonebook.setGroupIndicator(null);
         quns.add(myQuns);
         quns.add(comQuns);
-		phoneAdapter = new PhonebookAdapter(this, quns);
         elvPhonebook.setAdapter(phoneAdapter);
         elvPhonebook.expandGroup(0);
         elvPhonebook.expandGroup(1);
@@ -285,8 +161,8 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 				return true;
 			}
 		});
-        indicatorImageView = (ImageView) findViewById(R.id.xindicator);
-        indicatorAnimation = AnimationUtils.loadAnimation(this, R.anim.refresh_button_rotation);
+        indicatorImageView = (ImageView) view.findViewById(R.id.xindicator);
+        indicatorAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.refresh_button_rotation);
         indicatorAnimation.setDuration(500);
         indicatorAnimation.setInterpolator(new Interpolator() {
             private final int frameCount = 10;
@@ -299,10 +175,11 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
             indicatorImageView.setVisibility(View.VISIBLE);
             indicatorImageView.startAnimation(indicatorAnimation);
         }
+		return view;
 	}
 	
 	private void showMobile() {
-		EasyTracker easyTracker = EasyTracker.getInstance(this);
+		EasyTracker easyTracker = EasyTracker.getInstance(getActivity());
 		easyTracker.send(MapBuilder
 	      .createEvent("ui_action",     // Event category (required)
 	                   "button_press",  // Event action (required)
@@ -310,12 +187,12 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 	                   null)            // Event value
 	      .build()
 		);
-		Intent intent = new Intent(this, MobilePhone.class);
+		Intent intent = new Intent(getActivity(), MobilePhone.class);
 		startActivity(intent);
 	}
 	
 	private void showFriend() {
-		EasyTracker easyTracker = EasyTracker.getInstance(this);
+		EasyTracker easyTracker = EasyTracker.getInstance(getActivity());
 		easyTracker.send(MapBuilder
 	      .createEvent("ui_action",     // Event category (required)
 	                   "button_press",  // Event action (required)
@@ -323,12 +200,12 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 	                   null)            // Event value
 	      .build()
 		);
-		Intent intent = new Intent(this, WeFriendCard.class);
+		Intent intent = new Intent(getActivity(), WeFriendCard.class);
 		startActivity(intent);
 	}
 	
 	private void showFamily() {
-		EasyTracker easyTracker = EasyTracker.getInstance(this);
+		EasyTracker easyTracker = EasyTracker.getInstance(getActivity());
 		easyTracker.send(MapBuilder
 	      .createEvent("ui_action",     // Event category (required)
 	                   "button_press",  // Event action (required)
@@ -336,7 +213,7 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 	                   null)            // Event value
 	      .build()
 		);
-		Intent intent = new Intent(this, FamilyPhonebook.class);
+		Intent intent = new Intent(getActivity(), FamilyPhonebook.class);
 		startActivity(intent);
 	}
 	
@@ -345,7 +222,7 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
         if (StringUtils.empty(entity.link)) {
             return;
         }
-		EasyTracker easyTracker = EasyTracker.getInstance(this);
+		EasyTracker easyTracker = EasyTracker.getInstance(getActivity());
 		easyTracker.send(MapBuilder
 	      .createEvent("ui_action",     // Event category (required)
 	                   "button_press",  // Event action (required)
@@ -353,26 +230,16 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 	                   null)            // Event value
 	      .build()
 		);
-		Intent intent = new Intent(this, QYWebView.class);
+		Intent intent = new Intent(getActivity(), QYWebView.class);
 		intent.putExtra(CommonValue.IndexIntentKeyValue.CreateView, entity.link);
 	    startActivityForResult(intent, CommonValue.PhonebookViewUrlRequest.editPhoneview);
 	}
 	
-	public void ButtonClick(View v) {
+	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.leftBarButton:
-			if(side_drawer.isMenuShowing()){
-				side_drawer.showContent();
-			}else{
-				side_drawer.showMenu();
-			}
-			break;
-		case R.id.rightBarButton:
-			startActivity(new Intent(this, CreatePhonebook.class));
-			break;
 		case R.id.searchEditView:
 		case R.id.navbar:
-			Intent intent = new Intent(this, WeFriendCardSearch.class);
+			Intent intent = new Intent(getActivity(), WeFriendCardSearch.class);
 			intent.putExtra("mobileNum", mobileNum);
             startActivityForResult(intent, 12);
 			break;
@@ -400,8 +267,8 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 	}
 	
 	private void getPhoneListFromCache() {
-		String key = String.format("%s-%s", CommonValue.CacheKey.PhoneList, appContext.getLoginUid());
-		PhoneListEntity entity = (PhoneListEntity) appContext.readObject(key);
+		String key = String.format("%s-%s", CommonValue.CacheKey.PhoneList, MyApplication.getInstance().getLoginUid());
+		PhoneListEntity entity = (PhoneListEntity) MyApplication.getInstance().readObject(key);
 		if(entity != null){
 			handlerPhoneSection(entity);
 		}
@@ -413,7 +280,7 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
             indicatorImageView.setVisibility(View.VISIBLE);
             indicatorImageView.startAnimation(indicatorAnimation);
         }
-		AppClient.getPhoneList(appContext, new ClientCallback() {
+		AppClient.getPhoneList(MyApplication.getInstance(), new ClientCallback() {
 			@Override
 			public void onSuccess(Entity data) {
                 if (null != indicatorImageView) {
@@ -426,7 +293,6 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 					handlerPhoneSection(entity);
 					break;
 				case CommonValue.USER_NOT_IN_ERROR:
-					forceLogout();
 					break;
 				default:
 					break;
@@ -439,7 +305,7 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
                     indicatorImageView.setVisibility(View.INVISIBLE);
                     indicatorImageView.clearAnimation();
                 }
-				UIHelper.ToastMessage(getApplicationContext(), message, Toast.LENGTH_SHORT);
+				UIHelper.ToastMessage(getActivity(), message, Toast.LENGTH_SHORT);
 			}
 			@Override
 			public void onError(Exception e) {
@@ -467,8 +333,8 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 	}
 
     private void getActivityListFromCache() {
-        String key = String.format("%s-%s", CommonValue.CacheKey.ActivityList, appContext.getLoginUid());
-        ActivityListEntity entity = (ActivityListEntity) appContext.readObject(key);
+        String key = String.format("%s-%s", CommonValue.CacheKey.ActivityList, MyApplication.getInstance().getLoginUid());
+        ActivityListEntity entity = (ActivityListEntity) MyApplication.getInstance().readObject(key);
         if(entity != null){
             handlerActivitySection(entity);
         }
@@ -489,7 +355,7 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 //            indicatorImageView.setVisibility(View.VISIBLE);
 //            indicatorImageView.startAnimation(indicatorAnimation);
 //        }
-        AppClient.getActivityList(appContext, new ClientCallback() {
+        AppClient.getActivityList(MyApplication.getInstance(), new ClientCallback() {
             @Override
             public void onSuccess(Entity data) {
                 if (null != indicatorImageView) {
@@ -502,7 +368,7 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
                         handlerActivitySection(entity);
                         break;
                     default:
-                        UIHelper.ToastMessage(Phonebook.this, entity.getMessage(), Toast.LENGTH_SHORT);
+                        UIHelper.ToastMessage(getActivity(), entity.getMessage(), Toast.LENGTH_SHORT);
                         break;
                 }
             }
@@ -513,7 +379,7 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
                     indicatorImageView.setVisibility(View.INVISIBLE);
                     indicatorImageView.clearAnimation();
                 }
-                UIHelper.ToastMessage(Phonebook.this, message, Toast.LENGTH_SHORT);
+                UIHelper.ToastMessage(getActivity(), message, Toast.LENGTH_SHORT);
             }
             @Override
             public void onError(Exception e) {
@@ -531,8 +397,8 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
     }
 	
 	private void getSquareListFromCache() {
-		String key = String.format("%s-%s", CommonValue.CacheKey.SquareList, appContext.getLoginUid());
-		RecommendListEntity entity = (RecommendListEntity) appContext.readObject(key);
+		String key = String.format("%s-%s", CommonValue.CacheKey.SquareList, MyApplication.getInstance().getLoginUid());
+		RecommendListEntity entity = (RecommendListEntity) MyApplication.getInstance().readObject(key);
 		if(entity != null){
 			handlerSquare(entity, UIHelper.LISTVIEW_ACTION_INIT);
 		}
@@ -540,7 +406,7 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 	}
 	
 	private void getSquareList(final int action) {
-		AppClient.getPhoneSquareList(appContext, 1+"", "", new ClientCallback() {
+		AppClient.getPhoneSquareList(MyApplication.getInstance(), 1+"", "", new ClientCallback() {
 			
 			@Override
 			public void onSuccess(Entity data) {
@@ -603,7 +469,7 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 				myQuns.get(0).subtitle = "共"+cursor.getCount()+"位好友";
 				phoneAdapter.notifyDataSetChanged();
 				mobileNum = cursor.getCount();
-				editText.setHint("您共有"+(Integer.valueOf(appContext.getDeg2()) + cursor.getCount())+"位二度人脉可搜索");
+				editText.setHint("您共有"+(Integer.valueOf(MyApplication.getInstance().getDeg2()) + cursor.getCount())+"位二度人脉可搜索");
 			}
 			catch (Exception e) {
 				Crashlytics.logException(e);
@@ -625,7 +491,7 @@ public class Phonebook extends AppActivity implements SwipeRefreshLayout.OnRefre
 				myQuns.get(0).subtitle = "共"+count+"位好友";
 				phoneAdapter.notifyDataSetChanged();
 				mobileNum = count;
-				editText.setHint("您共有"+(Integer.valueOf(appContext.getDeg2()) + count)+"位二度人脉可搜索");
+				editText.setHint("您共有"+(Integer.valueOf(MyApplication.getInstance().getDeg2()) + count)+"位二度人脉可搜索");
 			}
 		}
 

@@ -2,21 +2,13 @@ package ui.adapter;
 
 import java.util.List;
 
-import ui.Index;
-import ui.Me;
-import ui.Setting;
-
 import com.vikaa.wecontact.R;
 
 import bean.CardIntroEntity;
-import config.CommonValue;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -110,32 +102,32 @@ public class MeCardAdapter extends BaseExpandableListAdapter{
 		final CardIntroEntity model = cards.get(groupPosition).get(childPosition);
 		cell.titleView.setText(model.realname);
 		cell.iconView.setBackgroundResource(Integer.valueOf(model.department));
-		if (model.cardSectionType.equals(CommonValue.CardSectionType.BarcodeSectionType)) {
-			if (childPosition == 0) {
-				convertView.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						((Me)context).showMyCard();
-					}
-				});
-			}
-			else if (childPosition == 2) {
-				convertView.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						((Me)context).showMyBarcode();
-					}
-				});
-			}
-			else {
-				convertView.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						((Me)context).showScan();
-					}
-				});
-			}
-		}
+//		if (model.cardSectionType.equals(CommonValue.CardSectionType.BarcodeSectionType)) {
+//			if (childPosition == 0) {
+//				convertView.setOnClickListener(new OnClickListener() {
+//					@Override
+//					public void onClick(View arg0) {
+//						((Me)context).showMyCard();
+//					}
+//				});
+//			}
+//			else if (childPosition == 2) {
+//				convertView.setOnClickListener(new OnClickListener() {
+//					@Override
+//					public void onClick(View arg0) {
+//						((Me)context).showMyBarcode();
+//					}
+//				});
+//			}
+//			else {
+//				convertView.setOnClickListener(new OnClickListener() {
+//					@Override
+//					public void onClick(View arg0) {
+//						((Me)context).showScan();
+//					}
+//				});
+//			}
+//		}
 //		else if (model.cardSectionType.equals(CommonValue.CardSectionType.FeedbackSectionType)) {
 //			if (childPosition == 0) {
 //				convertView.setOnClickListener(new OnClickListener() {

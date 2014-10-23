@@ -180,6 +180,12 @@
         </activity>
         
         <activity
+            android:name="ui.MainActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
+        </activity>
+        
+        <activity
             android:name="ui.GuidePage"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" >
@@ -270,7 +276,7 @@
         </activity>
         
         <activity
-            android:name="ui.Phonebook"
+            android:name="fragment.PhonebookFragment"
             android:screenOrientation="portrait"
             android:launchMode="singleTask" >
         </activity>

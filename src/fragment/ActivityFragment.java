@@ -1,4 +1,4 @@
-package ui;
+package fragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,7 @@ import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import tools.Logger;
 import tools.UIHelper;
+import ui.QYWebView;
 import ui.adapter.PhonebookAdapter;
 import ui.adapter.PhonebookAdapter.CellHolder;
 import bean.ActivityListEntity;
@@ -27,6 +28,7 @@ import com.vikaa.wecontact.R;
 import config.AppClient;
 import config.CommonValue;
 import config.AppClient.ClientCallback;
+import config.MyApplication;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -44,7 +46,6 @@ import android.widget.ExpandableListView.OnGroupClickListener;
 
 public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-	private Assistant activity;
     private int lvDataState;
 	private List<PhoneIntroEntity> myQuns = new ArrayList<PhoneIntroEntity>();
 	private List<PhoneIntroEntity> comQuns = new ArrayList<PhoneIntroEntity>();
@@ -54,17 +55,6 @@ public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private ImageView indicatorImageView;
     private Animation indicatorAnimation;
-
-	public static ActivityFragment newInstance() {
-		ActivityFragment fragment = new ActivityFragment();
-        return fragment;
-    }
-	
-	@Override
-	public void onDestroy() {
-		activity.unregisterReceiver(receiver);
-		super.onDestroy();
-	}
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,10 +62,10 @@ public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnR
         IntentFilter filter = new IntentFilter();
 		filter.addAction(CommonValue.ACTIVITY_CREATE_ACTION);
 		filter.addAction(CommonValue.ACTIVITY_DELETE_ACTION);
-		activity.registerReceiver(receiver, filter);
+		getActivity().registerReceiver(receiver, filter);
         quns.add(myQuns);
         quns.add(comQuns);
-		phoneAdapter = new PhonebookAdapter(activity, quns);
+		phoneAdapter = new PhonebookAdapter(getActivity(), quns);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -122,7 +112,7 @@ public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnR
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         indicatorImageView = (ImageView) view.findViewById(R.id.xindicator);
-        indicatorAnimation = AnimationUtils.loadAnimation(activity, R.anim.refresh_button_rotation);
+        indicatorAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.refresh_button_rotation);
         indicatorAnimation.setDuration(500);
         indicatorAnimation.setInterpolator(new Interpolator() {
             private final int frameCount = 10;
@@ -139,7 +129,7 @@ public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
     
     private void showPhonebook(PhoneIntroEntity entity) {
-		EasyTracker easyTracker = EasyTracker.getInstance(activity);
+		EasyTracker easyTracker = EasyTracker.getInstance(getActivity());
 		easyTracker.send(MapBuilder
 	      .createEvent("ui_action",     // Event category (required)
 	                   "button_press",  // Event action (required)
@@ -147,20 +137,14 @@ public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnR
 	                   null)            // Event value
 	      .build()
 		);
-		Intent intent = new Intent(activity, QYWebView.class);
+		Intent intent = new Intent(getActivity(), QYWebView.class);
 		intent.putExtra(CommonValue.IndexIntentKeyValue.CreateView, entity.link);
 	    startActivityForResult(intent, CommonValue.PhonebookViewUrlRequest.editPhoneview);
 	}
 
-    @Override
-    public void onAttach(Activity activity) {
-    	this.activity = (Assistant) activity;
-    	super.onAttach(activity);
-    }
-    
     private void getActivityListFromCache() {
-		String key = String.format("%s-%s", CommonValue.CacheKey.ActivityList, activity.appContext.getLoginUid());
-		ActivityListEntity entity = (ActivityListEntity) activity.appContext.readObject(key);
+		String key = String.format("%s-%s", CommonValue.CacheKey.ActivityList, MyApplication.getInstance().getLoginUid());
+		ActivityListEntity entity = (ActivityListEntity) MyApplication.getInstance().readObject(key);
 		if(entity != null){
 			handlerActivitySection(entity);
 		}
@@ -181,7 +165,7 @@ public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnR
             indicatorImageView.setVisibility(View.VISIBLE);
             indicatorImageView.startAnimation(indicatorAnimation);
         }
-		AppClient.getActivityList(activity.appContext, new ClientCallback() {
+		AppClient.getActivityList(MyApplication.getInstance(), new ClientCallback() {
 			@Override
 			public void onSuccess(Entity data) {
                 if (null != indicatorImageView) {
@@ -194,7 +178,7 @@ public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnR
 					handlerActivitySection(entity);
 					break;
 				default:
-					UIHelper.ToastMessage(activity, entity.getMessage(), Toast.LENGTH_SHORT);
+					UIHelper.ToastMessage(getActivity(), entity.getMessage(), Toast.LENGTH_SHORT);
 					break;
 				}
 			}
@@ -205,7 +189,7 @@ public class ActivityFragment extends Fragment implements SwipeRefreshLayout.OnR
                     indicatorImageView.setVisibility(View.INVISIBLE);
                     indicatorImageView.clearAnimation();
                 }
-				UIHelper.ToastMessage(activity, message, Toast.LENGTH_SHORT);
+				UIHelper.ToastMessage(getActivity(), message, Toast.LENGTH_SHORT);
 			}
 			@Override
 			public void onError(Exception e) {

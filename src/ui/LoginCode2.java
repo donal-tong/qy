@@ -14,6 +14,7 @@ import com.vikaa.wecontact.R;
 
 import config.AppClient;
 import config.AppClient.ClientCallback;
+import fragment.PhonebookFragment;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
@@ -240,7 +241,7 @@ public class LoginCode2 extends AppActivity{
 			AppManager.getAppManager().finishActivity(this);
 		}
 		else {
-			Intent intent = new Intent(this, Phonebook.class);
+			Intent intent = new Intent(this, PhonebookFragment.class);
 			startActivity(intent);
 			setResult(RESULT_OK);
 			AppManager.getAppManager().finishActivity(this);

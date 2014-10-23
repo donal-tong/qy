@@ -16,6 +16,7 @@ import com.vikaa.wecontact.R;
 import config.AppClient;
 import config.AppClient.ClientCallback;
 import config.CommonValue;
+import fragment.PhonebookFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -239,7 +240,7 @@ public class LoginCode1 extends AppActivity{
             AppManager.getAppManager().finishActivity(this);
         }
         else {
-            Intent intent = new Intent(this, Phonebook.class);
+            Intent intent = new Intent(this, PhonebookFragment.class);
             startActivity(intent);
             setResult(RESULT_OK);
             AppManager.getAppManager().finishActivity(this);
